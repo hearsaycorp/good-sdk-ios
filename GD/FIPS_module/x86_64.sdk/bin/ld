@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+# Clang will call LD believing it is the Linker to use if -B is specified in XCode linker options
+# -B is a Clang option to be able to specify a specific directory to use to find the Linker (which it assumes is called LD)
+# This -B option is required if the XCode project being built includes Swift code
+
+# We want to call our own gd_fipsld Linker script from here
+
+# The gd_fipsld script is itself used via a different entry point from Clang directly if LD and LDPLUSPLUS are specified in project xcconfig file
+# This gd_fipsld is called directly only if the app is pure Objective-C (no Swift code)
+
+#We need to support both entry points because existing applications use both (The LD & LDPLUSPLUS option calling gd_fipsld was released first)
+
+echo "GD LD Linker"
+
+# The version of this script will always be in the same base directory as the version of the gd_fipsld script needed
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+echo "Base DIR for GD Linker="$DIR
+
+# The gd_fipsld script needs to behave differently whether called from here or called directly from Clang, so we set this environment variable to denote called from here
+CALLED_FROM_GD_LD=true
+
+source "$DIR"/gd_fipsld "$@"

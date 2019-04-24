@@ -1,0 +1,296 @@
+#!/bin/sh -e
+#
+#set -x
+
+PASSTHRU_ONLY=false
+
+BE_EXTRA_VERBOSE=true
+
+echo GD specific FIPS LD linker tool... 
+echo IPHONEOS_DEPLOYMENT_TARGET is $IPHONEOS_DEPLOYMENT_TARGET
+
+MY_PATH="`dirname \"$0\"`"              # relative
+
+PARENT_COMMAND=$(ps $PPID | tail -n 1 | awk "{print \$5}")
+
+if $BE_EXTRA_VERBOSE 
+then 
+	echo Running in "${MY_PATH}"  
+	echo all parameters printout
+	echo "$@"
+	echo the end of all parameters printout	
+	
+	
+	echo "Parent: $PARENT_COMMAND"
+	echo "Called From GD LD :"$CALLED_FROM_GD_LD
+fi
+
+if [[ "${MY_PATH}" =~ /Good\ Technology/.* ]]
+then
+	echo "warning: Linker appears to be in the legacy Good Technology location. Update your .xcconfig file to use the new location: ~/Library/Application Support/Blackberry"
+fi
+
+# Check if bitcode options are specified to compiler/linker, if they are then log an error and stop build because GD doesn't support Bitcode
+if [[ $@ =~ .*(-bitcode_bundle|-fembed-bitcode-marker).* ]]
+then
+
+echo "ERROR: Application has Bitcode build option enabled. Good Dynamics SDK does not support Bitcode. Please disable Bitcode option in your project Build Settings and then rebuild"
+exit 1;
+
+fi 
+
+ADDITIONAL_LIBS=""
+
+if $BE_EXTRA_VERBOSE
+then 
+	echo Linker's Environment
+	printenv
+	echo the end of Linker's Environment printout
+fi
+
+# use this for troubleshooting purposes.
+#export FIPS_SIG_VERBOSE=1
+
+# make sure we use the Xcode toolchain version 
+
+# set default
+CLANG_PATH="clang"
+
+
+# define current architecture
+CUR_ARCH=`(while [ "x$1" != "x" -a "x$1" != "x-arch" ]; do shift; done; echo $2)`
+[ -n "${CUR_ARCH}" ] || { echo 'no -arch specified'; exit 1; }
+
+
+# get xcode version of clang
+echo Getting Clang Path
+CLANG_PATH="$(xcrun -find clang)"
+echo Xcode clang is $CLANG_PATH
+
+case $CLANG_PATH in  
+     *\ * )
+           echo "CLANG_PATH contains whitespace, so we need to invoke it indirectly"
+		
+		    #IMPORTANT: we are making assumption here that system temp path does not contain white spaces.
+			echo $TMPDIR
+			WORK_DIR=$TMPDIR
+			#IMPORTANT: the name of the symbolic links needs to be in lower case to be compatible with case sensitive FS
+	        CLANG_LINK="${WORK_DIR}/gd_cc_ref_whitespace${CUR_ARCH}"
+	        	
+		   if [ -f "${CLANG_LINK}" ]; 
+    	   then 	
+    	   		echo removing old link "${CLANG_LINK}"
+				rm -f "${CLANG_LINK}"
+			fi
+			
+    	   if [[ ! -f "${CLANG_LINK}" ]]; 
+    	   then 
+    	   		echo Original: "${CLANG_PATH}"
+    	   		ln -hfs "${CLANG_PATH}" "${CLANG_LINK}"
+    	   		chmod 755 "${CLANG_LINK}"
+    	   fi 
+    	   CLANG_PATH="${CLANG_LINK}"
+    	   CLANG_PATH=$(printf %q "$CLANG_PATH")
+    	   echo Using ${CLANG_PATH}
+          ;;
+       *)
+           #  CC contains no whitespaces, so we can use it as it is
+           ;;
+esac
+
+#get xcode version of LD
+echo Getting LD Path
+LD_PATH="$(xcrun -find ld)"
+echo Xcode LD is $LD_PATH
+
+
+case $LD_PATH in  
+     *\ * )
+           echo "LD_PATH contains whitespace, so we need to invoke it indirectly"
+		
+		    #IMPORTANT: we are making assumption here that system temp path does not contain white spaces.
+			echo $TMPDIR
+			WORK_DIR=$TMPDIR
+			#IMPORTANT: the name of the symbolic links needs to be in lower case to be compatible with case sensitive FS
+	        LD_LINK="${WORK_DIR}/gd_ld_ref_whitespace${CUR_ARCH}"
+	        	
+		   if [ -f "${LD_LINK}" ]; 
+    	   then 	
+    	   		echo removing old link "${LD_LINK}"
+				rm -f "${LD_LINK}"
+			fi
+			
+    	   if [[ ! -f "${LD_LINK}" ]]; 
+    	   then 
+    	   		echo Original: "${LD_PATH}"
+    	   		ln -hfs "${LD_PATH}" "${LD_LINK}"
+    	   		chmod 755 "${LD_LINK}"
+    	   fi 
+    	   LD_PATH="${LD_LINK}"
+    	   LD_PATH=$(printf %q "$LD_PATH")
+    	   echo Using ${LD_PATH}
+          ;;
+       *)
+           #  LD contains no whitespaces, so we can use it as it is
+           ;;
+esac
+
+# set args
+CLANG_ARGS=" -lc++ -v"
+
+FIPSLD_CC=$CLANG_PATH$CLANG_ARGS
+
+echo "FIPSLD_CC="$FIPSLD_CC
+echo "CLANG_PATH="$CLANG_PATH
+echo "CLANG_ARGS="$CLANG_ARGS
+
+FIPSLD_CC+=" ${ADDITIONAL_LIBS}"
+
+CC=${FIPSLD_CC:-${CC}}
+[ -n "${CC}" ] || { echo '$CC is not defined'; exit 1; }
+
+echo "CC="$CC
+
+if $PASSTHRU_ONLY
+then
+	echo all arguments:
+	echo $@ 
+	echo End of arguments printout
+	exec ${CC} "$@"	
+fi
+                 
+TARGET=`(while [ "x$1" != "x" -a "x$1" != "x-o" ]; do shift; done; echo $2)`
+[ -n "${TARGET}" ] || { echo 'no -o specified'; exit 1; }
+
+if [ -n "$CALLED_FROM_GD_LD" ]; then
+	echo "GOT TO HERE"
+	SYS_LIB_ROOT=`(while [ "x$1" != "x" -a "x$1" != "x-syslibroot" ]; do shift; done; echo $2)`
+	[ -n "${SYS_LIB_ROOT}" ] || { echo 'no -syslibroot specified'; exit 1; }
+fi
+
+# Turn on debugging output?
+(   while [ "x$1" != "x" -a "x$1" != "x-DDEBUG_FINGERPRINT_PREMAIN" ]; do shift; done;
+    [ $# -ge 1 ]
+) && set -x
+
+THERE="`echo $0 | sed -e 's|[^/]*$||'`"..
+
+# fipscanister.o can appear in command line
+CANISTER_O=`(while [ "x$1" != "x" ]; do case "$1" in *fipscanister.o) echo $1; exit;; esac; shift; done)`
+if [ -z "${CANISTER_O}" ]; then
+	# If set, FIPSLIBDIR is location of installed validated FIPS module
+	if [ -n "${FIPSLIBDIR}" ]; then
+		CANISTER_O="${FIPSLIBDIR}/fipscanister.o"
+	elif [ -f "${THERE}/fips/fipscanister.o" ]; then
+		CANISTER_O="${THERE}/fips/fipscanister.o"
+	elif [ -f "${THERE}/lib/fipscanister.o" ]; then
+		CANISTER_O="${THERE}/lib/fipscanister.o"
+	fi
+	CANISTER_O_CMD="${CANISTER_O}"
+fi
+[ -f "${CANISTER_O}" ] || { echo "unable to find ${CANISTER_O}"; exit 1; }
+
+PREMAIN_C=`dirname "${CANISTER_O}"`/fips_premain.c
+PREMAIN_OBJ=`dirname "${CANISTER_O}"`/fips_premain.o
+
+HMAC_KEY="etaonrishdlcupfm"
+
+case "`(uname -s) 2>/dev/null`" in
+OSF1|IRIX*)	_WL_PREMAIN="-Wl,-init,FINGERPRINT_premain"	;;
+HP-UX)		_WL_PREMAIN="-Wl,+init,FINGERPRINT_premain"	;;
+AIX)		_WL_PREMAIN="-Wl,-binitfini:FINGERPRINT_premain,-bnoobjreorder";;
+Darwin)		(   while [ "x$1" != "x" -a "x$1" != "x-dynamiclib" ]; do shift; done;
+		    [ $# -ge 1 ]
+		) && _WL_PREMAIN="-Wl,-init,_FINGERPRINT_premain" ;;
+esac
+
+case "${TARGET}" in
+[!/]*)	TARGET=./${TARGET} ;;
+esac
+
+FINGERTYPE="${THERE}/bin/fips_standalone_sha1"
+FIPS_SIG="${THERE}/bin/incore_macho"
+
+echo verify fipscanister.o against its detached signature...
+echo FINGERTYPE is $FINGERTYPE
+
+echo CANISTER_O is $CANISTER_O
+
+"${FINGERTYPE}" "${CANISTER_O}" | sed "s/(.*\//(/" | \
+	diff -w "${CANISTER_O}.sha1" - || \
+{ echo "${CANISTER_O} fingerprint mismatch"; exit 1; }
+
+echo verify fips_premain.c against its detached signature...
+"${FINGERTYPE}" "${PREMAIN_C}" | sed "s/(.*\//(/" | \
+	diff -w "${PREMAIN_C}.sha1" - || \
+{ echo "${PREMAIN_C} fingerprint mismatch"; exit 1; }
+
+#echo Checking the target
+#lipo -info "${TARGET}"
+echo Removing "${TARGET}"	
+/bin/rm -f "${TARGET}"
+
+# If called from Clang assuming is LD then we compile Premain, and then we use the actual linker to link Premain Obj with canister and built source
+if [ -n "$CALLED_FROM_GD_LD" ]; then
+
+	${CLANG_PATH} -x c -arch ${CUR_ARCH} -fmessage-length=0 -fdiagnostics-show-note-include-stack \
+   		-fmacro-backtrace-limit=0 -std=gnu99 \
+   		-fmodules-prune-interval=86400 -fmodules-prune-after=345600 -Wnon-modular-include-in-framework-module \
+   		-Werror=non-modular-include-in-framework-module -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers \
+   		-Wno-missing-prototypes -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter \
+   		-Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants \
+   		-Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wpointer-sign \
+   		-Wno-newline-eof -DDEBUG=1 \
+   		-isysroot "${SYS_LIB_ROOT}" \
+   		-fstrict-aliasing -Wdeprecated-declarations -g -Wno-sign-conversion -miphoneos-version-min=7.1 \
+   		-c "${PREMAIN_C}" \
+   		-o "${PREMAIN_OBJ}" 
+
+	echo trying to link with $CC
+
+	echo CanisterCMD"${CANISTER_O_CMD}"
+	echo PREMAIN_C"${PREMAIN_C}"
+	echo WL_PREMAIN"${_WL_PREMAIN}"
+
+	"${LD_PATH}" "$@" "$PREMAIN_OBJ" "$CANISTER_O"
+
+else
+# Otherwise if called from Clang because of defined LD & LDPLUSPLUS values we run Clang against the source and premain C and canister 
+# This will internally call actual Linker
+	echo trying to link with $CC
+
+	echo CanisterCMD"${CANISTER_O_CMD}"
+	echo PREMAIN_C"${PREMAIN_C}"
+	echo WL_PREMAIN"${_WL_PREMAIN}"
+
+	${CC}	${CANISTER_O_CMD:+"${CANISTER_O_CMD}"} \
+		"${PREMAIN_C}" \
+		${_WL_PREMAIN} "$@"
+
+fi
+
+echo end of trying to link with $CC ...
+	
+if [ "x${FIPS_SIG}" != "x" ]; then
+	echo embed signature
+	"${FIPS_SIG}" --debug -X --embed -exe "${TARGET}"
+	[ $? -ne 42 ] && exit $?
+fi
+
+# Only attempts to do this if embedding the signature above fails
+echo generate signature...
+SIG=`"${TARGET}"`
+
+echo Checking the target (2nd time)
+lipo -info "${TARGET}"
+echo Removing "${TARGET}"
+/bin/rm -f "${TARGET}"
+
+if [ -z "${SIG}" ]; then
+   echo "unable to collect signature"; exit 1
+fi
+
+echo recompile with signature...
+${CC}	${CANISTER_O_CMD:+"${CANISTER_O_CMD}"} \
+	-DHMAC_SHA1_SIG=\"${SIG}\" "${PREMAIN_C}" \
+	${_WL_PREMAIN} "$@"
