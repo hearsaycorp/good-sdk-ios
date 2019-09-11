@@ -856,15 +856,122 @@ GD_NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)authorizeAutonomously;
 
+/** String constants used as keys for programmatic activation parameters.
+ *Keys used to set the values of the activation parameters required during programmatic activation.
+ *
+ * <table>
+ *     <tr>
+ *         <th>Key Constant</th>
+ *         <th>Setting</th>
+ *         <th>Type</th>
+ *     </tr>
+ *     <tr>
+ *         <td>
+ *            <tt>ActivationParameterUserIdentifier</tt>
+ *         </td>
+ *         <td>
+ *             <tt>NSString</tt> containing the first enterprise activation
+ *               credential: the user identifier. This is typically the
+ *               enterprise email address of the end user.
+ *         </td>
+ *         <td>
+ *             <tt>NSString</tt>
+ *         </td>
+ *     </tr>
+ *     <tr>
+ *         <td>
+ *             <tt>ActivationParameterAccessKey</tt>
+ *         </td>
+ *         <td>
+ *             <tt>NSString</tt> containing the second enterprise activation credential: the access key.
+ *         </td>
+ *         <td><tt>NSString</tt></td>
+ *     </tr>
+ *     <tr>
+ *         <td>
+ *             <tt>ActivationParameterNOCAddress</tt>
+ *         </td>
+ *         <td>
+ *             <tt>NSURL</tt> containing
+ *                   a NOC server address, or an alias. The URL must always
+ *                   include a scheme, such as <tt>https</tt>.
+ *         </td>
+ *         <td><tt>NSURL</tt></td>
+ *     </tr>
+ *     <tr>
+ *         <td>
+ *             <tt>ActivationParameterShowUserInterface</tt>
+ *         </td>
+ *         <td>
+ *             <tt>Boolean</tt> value which if set to <tt>false</tt>, will prevent the BlackBerry Dynamics runtime activation UI from being shown during activation.</td>
+ *         </td>
+ *         <td><tt>NSNumber</tt></td>
+ *     </tr>
+ * </table>
+ * \link GDiOS::programmaticAuthorize:\endlink
+ */
+typedef NSString *ActivationParameter;
+extern ActivationParameter const ActivationParameterUserIdentifier;
+extern ActivationParameter const ActivationParameterAccessKey;
+extern ActivationParameter const ActivationParameterNOCAddress;
+extern ActivationParameter const ActivationParameterShowUserInterface;
+
 /** Initiate programmatic activation.
- * 
+ *
+ * Call this function to 
+ * initiate programmatic activation.
+ * Programmatic activation can only be utilized by applications that can obtain
+ * credentials for enterprise activation on behalf of the end user. The
+ * credentials are passed as parameters to this function. The credentials
+ * must already have been generated, by an enterprise BlackBerry Dynamics
+ * management console, prior to this function being called.
+ *
+ * Activation requires processing on the BlackBerry Dynamics Network Operation
+ * Center (NOC). From an architectural point-of-view, there is a single NOC for
+ * all BlackBerry Dynamics enterprises and users. For practical reasons,
+ * however, there may actually be a number of NOC deployments. For example,
+ * there may be separate production and development deployments. The application
+ * can specify which NOC is to process programmatic activation, in the
+ * <tt>nocAddress</tt> parameter to this function.
+ *
+ * Calling this function also initiates authorization processing, as if the
+ *  \reflink GDiOS::authorize: authorize (GDiOS)\endlink function had
+ * been called.
+ *
+ * Only call this function after checking that the application is not
+ * already activated, by
+ * accessing the \reflink GDiOS::activationComplete activationComplete (GDiOS)\endlink property.
+ *
+ * @param activationParameters <tt>NSDictionary</tt>
+ *         object containing configuration values. Use the
+ *         <tt>ActivationParameter</tt> string constants as keys.
+ */
+- (void)programmaticAuthorize:(NSDictionary<ActivationParameter, id> *)activationParameters;
+
+#if __has_extension(attribute_deprecated_with_message)
+#   define DEPRECATE_PROGRAMMATICAUTHORIZE __attribute((deprecated("Use -programmaticAuthorize:activationParameters instead.")))
+#else
+#   define DEPRECATE_GETWINDOW __attribute((deprecated))
+#endif
+/** Initiate programmatic activation (deprecated).
+ *
+ * \deprecated This function is deprecated and will be removed in a future
+ * release. Use
+ * \link GDiOS::programmaticAuthorize:\endlink
+ * instead.
+ *
  * Calling this function is equivalent to calling the
  * form with an additional URL parameter, see below, and specifying the URL of
  * the default production Network Operation Center.
  */
-- (void)programmaticAuthorize:(NSString *)userID  withAccessKey:(NSString *)accessKey;
+- (void)programmaticAuthorize:(NSString *)userID  withAccessKey:(NSString *)accessKey DEPRECATE_PROGRAMMATICAUTHORIZE;
 
-/** Initiate programmatic activation by a specific Network Operation Center.
+/** Initiate programmatic activation by a specific Network Operation Center (deprecated).
+ *
+ * \deprecated This function is deprecated and will be removed in a future
+ * release. Use
+ * \link GDiOS::programmaticAuthorize:\endlink
+ * instead.
  *
  * Call this function to 
  * initiate programmatic activation.
@@ -903,10 +1010,12 @@ GD_NS_ASSUME_NONNULL_BEGIN
  */
 - (void)programmaticAuthorize:(NSString *)userID
                 withAccessKey:(NSString *)accessKey
-       networkOperationCenter:(NSURL *)nocAddress;
+       networkOperationCenter:(NSURL *)nocAddress DEPRECATE_PROGRAMMATICAUTHORIZE;
+
+#undef DEPRECATE_PROGRAMMATICAUTHORIZE
 
 /** Application activation status.
- * 
+ *
  * Read the value of this property, using the <tt>isActivated</tt> accessor, to
  * check whether the application has already been activated. It is necessary to
  * check whether the application has been activated before initiating
@@ -1012,6 +1121,20 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *         <tt>NSNumber</tt></td>
  *
  *     </tr>  *     </tr> <tr><td>
+ *         <tt>GDAppConfigKeyPreventScreenRecording</tt></td>
+ *     <td>
+ *         Screen Recording policy indicator.\n
+ *         1 means that enterprise security
+ *         policies require that the end user must be prevented from recording or sharing their screen.\n
+ *         0 means that the above policy isn't
+ *         in effect, so the user is permitted to record or share their screen.\n
+ *         This setting is included for completeness. The policy is generally
+ *         enforced by the BlackBerry Dynamics runtime without reference to the
+ *         application code.</td>
+ *     <td>
+ *         <tt>NSNumber</tt></td>
+ *    
+ *     </tr> <tr><td>
  *         <tt>GDAppConfigKeyPreventCustomKeyboards</tt></td>
  *     <td>
  *         Custom Keyboard Prevention policy indicator.\n
@@ -1908,6 +2031,43 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  * management console.
  */
 - (BOOL)executeRemoteLock;
+
+/** Blocks application locally with defined blockId.
+ *
+ * Call this function to block use of the application, as though a remote block
+ * had been received from the enterprise management console. Include a title and description
+ * to inform the user what threat or action has triggered the block. If several blocks have
+ * been applied then it is the most recent block which will be displayed
+ * to the user in the block screen.
+ 
+ * While blocked, the application can utilize the principal Dynamics APIs like secure
+ * storage and secure communications.
+ 
+ * Blocks are persisted which means that after an application is restarted and the user
+ * is authenticated the block screen will be displayed. In addition a \reflink GDAppEvent GDAppEvent\endlink
+ * with the result code <tt>GDErrorBlocked</tt> would be dispatched. This event would be received
+ * for blocks applied locally with this function and those applied from the management console.
+ *
+ * The application should persist in secure storage the blockId called in this function. When
+ * a <tt>GDErrorBlocked</tt> event is received the application should check if any blocks are
+ * applied locally and determine if the block can now be removed.
+ *
+ * @param blockId <tt>NSString</tt> specifying the block identifier. This identifier is required to
+ * subsequently remove the block.
+ * @param title <tt>NSString</tt> containing the title shown on the block screen.
+ * @param message <tt>NSString</tt> containing the detailed message to display on the block screen.
+ */
+- (void)executeBlock:(NSString *)blockId withTitle:(NSString *)title withMessage:(NSString *)message;
+
+/** Unblocks application locally with defined blockId.
+ *
+ * Call this function to remove a block screen with associated blockId.
+ * Other local or remote blocks will still leave the application blocked. Blocks applied
+ * by the management console cannot be unblocked using this function.
+ *
+ * @param blockId <tt>NSString</tt> specifying the block identifier.
+ */
+- (void)executeUnblock:(NSString *)blockId;
 
 /** Observable representation of authorization state and user interface state.
  *

@@ -13,6 +13,11 @@
 #import <GD/GD/GDConnectivityManager.h>
 #import <GD/GD/GDCredential.h>
 #import <GD/GD/GDCredentialsProfile.h>
+#import <GD/GD/GDCryptoAlgorithms.h>
+#import <GD/GD/GDCryptoError.h>
+#import <GD/GD/GDCryptoKeyStore.h>
+#import <GD/GD/GDCryptoPKCS7.h>
+#import <GD/GD/GDCryptoRSA.h>
 #import <GD/GD/GDDiagnostic.h>
 #import <GD/GD/GDFileHandle.h>
 #import <GD/GD/GDFileManager.h>
@@ -26,12 +31,12 @@
 #import <GD/GD/GDPersistentStoreCoordinator.h>
 #import <GD/GD/GDPortability.h>
 #import <GD/GD/GDPush.h>
-#import <GD/GD/GDPushiOS.h>
 #import <GD/GD/GDReachability.h>
 #import <GD/GD/GDServiceDetail.h>
 #import <GD/GD/GDServiceProvider.h>
 #import <GD/GD/GDServices.h>
 #import <GD/GD/GDState.h>
+#import <GD/GD/GDStream.h>
 #import <GD/GD/GDURLLoadingSystem.h>
 #import <GD/GD/GDURLRequestConnectionDelegate.h>
 #import <GD/GD/GDURLRequestDataDelegate.h>

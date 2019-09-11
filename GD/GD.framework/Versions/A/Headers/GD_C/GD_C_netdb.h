@@ -43,7 +43,14 @@ enum GD_ROUTE
     /** The connection will be routed via the BlackBerry Dynamics
      * infrastructure.
      */
-    GD_ROUTE_GOOD_PROXY
+    GD_ROUTE_GOOD_PROXY,
+    /** The connection will be denied via the BlackBerry Dynamics SDK
+     */
+    GD_ROUTE_DENY,
+    
+    /** The connection will be routed direct to the Internet per WhiteList.
+     */
+    GD_ROUTE_INTERNET_LISTED
 };
 
 /** C API.
@@ -72,9 +79,10 @@ GD_C_API int GD_getnameinfo(const struct sockaddr* address, socklen_t addressLen
 /** Check if routing is via the BlackBerry Dynamics infrastructure.
  *
  * Call this function to check how a connection would be routed, either via the
- * BlackBerry Dynamics infrastructure or direct to the Internet. The connection
+ * BlackBerry Dynamics infrastructure, direct to the Internet or Denied. The connection
  * is specified by a socket address, <tt>sockaddr</tt>, structure that is passed
- * as an input parameter.
+ * as an input parameter.  This route check compares the host name
+ * to the Connectivity Profile entries to determine routing.
  *
  * The input socket address structure must have been obtained from the
  * \ref GD_getaddrinfo function.

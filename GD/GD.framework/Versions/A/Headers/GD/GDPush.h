@@ -1218,7 +1218,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  *  \htmlonly <div class="bulletlists"> \endhtmlonly
  * A Push Channel identifier should be composed of a <em>domain</em> followed by
  * a module <em>name</em> and an optional <em>purpose</em>. The parts are
- * separated by full stops (periods). For following examples illustrate the
+ * separated by full stops (periods). The following examples illustrate the
  * convention.
  *
  * Example: <tt>com.example.mobile-life.email</tt>
@@ -1253,7 +1253,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * \code
  * if ([GDReachability sharedInstance].isPushChannelAvailable) {
  *     NSLog( @"Push Channel service available");
- *     myChannel = [[GDPushChannel alloc] init];
+ *     myChannel = [[GDPushChannel alloc] initWithIdentifier:@"com.example.dashboard"];
  *     myHandler = [[AppChannelHandler alloc] init]
  *     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
  *     [notificationCenter addObserver:myHandler

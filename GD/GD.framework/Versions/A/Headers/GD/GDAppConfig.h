@@ -91,6 +91,12 @@ extern const NSString* const GDAppConfigKeyPreventDictation;
  * \ref GDiOS::getApplicationConfig.
  */
 extern const NSString* const GDAppConfigKeyPreventCustomKeyboards;
+
+/**
+ * Constant key value for whether screen recording and sharing is allowed.\ See under
+ * \ref GDiOS::getApplicationConfig.
+ */
+extern const NSString* const GDAppConfigKeyPreventScreenRecording;
 #endif
 
 /** Constant key value for whether the application is protected by a BlackBerry

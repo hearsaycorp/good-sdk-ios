@@ -55,7 +55,7 @@ fi
 
 
 CUR_ARCH=`(while [ "x$1" != "x" -a "x$1" != "x-arch" ]; do shift; done; echo $2)`
-[ -n "${CUR_ARCH}" ] || { echo 'no -arch specified'; exit 1; }
+#[ -n "${CUR_ARCH}" ] || { echo 'no -arch specified'; exit 1; }
 
 
 # set default

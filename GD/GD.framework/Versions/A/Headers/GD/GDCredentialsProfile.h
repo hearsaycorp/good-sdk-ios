@@ -9,7 +9,17 @@
 extern "C" {
 #endif
 
+#ifndef GD_C_API
+#   if !defined(_WIN32)
+#       define GD_C_API __attribute__((visibility("default")))
+#   else
+#       define GD_C_API
+#   endif
+#endif
+    
 #include "GDCommon.h"
+
+struct GDError;
 
 /** User Credential Profile states.
  *
@@ -83,7 +93,7 @@ typedef enum {
      * @see GDCredentialsProfile
      */
     GDCredentialsProfileStateDeleted
-} GDCredentialsProfileState;
+} GD_C_API GDCredentialsProfileState;
 
 /** User Credentials Profile.
  *
@@ -94,7 +104,7 @@ typedef enum {
  * 
  * \ingroup clientcertificateimport
  */
-struct GDCredentialsProfile {
+struct GD_C_API GDCredentialsProfile {
     /** Identifier.
      *
      * Null-terminated string containing the identifier of the profile.
@@ -164,7 +174,7 @@ struct GDCredentialsProfile {
  * 
  * \ingroup clientcertificateimport
  */
-struct GDCredentialsProfileEvent {
+struct GD_C_API GDCredentialsProfileEvent {
     /** Profile that has changed state.
      * 
      * Reference to a \ref GDCredentialsProfile structure for the UCP whose
@@ -227,7 +237,7 @@ typedef void (*GDCredentialsProfileEventCb)(const struct GDCredentialsProfileEve
  * @param cb GDCredentialsProfileEventCb implementation for the callback.
  * @param appData <tt>void*</tt> pointer to the application data for the callback.
  */
-void GDCredentialsProfile_register(GDCredentialsProfileEventCb cb, void* appData);
+GD_C_API void GDCredentialsProfile_register(GDCredentialsProfileEventCb cb, void* appData);
 
 /** List User Credentials Profiles.
  *
@@ -278,9 +288,9 @@ void GDCredentialsProfile_register(GDCredentialsProfileEventCb cb, void* appData
  *         assigned to the current end user.
  * @return <tt>false</tt> if an error was encountered.
  */
-bool GDCredentialsProfile_list(size_t* profileCount,
-                               struct GDCredentialsProfile** profiles,
-                               struct GDError* error);
+GD_C_API bool GDCredentialsProfile_list(size_t* profileCount,
+                                        struct GDCredentialsProfile** profiles,
+                                        struct GDError* error);
 
 /** Free a returned profiles buffer.
  * 
@@ -291,8 +301,8 @@ bool GDCredentialsProfile_list(size_t* profileCount,
  * @param profileCount <tt>size_t</tt> representation of the number of
  *                     structures in the buffer.
  */
-void GDCredentialsProfile_free(struct GDCredentialsProfile* profiles,
-                               size_t profileCount);
+GD_C_API void GDCredentialsProfile_free(struct GDCredentialsProfile* profiles,
+                                        size_t profileCount);
 
 /** Unregister from notification of User Credentials Profile state changes.
  *
@@ -302,7 +312,7 @@ void GDCredentialsProfile_free(struct GDCredentialsProfile* profiles,
  *
  * @see \ref GDCredentialsProfile_register
  */
-void GDCredentialsProfile_unregister();
+GD_C_API void GDCredentialsProfile_unregister();
 
 /**
  * \}

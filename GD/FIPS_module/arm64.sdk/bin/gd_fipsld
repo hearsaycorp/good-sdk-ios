@@ -59,7 +59,7 @@ CLANG_PATH="clang"
 
 # define current architecture
 CUR_ARCH=`(while [ "x$1" != "x" -a "x$1" != "x-arch" ]; do shift; done; echo $2)`
-[ -n "${CUR_ARCH}" ] || { echo 'no -arch specified'; exit 1; }
+#[ -n "${CUR_ARCH}" ] || { echo 'no -arch specified'; exit 1; }
 
 
 # get xcode version of clang

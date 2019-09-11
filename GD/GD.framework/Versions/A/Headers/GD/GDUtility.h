@@ -1,5 +1,5 @@
 /*
- * (c) 2017 BlackBerry Limited. All rights reserved.
+ * (c) 2019 BlackBerry Limited. All rights reserved.
  *
  */
 
@@ -69,6 +69,8 @@ GD_NS_ASSUME_NONNULL_BEGIN
 @end
 /** BlackBerry Dynamics authentication token request.
  * 
+ * 
+ * <h3>BlackBerry Dynamics Authentication Token Mechanism</h3>
  * The BlackBerry Dynamics authentication token mechanism enables
  * applications to utilize the user identification that takes place during
  * BlackBerry Dynamics authorization processing. This enables an application
@@ -82,8 +84,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * @see  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for more details of BlackBerry Dynamics authorization
  *      processing.
  * @see \ref ServerAPIGDAuthToken
- * 
- * <h3>BlackBerry Dynamics Authentication Token Mechanism</h3>
+ *
  * The BlackBerry Dynamics platform includes rigorous authentication of the end
  * user. This is used when, for example, identifying whether the user is
  * entitled to run the current application, and when applying security policies.
@@ -168,6 +169,20 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * server in an HTTP header, which limits the character set that can be utilized
  * safely. All letters and numerals in the ASCII range 32 to 126 can be utilized
  * safely. Use of other characters isn't supported.
+ * 
+
+ * <h3>BlackBerry Dynamics Shared User Identifier</h3>
+ * The BlackBerry Dynamics Shared User ID is a unique identifier for all containers which are provisioned for the same user on the same device.
+ *
+ * <h4>Identifier characteristics</h4>
+ *
+ * - The identifier is available once a user has authorized / unlocked the container.
+ * - The identifier is the same for applications activated against the same user, on the same UEM domain and on the same device, even if authentication delegation (SSO) is enabled.
+ * - The identifier doesn't persist once the last Dynamics application is uninstalled from a device or the device is reset.
+ * - The identifier is only available for applications activated against a UEM. (Not standalone GC)
+ *
+ * <h4>Shared Identifier limitations</h4>
+ * Shared identifier will not be shared among applications from different keychain groups
  */
 @interface GDUtility : NSObject
 
@@ -205,6 +220,20 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *
  */
 - (void)getGDAuthToken: (NSString*) challenge serverName:(GD_NSNULLABLE NSString*) serverName;
+
+/** Get User Dynamics Shared identifier.
+ *
+ * 
+ * Call this method to get a BlackBerry Dynamics shared user identifier.
+ *
+ * See under BlackBerry Dynamics Shared User Identifier, above, for
+ * background on shared id usage and characteristics.
+ *
+ * If calculation of shared id is not possible, empty string will be returned
+ *
+ * \return Shared Id String
+ */
+- (NSString *)getDynamicsSharedUserIDWithError:(NSError **)error;
 
 /** Delegated event-handling.
  * 
