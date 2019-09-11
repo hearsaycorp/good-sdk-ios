@@ -71,6 +71,31 @@ typedef NS_ENUM(NSInteger, GDAppEventType)
      *  function, then the entitlements should be checked again now.
      */
     GDAppEventEntitlementsUpdate = 6,
+    
+    /** The application has been authorized to access its
+    *   data as a result of the system starting the application process from cold in the background,
+    *   following background authorization processing.
+    *
+    *   The application can make full use of the BlackBerry Dynamics programming interface.
+    *
+    *   The event result code will be <TT>GDErrorNone</TT>.
+    *
+    *   See  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for authorization processing initiation.
+    */
+    GDAppEventBackgroundAuthorized = 7,
+    
+    /** The application hasn't been authorized to access its
+     *  data, following background authorization processing, or a condition has arisen that
+     *  caused background authorization to be withdrawn.
+     *
+     * The application must deny the user access to any application data.
+     *
+     * The event result code will indicate the condition that has arisen.
+     * See \ref GDAppResultCode.
+     *
+     * See  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for authorization processing initiation.
+     */
+    GDAppEventBackgroundNotAuthorized = 8,
 };
 
 /** Constants for GDAppEvent result code.

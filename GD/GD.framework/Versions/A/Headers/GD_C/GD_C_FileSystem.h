@@ -48,8 +48,6 @@ extern "C" {
 #else
 #   define GD_ATTRIBUTE __attribute__
 #endif
-    
-#include <stdio.h>
 
 /** \addtogroup capilist
  * @{

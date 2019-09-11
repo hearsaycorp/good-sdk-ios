@@ -113,6 +113,39 @@ extern NSString* const GDStateChangeKeyProperty;
  */
 extern NSString* const GDStateChangeKeyCopy;
 
+/** NSNotification name for <tt>GDState</tt> activation change notifications.
+ *
+ * An NSNotification with this name is posted from \link GDState\endlink
+ * whenever an activation event happened.
+ */
+extern NSString* const GDActivationChangeNotification;
+
+/** Key in the NSNotification <tt>userInfo</tt> dictionary for the
+ *  current BBDActivationState value.
+ */
+extern NSString* const BBDActivationStateKey;
+
+/** Key in the NSNotification <tt>userInfo</tt> dictionary for a
+ * localised description for each activation processing event.
+ */
+extern NSString* const BBDActivationDescriptionKey;
+
+/** Key in the NSNotification <tt>userInfo</tt> dictionary for an
+ * index used to access a localised description for each activation processing event
+ * from the activationProcessingDescriptions array.
+ */
+extern NSString* const BBDActivationProcessingIndexKey;
+
+/** Key in the NSNotification <tt>userInfo</tt> dictionary for the
+ * activation error message should activation fail.
+ */
+extern NSString* const BBDActivationErrorKey;
+
+/** Path for KVO of the GDState <tt>activationState</tt> property
+ *
+ */
+extern NSString* const BBDKeyActivationState;
+
 /** Path for KVO of the GDState <tt>isAuthorized</tt> property.
  */
 extern NSString* const GDKeyIsAuthorized;
@@ -189,6 +222,18 @@ typedef NS_ENUM(NSInteger, GDLibraryScreen)
     /** Indicates that another screen is in front.
      */
     GDLibraryScreenOther = 1000
+};
+
+/** BlackBerry Dynamics activation state
+ *
+ * This enumeration is used to indicate the current state of the
+ * BlackBerry Dynamics activation process.
+ */
+typedef NS_ENUM(NSInteger, BBDActivationState)
+{
+    BBDActivationStateNotActivated = 0,
+    BBDActivationStateInProgress,
+    BBDActivationStateActivated
 };
 
 /**
@@ -324,4 +369,23 @@ typedef NS_ENUM(NSInteger, GDLibraryScreen)
  */
 @property (nonatomic, readonly) GDLibraryScreen currentScreen;
 
+/** BlackBerry Dynamics activation state
+ *
+ * This property is used to indicate the current state of the
+ * BlackBerry Dynamics activation process.
+ */
+@property (nonatomic, readonly) BBDActivationState activationState;
+
+/** An Array containing static descriptions of Blackberry Dynamics activation processing states.
+ *
+ * NSArray of NSString descriptions of Blackberry Dynamics activation processing states.
+ * To retrieve the current activation processing state use \ref activationProcessingIndex
+ */
+@property (nonatomic, readonly) NSArray<NSString *> *activationProcessingDescriptions;
+
+/** An integer representing the current activation processing stage.
+ *
+ * Use this index to access the descriptions contained within \ref activationProcessingDescriptions
+ */
+@property (nonatomic, readonly) NSUInteger activationProcessingIndex;
 @end

@@ -17,10 +17,6 @@ extern "C" {
 #   endif
 #endif
   
-#ifndef GD_C_API_EXT
-#   define GD_C_API_EXT
-#endif
-
 #include "GDCommon.h"
 #include <time.h>
 
@@ -47,7 +43,7 @@ extern "C" {
  *
  * \ingroup clientcertificateimport
  */
-struct GDX509Certificate {
+struct GD_C_API GDX509Certificate {
     /** X.509 Issuer field.
      * 
      * Null-terminated string containing the value of the X.509 Issuer field of
@@ -132,6 +128,25 @@ struct GDX509Certificate {
      * number of seconds elapsed since 00:00 hours, January 1st, 1970 UTC.
      */
     time_t notAfter;
+    
+    /** Returns certificate validity.
+     *
+     * Returns true if the system time falls within the certicates notBefore and
+     * notAfter dates and times.
+     */
+    bool valid;
+
+    /** Key usage of the certificate.
+     *
+     * Null-terminated string containing the intended key usage attributes of the certificate.
+     */
+    char* keyUsage;
+    
+    /** Extended key usage of the certificate.
+     *
+     * Null-terminated string containing the intended extended key usage attributes of the certificate.
+     */
+    char* extendedKeyUsage;
 
     /** Binary DER encoded certificate data.
      * 
@@ -140,6 +155,31 @@ struct GDX509Certificate {
      */
     struct GDData x509;
 };
+
+/** X509 certificate structure.
+ * This structure represents a certificate returned by \link GDX509List_value() \endlink.
+ */
+struct GD_C_API GDX509;
+
+/** Create a certificate.
+ *
+ * Call this function to create a certificate from an opaque GDX509 structure.
+ * See \link GDX509List_value() \endlink.
+ *
+ * @param certificate to create.
+ * @return <tt>GDX509Certificate</tt> if creation succeeded.
+ * @return <tt>NULL</tt> otherwise.
+ */
+GD_C_API struct GDX509Certificate* GDX509Certificate_create(const struct GDX509* certificate);
+
+/** Free a certificate.
+ *
+ * Call this function to release a certificate created by \ref GDX509Certificate_create.
+ *
+ * @param certificate to release.
+ */
+GD_C_API void GDX509Certificate_free(struct GDX509Certificate* certificate);
+
 
 /** User identity credential certificate chain.
  *
@@ -164,7 +204,7 @@ struct GDX509Certificate {
  * 
  * \ingroup clientcertificateimport
  */
-struct GDCredential {
+struct GD_C_API GDCredential {
     /** Leaf certificate.
      * 
      * The leaf or user client certificate, encapsulated in a
@@ -273,10 +313,10 @@ struct GDCredential {
  * @return <tt>true</tt> if import succeeded.
  * @return <tt>false</tt> otherwise.
  */
-bool GDCredential_import(char** profileId,
-                         const struct GDData* credential,
-                         const char* password,
-                         struct GDError* error);
+ GD_C_API bool GDCredential_import(char** profileId,
+                                   const struct GDData* credential,
+                                   const char* password,
+                                   struct GDError* error);
 
 /** Finalize credential import.
  *
@@ -289,7 +329,7 @@ bool GDCredential_import(char** profileId,
  * the importing application at the time of the request. Calling this function
  * then causes the user interface to flip back to the requesting application.
  */
-void GDCredential_importDone();
+GD_C_API void GDCredential_importDone();
 
 /** List available credentials for a User Credential Profile.
  *
@@ -340,10 +380,10 @@ void GDCredential_importDone();
  *         available to the specified UCP.
  * @return <tt>false</tt> if an error was encountered.
  */
-bool GDCredential_list(const char* profileId,
-                       size_t* credentialCount,
-                       struct GDCredential** credentials,
-                       struct GDError* error);
+GD_C_API bool GDCredential_list(const char* profileId,
+                                size_t* credentialCount,
+                                struct GDCredential** credentials,
+                                struct GDError* error);
 
 /** Free a returned credentials buffer.
  * 
@@ -354,7 +394,7 @@ bool GDCredential_list(const char* profileId,
  * @param credentialCount <tt>size_t</tt> representation of the number of
  *                        structures in the buffer.
  */
-void GDCredential_free(struct GDCredential* credentials, size_t credentialCount);
+GD_C_API void GDCredential_free(struct GDCredential* credentials, size_t credentialCount);
 
 /**
  * \}

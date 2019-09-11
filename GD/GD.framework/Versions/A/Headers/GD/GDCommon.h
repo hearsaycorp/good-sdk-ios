@@ -30,7 +30,7 @@ extern "C" {
  * 
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDSuccess;
+GD_C_API extern const int32_t GDSuccess;
 
 /** Out of memory.
  *
@@ -38,7 +38,7 @@ extern const int32_t GDSuccess;
  * 
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDErrorOutOfMemory;
+GD_C_API extern const int32_t GDErrorOutOfMemory;
 
 /** Not authorized.
  *
@@ -46,7 +46,7 @@ extern const int32_t GDErrorOutOfMemory;
  * 
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDErrorNotAuthorized;
+GD_C_API extern const int32_t GDErrorNotAuthorized;
 
 /** Not found.
  *
@@ -54,7 +54,7 @@ extern const int32_t GDErrorNotAuthorized;
  * 
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDErrorNotFound;
+GD_C_API extern const int32_t GDErrorNotFound;
 
 /** Not mapped to a User Credential Profile.
  *
@@ -64,7 +64,7 @@ extern const int32_t GDErrorNotFound;
  * 
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDErrorNotMapped;
+GD_C_API extern const int32_t GDErrorNotMapped;
 
 /** Wrong password.
  *
@@ -72,7 +72,7 @@ extern const int32_t GDErrorNotMapped;
  * 
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDErrorWrongPassword;
+GD_C_API extern const int32_t GDErrorWrongPassword;
 
 /** General error.
  *
@@ -80,7 +80,7 @@ extern const int32_t GDErrorWrongPassword;
  * 
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDErrorGeneral;
+GD_C_API extern const int32_t GDErrorGeneral;
 
 /** Invalid argument.
  *
@@ -88,7 +88,7 @@ extern const int32_t GDErrorGeneral;
  * 
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDErrorInvalidArgument;
+GD_C_API extern const int32_t GDErrorInvalidArgument;
     
 /** Not allowed.
  *
@@ -100,7 +100,7 @@ extern const int32_t GDErrorInvalidArgument;
  *
  * \ingroup clientcertificateimport
  */
-extern const int32_t GDErrorNotAllowed;
+GD_C_API extern const int32_t GDErrorNotAllowed;
 
 /** Error structure.
  *
@@ -109,7 +109,7 @@ extern const int32_t GDErrorNotAllowed;
  *
  * For example, it is used by the \ref clientcertificateimport functions.
  */
-struct GDError {
+struct GD_C_API GDError {
     
     /** Numeric code for the error, always one of the GDError constants defined
      *  in this header file.
@@ -133,7 +133,7 @@ struct GDError {
  * 
  * @see clientcertificateimport
  */
-struct GDData {
+struct GD_C_API GDData {
     /** Binary data. */
     void* data;
     

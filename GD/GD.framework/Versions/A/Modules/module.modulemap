@@ -70,7 +70,6 @@ framework module GD {
         explicit module PushChannel {
             requires objc
             header "GD/GDPush.h"
-            header "GD/GDPushiOS.h"
             export *
         }
     }
