@@ -1642,5 +1642,8 @@ displayed.
 "<app name> does not fully support the version of Android on this device." = "%sは、このデバイスのAndroidのバージョンに完全に対応していません。アプリを最新バージョンに更新してください。";
 
 
-
+"Wearable app requires authorization" = "ウェアラブルアプリでは認証が必要です";
+"Wearable app requires activation" = "ウェアラブルアプリではアクティベーションが必要です";
+"Tap to activate" = "タップしてアクティベーション";
+"Tap to authorize" = "タップして認証";
 

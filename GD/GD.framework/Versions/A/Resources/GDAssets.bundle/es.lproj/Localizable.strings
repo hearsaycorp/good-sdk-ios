@@ -1642,5 +1642,8 @@ displayed.
 "deviceSettingsButton" = "Configuración del dispositivo";
 
 
-
+"Wearable app requires authorization" = "La aplicación transportable requiere autorización";
+"Wearable app requires activation" = "Es necesario activar la aplicación transportable";
+"Tap to activate" = "Toque para activarla";
+"Tap to authorize" = "Toque para autorizar";
 

@@ -1642,3 +1642,8 @@ displayed.
 "<app name> does not fully support the version of Android on this device." = "%s har inte fullt stöd för Android-versionen på den här enheten. Prova att uppdatera applikationen till den senaste versionen.";
 
 
+"Wearable app requires authorization" = "Auktorisering krävs för Wearable-appen";
+"Wearable app requires activation" = "Aktivering krävs för Wearable-appen";
+"Tap to activate" = "Tryck för att aktivera";
+"Tap to authorize" = "Tryck för att auktorisera";
+

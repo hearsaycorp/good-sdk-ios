@@ -1638,3 +1638,9 @@ displayed.
 
 "<app name> does not fully support the version of Android on this device." = "%s ne prend pas totalement en charge cette version d'Android sur cet appareil. Veuillez essayer de mettre à jour l'application vers la dernière version.";
 
+
+"Wearable app requires authorization" = "L'application portable nécessite une autorisation";
+"Wearable app requires activation" = "L'application portable nécessite une activation";
+"Tap to activate" = "Appuyer pour activer";
+"Tap to authorize" = "Appuyer pour autoriser";
+
