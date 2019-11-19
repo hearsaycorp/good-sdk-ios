@@ -1642,3 +1642,8 @@ displayed.
 "deviceSettingsButton" = "기기 설정";
 
 
+"Wearable app requires authorization" = "웨어러블 앱 인증 필요";
+"Wearable app requires activation" = "웨어러블 앱 활성화 필요";
+"Tap to activate" = "탭하여 활성화";
+"Tap to authorize" = "탭하여 인증";
+

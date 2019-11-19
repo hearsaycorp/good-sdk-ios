@@ -1638,3 +1638,9 @@ displayed.
 
 "<app name> does not fully support the version of Android on this device." = "%s 并不完全支持此设备上的 Android 版本。请尝试将应用程序更新到最新版本。";
 
+
+"Wearable app requires authorization" = "可穿戴应用需要授权";
+"Wearable app requires activation" = "可穿戴应用需要激活";
+"Tap to activate" = "点击以激活";
+"Tap to authorize" = "点击以授权";
+

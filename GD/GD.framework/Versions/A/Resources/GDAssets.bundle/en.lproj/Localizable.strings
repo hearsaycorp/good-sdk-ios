@@ -1643,15 +1643,14 @@ displayed.
 
 /* Strings added in the scope of GD-43420 - [Dynamics SDK][Localization][Android][Wearable] Localization for ICC wearable notification message */
 /* Android Wearable authorization notification name */
-"Wearable app requires authorization" = "[Update localization]Wearable app requires authorization";
+"Wearable app requires authorization" = "Wearable app requires authorization";
 
 /* Android Wearable authorization notification name */
-"Wearable app requires activation" = "[Update localization]Wearable app requires activation";
+"Wearable app requires activation" = "Wearable app requires activation";
 
 /* Android Wearable authorization notification description */
-"Tap to authorize" = "[Update localization]Tap to authorize";
+"Tap to authorize" = "Tap to authorize";
 
 /* Android Wearable activation notification description */
-"Tap to activate" = "[Update localization]Tap to activate";
-
+"Tap to activate" = "Tap to activate";
 

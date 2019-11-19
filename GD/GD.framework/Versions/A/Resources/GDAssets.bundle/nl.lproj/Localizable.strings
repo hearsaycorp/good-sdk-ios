@@ -1638,3 +1638,9 @@ displayed.
 
 "<app name> does not fully support the version of Android on this device." = "%s ondersteunt de Android-versie op dit apparaat slechts gedeeltelijk. Update de applicatie naar de nieuwste versie.";
 
+
+"Wearable app requires authorization" = "Voor een draagbare app is een machtiging vereist";
+"Wearable app requires activation" = "Voor een draagbare app is activering vereist";
+"Tap to activate" = "Tik om te activeren";
+"Tap to authorize" = "Tik om te machtigen";
+
