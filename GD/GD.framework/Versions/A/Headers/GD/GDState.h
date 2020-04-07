@@ -16,7 +16,7 @@
  * - Implementing NSNotification observers of GDState.
  * .
  *
- * See the \link GDState\endlink class reference for details.
+ * See the \link GDState \endlink class reference for details.
  * 
  * \{
  */
@@ -24,41 +24,41 @@
 /** NSNotification name for changes to application configuration and other
  *  settings from the enterprise.
  *  
- *  An NSNotification with this name is posted from \link GDState\endlink
+ *  An NSNotification with this name is posted from \link GDState \endlink
  *  whenever there is a change in any value that is returned by
- *  \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink.
+ *  \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink.
  */
 extern NSString* const GDRemoteSettingsUpdateNotification;
 
 /** NSNotification name for changes to services-related configuration.
  *
- * An NSNotification with this name is posted from \link GDState\endlink
+ * An NSNotification with this name is posted from \link GDState \endlink
  * whenever a change to the services-related configuration of one or more
- * applications has been received. See under  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink.
+ * applications has been received. See under \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink.
  */
 extern NSString* const GDServicesUpdateNotification;
 
 /** NSNotification name for changes to application-specific policy settings.
  *
- * An NSNotification with this name is posted from \link GDState\endlink
+ * An NSNotification with this name is posted from \link GDState \endlink
  * whenever one or more changes to application-specific policy settings has been
- * received. See under \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS)\endlink.
+ * received. See under \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS) \endlink.
  */
 extern NSString* const GDPolicyUpdateNotification;
 
 /** NSNotification name for changes to entitlement.
  *
- * An NSNotification with this name is posted from \link GDState\endlink
+ * An NSNotification with this name is posted from \link GDState \endlink
  * whenever a change to the entitlement data of the end user has been received.
  * If the entitlements of the end user had previously been checked, by calling
- * the \reflink GDiOS::getEntitlementVersionsFor:callbackBlock: getEntitlementVersionsFor:callbackBlock: (GDiOS)\endlink function,
+ * the \reflink GDiOS::getEntitlementVersionsFor:callbackBlock: getEntitlementVersionsFor:callbackBlock: (GDiOS) \endlink function,
  * then the entitlements should be checked again now.
  */
 extern NSString* const GDEntitlementsUpdateNotification;
 
 /** NSNotification name for pending migration of the end user.
  *
- * An NSNotification with this name is posted from \link GDState\endlink when
+ * An NSNotification with this name is posted from \link GDState \endlink when
  * the end user has been selected for migration between management console
  * instances.
  *
@@ -87,7 +87,7 @@ extern NSString* const GDContainerMigrationPendingNotification;
 
 /** NSNotification name for completion of end user migration.
  *
- * An NSNotification with this name is posted from \link GDState\endlink when
+ * An NSNotification with this name is posted from \link GDState \endlink when
  * the end user has been migrated between management console instances, see
  * \ref GDContainerMigrationPendingNotification.
  *
@@ -98,8 +98,8 @@ extern NSString* const GDContainerMigrationCompletedNotification;
 
 /** NSNotification name for <tt>GDState</tt> change notifications.
  *
- * An NSNotification with this name is posted from \link GDState\endlink
- * whenever there is a change to a \link GDState\endlink property value.
+ * An NSNotification with this name is posted from \link GDState \endlink
+ * whenever there is a change to a \link GDState \endlink property value.
  */
 extern NSString* const GDStateChangeNotification;
 
@@ -115,7 +115,7 @@ extern NSString* const GDStateChangeKeyCopy;
 
 /** NSNotification name for <tt>GDState</tt> activation change notifications.
  *
- * An NSNotification with this name is posted from \link GDState\endlink
+ * An NSNotification with this name is posted from \link GDState \endlink
  * whenever an activation event happened.
  */
 extern NSString* const GDActivationChangeNotification;
@@ -254,13 +254,13 @@ typedef NS_ENUM(NSInteger, BBDActivationState)
  * .
  *
  * Changes to the following types of configuration are posted from here.
- * - Services-related, see under  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink.
+ * - Services-related, see under \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink.
  * - Application-specific policy settings, see
- *   \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS)\endlink.
+ *   \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS) \endlink.
  * - Entitlement, see
- *   \reflink GDiOS::getEntitlementVersionsFor:callbackBlock: getEntitlementVersionsFor:callbackBlock: (GDiOS)\endlink.
+ *   \reflink GDiOS::getEntitlementVersionsFor:callbackBlock: getEntitlementVersionsFor:callbackBlock: (GDiOS) \endlink.
  * - Other settings from the enterprise, see
- *   \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink.
+ *   \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink.
  * .
  *
  * <h2>Synchronous access and notifications</h2>
@@ -270,7 +270,7 @@ typedef NS_ENUM(NSInteger, BBDActivationState)
  *
  * Notes on KVO usage:
  * - To get an object whose properties are suitable for observing, access the
- *   \reflink GDiOS::state state (GDiOS)\endlink property.
+ *   \reflink GDiOS::state state (GDiOS) \endlink property.
  * - Use the \ref gdstateconstants to specify the paths of properties of the
  *   observable object.
  * .
@@ -278,7 +278,7 @@ typedef NS_ENUM(NSInteger, BBDActivationState)
  * Notes on <tt>NSNotificationCenter</tt> usage:
  * - Set the notification name to one of the \ref gdstateconstants.
  * - Set the notification object to the GDState instance that is accessible
- *   as the \reflink GDiOS::state state (GDiOS)\endlink property.
+ *   as the \reflink GDiOS::state state (GDiOS) \endlink property.
  * - In addition to the base NSNotification, the notifications for state changes
  *   will include a <tt>userInfo</tt> dictionary with the following items.
  *   - Name of the property whose change triggered the notification, in the
@@ -290,17 +290,17 @@ typedef NS_ENUM(NSInteger, BBDActivationState)
  * @see <a
       href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html"
       target="_blank"
- * >Key-Value Observing Programming Guide</a
- * > on the apple.com developer website.
+ * >Key-Value Observing Programming Guide</a>
+ *  on the apple.com developer website.
  * @see <a
       href="https://developer.apple.com/reference/foundation/nsnotificationcenter"
       target="_blank"
- * >NSNotificationCenter class reference</a
- * > on the apple.com developer website.
+ * >NSNotificationCenter class reference</a>
+ *  on the apple.com developer website.
  *
  * <h2>Alternatives</h2>
  * Using this class is an alternative to using some parts of using the \link
- * GDiOSDelegate\endlink class.
+ * GDiOSDelegate \endlink class.
  *
  * If the application uses this class to monitor authorization, and doesn't
  * implement <tt>GDiOSD</tt><tt>elegate</tt>, then the BlackBerry Dynamics event
@@ -334,7 +334,7 @@ typedef NS_ENUM(NSInteger, BBDActivationState)
  * interfaces of BlackBerry Dynamics can be used by the application code. This
  * includes access to the secure store and secure communication, for example.
  *
- * @see \reflink GDiOS\endlink for more details on authorization processing and
+ * @see \reflink GDiOS \endlink for more details on authorization processing and
  * states.
  */
 @property (nonatomic, readonly) BOOL isAuthorized;

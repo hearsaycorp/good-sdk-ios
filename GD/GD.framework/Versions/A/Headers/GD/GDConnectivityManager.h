@@ -12,7 +12,7 @@
  * Use this class to control the connection from the application to the
  * BlackBerry Dynamics infrastructure.
  *
- * @see \reflink GDReachability GDReachability\endlink class reference.
+ * @see \reflink GDReachability GDReachability \endlink class reference.
  */
 @interface GDConnectivityManager : NSObject
 

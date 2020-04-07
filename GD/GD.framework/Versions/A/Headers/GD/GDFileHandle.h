@@ -19,14 +19,13 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * The secure file system is part of the BlackBerry Dynamics Secure
  * Storage feature.
  *
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
  * For applications, the BlackBerry Dynamics secure file system behaves like the
  * default file system, with the following differences.
  * - All data within the secure file system is stored on the device
  *   in an encrypted form.
  * - Directory and file names are also encrypted.
  * - The secure file system cannot be accessed until BlackBerry Dynamics
- *   authorization processing is complete, see under  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+ *   authorization processing is complete, see under \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
  * .
  *
  * Every operating system has a maximum supported length for the names of files
@@ -58,10 +57,9 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * The encryption method used by the BlackBerry Dynamics runtime generally
  * requires that the user has entered a security password, from which an
  * encryption key is derived.
- *  \htmlonly </div> \endhtmlonly
  *
  *
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
+ * \htmlonly<div class="bulletlists">\endhtmlonly
  * <h2>Usage</h2>
  * This class is a subclass of the native <tt>NSFileHandle</tt> class. It should
  * be easy to replace references to <tt>NSFileHandle</tt> with references to
@@ -93,7 +91,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * class. The documentation of this class lists the elements of the programming
  * interface but doesn't describe them. See the documentation of the base class,
  * <tt>NSFileHandle</tt>, for descriptions.
- *  \htmlonly </div> \endhtmlonly
+ * \htmlonly</div>\endhtmlonly
  *
  * @see <a
  *          HREF="https://developer.apple.com/reference/foundation/nsfilehandle"
@@ -105,12 +103,12 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *          target="_blank"
  *      >Error Handling Programming Guide</A> on the apple.com developer
  *      website.
- * @see  \reflink sqlite Secure SQL Database API\endlink
+ * @see \reflink  sqlite Secure SQL Database API \endlink
  * @see \ref GDPersistentStoreCoordinator
  * @see \ref GDFileManager
  * @see \ref capilist
   * 
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * In each snippet, a function that uses native file handles is converted to use
  * secure file handles instead. The conversion is simple.
  *

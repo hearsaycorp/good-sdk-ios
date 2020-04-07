@@ -105,7 +105,7 @@ GD_C_API void GD_nslookup(const char* host, GD_nslookup_type type, nslookupCompl
  * 
  * Call this function to execute a BlackBerry Dynamics name service lookup and
  * supply extended data to the results callback. This function does the same
- * lookup as the \ref GD_nslookup() function, see above.
+ * lookup as the GD_nslookup() function, see above.
  *
  * The completion callback will receive extended data, which is passed as a
  * parameter to this function.
@@ -117,7 +117,7 @@ GD_C_API void GD_nslookup(const char* host, GD_nslookup_type type, nslookupCompl
  *
  * @param callback function to execute when the lookup completes. The function
  *                 receives a response parameter, as described above under
- *                 \ref GD_nslookup(), and extended data, as passed in the
+ *                 GD_nslookup(), and extended data, as passed in the
  *                 <tt>data</tt> parameter, below.
  *
  * @param data <tt>void*</tt> pointer to the extended data for the callback.

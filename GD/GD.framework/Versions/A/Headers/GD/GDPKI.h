@@ -82,7 +82,7 @@ extern NSString* const GDPKINotificationCertificateRemoved;
         > on the apple.com developer website.
  * @see \ref clientcertificateimport documentation for a related interface.
  * 
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Certificate Notification Observer</h3>
  * \code
  * - (void)addCertificateObservers {
@@ -115,7 +115,7 @@ extern NSString* const GDPKINotificationCertificateRemoved;
  *           gdPKICertificate.serialNumber );
  * }
  * \endcode
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
+ * \htmlonly<div class="bulletlists">\endhtmlonly
  * The above snippet shows:
  * - Registration for notification of certificate addition and removal. The
  *   observer code is specified by selector.
@@ -128,7 +128,7 @@ extern NSString* const GDPKINotificationCertificateRemoved;
  * - Dummy implementation of the certificate removed listener that logs one
  *   X.509 field.
  * .
- *  \htmlonly </div> \endhtmlonly
+ * \htmlonly</div>\endhtmlonly
  * @see <a
  *          href="https://developer.apple.com/documentation/security/certificate_key_and_trust_services/certificates?language=objc"
  *          target="_blank"

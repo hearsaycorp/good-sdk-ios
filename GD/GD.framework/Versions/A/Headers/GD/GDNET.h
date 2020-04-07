@@ -104,7 +104,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * <dt>URL Loading System</dt><dd>
  * Stores credentials for all authentication methods.\n
  * Stores tickets for Kerberos authentication.</dd>
- * <dt>GD<tt></tt>HttpRequest (deprecated)</dt>
+ * <dt>G<tt></tt>DHttpRequest (deprecated)</dt>
  * <dd>Stores tickets for Kerberos authentication.</dd>
  * </dl>
  *

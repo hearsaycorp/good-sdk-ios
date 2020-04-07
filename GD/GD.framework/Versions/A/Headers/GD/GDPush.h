@@ -10,10 +10,13 @@
 #import "GDPortability.h"
 
 // See: http://clang.llvm.org/docs/LanguageExtensions.html
+/* \cond DOXYGEN_IGNORE */
 #ifndef __has_extension
 #define __has_extension(x) 0  // Compatibility with non-clang compilers.
 #endif
+/* \endcond */
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_PUSH_CONNECT_DISCONNECT __attribute__((deprecated("No longer required")))
 #   define DEPRECATE_GDPUSHCONNECTION __attribute__((deprecated("GDPushConnection interface has been deprecated")))
@@ -23,6 +26,7 @@
 #   define DEPRECATE_GDPUSHCONNECTION __attribute__((deprecated))
 #   define DEPRECATE_GDPUSHCHANNELDELEGATE __attribute__((deprecated))
 #endif
+/* \endcond */
 
 GD_NS_ASSUME_NONNULL_BEGIN
 
@@ -35,7 +39,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
 /** Push Channel state.
  * 
  * Use these enumerated constants to check the state of a Push Channel. The
- * \reflink GDPushChannel::state state\endlink property always takes one of these values.
+ * \reflink GDPushChannel::state state \endlink property always takes one of these values.
  */
 typedef NS_ENUM(NSInteger, GDPushChannelState)
 {
@@ -58,9 +62,9 @@ typedef NS_ENUM(NSInteger, GDPushChannelState)
 
 /** Push Channel opened notification name.
  *
- * After a call to \reflink GDPushChannel::connect connect\endlink by the application,
+ * After a call to \reflink GDPushChannel::connect connect \endlink by the application,
  * an <tt>NSNotification</tt> with this name is posted when the Push Channel
- * opens. The notification object will be the corresponding \reflink GDPushChannel GDPushChannel\endlink
+ * opens. The notification object will be the corresponding \reflink GDPushChannel GDPushChannel \endlink
  * instance. The notification will have a user information dictionary that
  * contains the Push Channel token. Use \ref GDPushChannelTokenKey as the key to
  * access the token value.
@@ -73,10 +77,10 @@ typedef NS_ENUM(NSInteger, GDPushChannelState)
  *
  * After receiving this notification, the application
  * could receive any of the following for the same channel.
- * - \reflink GDPushChannel::GDPushChannelMessageNotification GDPushChannelMessageNotification\endlink.
- * - \reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification\endlink.
- * - \reflink GDPushChannel::GDPushChannelErrorNotification GDPushChannelErrorNotification\endlink.
- * - \reflink GDPushChannel::GDPushChannelPingFailedNotification GDPushChannelPingFailedNotification\endlink.
+ * - \reflink GDPushChannel::GDPushChannelMessageNotification GDPushChannelMessageNotification \endlink.
+ * - \reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification \endlink.
+ * - \reflink GDPushChannel::GDPushChannelErrorNotification GDPushChannelErrorNotification \endlink.
+ * - \reflink GDPushChannel::GDPushChannelPingFailedNotification GDPushChannelPingFailedNotification \endlink.
  * .
  *
  * The value of this constant is suitable to use as the name parameter to an
@@ -89,12 +93,12 @@ extern NSString* const GDPushChannelOpenedNotification;
  * 
  * An <tt>NSNotification</tt> with this name is posted when a Push Channel
  * closes. The notification object will be the corresponding
- * \reflink GDPushChannel GDPushChannel\endlink instance. The notification will have a user information
+ * \reflink GDPushChannel GDPushChannel \endlink instance. The notification will have a user information
  * dictionary that contains the Push Channel token. Use \ref
  * GDPushChannelTokenKey as the key to access the token value.
  *
  * The Push Channel could have been closed by the remote end, or the application
- * could have called \reflink GDPushChannel::disconnect disconnect\endlink.
+ * could have called \reflink GDPushChannel::disconnect disconnect \endlink.
  * 
  * After receiving this notification:
  * - The associated Push Channel token cannot be used any more.
@@ -106,7 +110,7 @@ extern NSString* const GDPushChannelOpenedNotification;
  * notifications will not be received, or cause this to be displayed as an 
  * ongoing state. The code could also initiate release of the Push Channel
  * object. Alternatively, reconnection could be initiated, see
- * \reflink GDPushChannel::connect connect\endlink.
+ * \reflink GDPushChannel::connect connect \endlink.
  *
  * Note that this notification is only sent for
  * permanent Push Channel closure; not for transient losses of channel
@@ -115,7 +119,7 @@ extern NSString* const GDPushChannelOpenedNotification;
  * packet data coverage or otherwise cannot connect to the BlackBerry Dynamics
  * proxy infrastructure. The status of the connection to the infrastructure can
  * be monitored by using the
- * \link GDReachability\endlink
+ * \link GDReachability \endlink
  * programming interface.
  * 
  * The value of this constant is suitable to use as the name parameter to an
@@ -128,7 +132,7 @@ extern NSString* const GDPushChannelClosedNotification;
  * 
  * An <tt>NSNotification</tt> with this name is posted when a permanent error
  * occurs on a Push Channel. The notification object will be the
- * \reflink GDPushChannel GDPushChannel\endlink instance corresponding to the channel on which the error
+ * \reflink GDPushChannel GDPushChannel \endlink instance corresponding to the channel on which the error
  * occurred. The notification will have a user information dictionary that
  * contains an error code. Use \ref GDPushChannelErrorKey as the key to access
  * the error.
@@ -161,10 +165,10 @@ extern NSString* const GDPushChannelClosedNotification;
  * The application code that handles the notification
  * could alert the user that Push Channel messages will not be received, or
  * cause this to be displayed as an ongoing state. The code should also initiate
- * reconnection, see \reflink GDPushChannel::connect connect\endlink, after checking that the Push
+ * reconnection, see \reflink GDPushChannel::connect connect \endlink, after checking that the Push
  * Channel service is available. Service availability can be checked by using
  * the
- * \link GDReachability\endlink
+ * \link GDReachability \endlink
  * programming interface.
  *
  * The value of this constant is suitable to use as the name parameter to an
@@ -177,7 +181,7 @@ extern NSString* const GDPushChannelErrorNotification;
  * 
  * An <tt>NSNotification</tt> with this name is posted when a Push Channel
  * receives a message. The notification object will be the corresponding
- * \reflink GDPushChannel GDPushChannel\endlink instance. The notification will have a user information
+ * \reflink GDPushChannel GDPushChannel \endlink instance. The notification will have a user information
  * dictionary that contains the message "payload". Use
  * \ref GDPushChannelMessageKey as the key to access the message.
  * 
@@ -190,9 +194,9 @@ extern NSString* const GDPushChannelErrorNotification;
  *
  * Note that a Push Channel message can be received at any time when the channel
  * is open. This includes the interval between the request for disconnection
- * (\reflink GDPushChannel::disconnect disconnect\endlink called) and channel disconnection being
+ * (\reflink GDPushChannel::disconnect disconnect \endlink called) and channel disconnection being
  * finalized
- * (\reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification\endlink received).
+ * (\reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification \endlink received).
  *
  * The application code that handles the notification
  * could initiate the following actions, for example.
@@ -214,7 +218,7 @@ extern NSString* const GDPushChannelMessageNotification;
  *
  * 
  * An <tt>NSNotification</tt> with this name is posted when a Push Channel Ping
- * Failure occurs. The notification object will be the \reflink GDPushChannel GDPushChannel\endlink
+ * Failure occurs. The notification object will be the \reflink GDPushChannel GDPushChannel \endlink
  * instance corresponding to the channel on which the ping failure occurred. The
  * notification will have a user information dictionary that contains a ping
  * failure reason code. Use \ref GDPushChannelErrorKey as the key to access the
@@ -261,15 +265,15 @@ extern NSString* const GDPushChannelMessageNotification;
  * server, if the token has been lost. Loss of token is indicated by reason code
  * 605, see above. This is similar to the processing when the channel is
  * initially opened, see
- * \reflink GDPushChannel::GDPushChannelOpenedNotification GDPushChannelOpenedNotification\endlink.
+ * \reflink GDPushChannel::GDPushChannelOpenedNotification GDPushChannelOpenedNotification \endlink.
  * If the application server is able to accept the token, then Push Channel
  * notification can resume.
  *
  * Note that ping failure can occur at any time when the channel is open. This
  * includes the interval between the request for disconnection
- * (\reflink GDPushChannel::disconnect disconnect\endlink called) and channel disconnection being
+ * (\reflink GDPushChannel::disconnect disconnect \endlink called) and channel disconnection being
  * finalized
- * (\reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification\endlink received).
+ * (\reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification \endlink received).
  *
  * <h2>Ping Failure</h2>
  * Ping Failure is an optional feature of the Push Channel framework. The
@@ -303,8 +307,8 @@ extern NSString* const GDPushChannelPingFailedNotification;
  *
  * The key will be present if the <tt>NSNotification</tt> has one of the
  * following values as its <tt>name</tt>.
- * - \reflink GDPushChannel::GDPushChannelOpenedNotification GDPushChannelOpenedNotification\endlink.
- * - \reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification\endlink.
+ * - \reflink GDPushChannel::GDPushChannelOpenedNotification GDPushChannelOpenedNotification \endlink.
+ * - \reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification \endlink.
  * .
  */
 extern NSString* const GDPushChannelTokenKey;
@@ -323,7 +327,7 @@ extern NSString* const GDPushChannelTokenKey;
  * \endcode
  * 
  * The key will be present if the <tt>NSNotification</tt> has the <tt>name</tt>:
- * \reflink GDPushChannel::GDPushChannelMessageNotification GDPushChannelMessageNotification\endlink.
+ * \reflink GDPushChannel::GDPushChannelMessageNotification GDPushChannelMessageNotification \endlink.
  */
 extern NSString* const GDPushChannelMessageKey;
 
@@ -342,8 +346,8 @@ extern NSString* const GDPushChannelMessageKey;
  *
  * The key will be present if the <tt>NSNotification</tt> has one of the
  * following values as its <tt>name</tt>.
- * - \reflink GDPushChannel::GDPushChannelErrorNotification GDPushChannelErrorNotification\endlink.
- * - \reflink GDPushChannel::GDPushChannelPingFailedNotification GDPushChannelPingFailedNotification\endlink.
+ * - \reflink GDPushChannel::GDPushChannelErrorNotification GDPushChannelErrorNotification \endlink.
+ * - \reflink GDPushChannel::GDPushChannelPingFailedNotification GDPushChannelPingFailedNotification \endlink.
  * .
  */
 extern NSString* const GDPushChannelErrorKey;
@@ -357,13 +361,13 @@ extern NSString* const GDPushChannelErrorKey;
  * \deprecated This class is deprecated and will be removed in a future
  * release.
  * Instead of setting a PushConnection delegate, register for notifications as
- * described in the \link GDReachability\endlink class reference.
+ * described in the \link GDReachability \endlink class reference.
  * 
  *
- * Errors and state changes that occur when using \reflink GDPushConnection GDPushConnection\endlink are
+ * Errors and state changes that occur when using \reflink GDPushConnection GDPushConnection \endlink are
  * handled by creating a class that implements this protocol.
  *
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Print State-Change</h3>
  * \code
  * @interface BasicHandler : NSObject <GDPushConnectionDelegate> {}
@@ -381,7 +385,7 @@ extern NSString* const GDPushChannelErrorKey;
  * }
  * @end
  * \endcode
- * The above snippet shows a very simple handler for \reflink GDPushConnection GDPushConnection\endlink
+ * The above snippet shows a very simple handler for \reflink GDPushConnection GDPushConnection \endlink
  * state-change. The availability of the Push Channel service is written to the
  * system log.
  *
@@ -402,14 +406,14 @@ DEPRECATE_GDPUSHCONNECTION
  * when an error occurs.
  *
  * The function that is invoked could call
- *  \reflink GDPushConnection::isConnected isConnected\endlink to determine the availability of the
+ * \reflink GDPushConnection::isConnected isConnected \endlink to determine the availability of the
  * following features:
  * - Push Channel service
  * - Communication through the BlackBerry Dynamics proxy infrastructure
  * .
  * If the features are available (i.e. <tt>isConnected</tt> returns <tt>YES</tt>),
  * then any of the following actions that were waiting could now proceed:
- * - Establishing a Push Channel, see \reflink GDPushChannel::connect connect\endlink
+ * - Establishing a Push Channel, see \reflink GDPushChannel::connect connect \endlink
  * - Opening a socket connection to an enterprise server, see
  * \ref GDSocket::connect
  * - Sending an HTTP request to an enterprise server, see
@@ -425,7 +429,7 @@ DEPRECATE_GDPUSHCONNECTION
  *
  * During establishment or termination of the Push Connection with the BlackBerry
  * Dynamics proxy infrastructure, see <tt>GDPush</tt><tt>Connection</tt>
- *  \reflink GDPushConnection::connect connect\endlink and  \reflink GDPushConnection::disconnect disconnect\endlink,
+ * \reflink GDPushConnection::connect connect \endlink and \reflink GDPushConnection::disconnect disconnect \endlink,
  * the callback will be invoked a number of times, as the action progresses.
  *
  * Events that have an impact on the state of the Push Connection also
@@ -442,9 +446,9 @@ DEPRECATE_GDPUSHCONNECTION
  * \deprecated This class is deprecated and will be removed in a future
  * release.
  * - Instead of <tt>isConnected</tt>, use \link
- *   GDReachability.isPushChannelAvailable\endlink.
+ *   GDReachability.isPushChannelAvailable \endlink.
  * - Instead of setting a PushConnection delegate, register for notifications as
- *   described in the \link GDReachability\endlink class reference.
+ *   described in the \link GDReachability \endlink class reference.
  * - The <tt>connect</tt> and <tt>disconnect</tt> functions are no longer
  *   required. They were added to enable management of power consumption by the
  *   application code. This is no longer required because of advances in the
@@ -454,7 +458,7 @@ DEPRECATE_GDPUSHCONNECTION
  *
  * This API is part of the BlackBerry Dynamics Push Channel feature.
  * For an overall description of how to use the feature, see under
- * \reflink GDPushChannel GDPushChannel\endlink.
+ * \reflink GDPushChannel GDPushChannel \endlink.
  *
  * The Push Connection is the container and conduit for the device's Push
  * Channels. An application may open multiple Push Channels; all will be
@@ -477,8 +481,8 @@ DEPRECATE_GDPUSHCONNECTION
  *
  * Push Connection functions cannot be called until BlackBerry Dynamics
  * authorization processing is complete.
- * @see \reflink GDPushChannel GDPushChannel\endlink
- * @see \reflink GDiOS\endlink, for BlackBerry Dynamics authorization
+ * @see \reflink GDPushChannel GDPushChannel \endlink
+ * @see \reflink GDiOS \endlink, for BlackBerry Dynamics authorization
  * @see \ref threads
  * @see \ref background_execution
  *
@@ -492,9 +496,7 @@ DEPRECATE_GDPUSHCONNECTION
  * infrastructure elements.
  *
  * This is shown in the following diagram.
- *  \image html "Push Channel network.png"
- \image rtf "Push Channel network.png"
-
+ * \image html "Push Channel network.png"
  *
  * <h3>API Overview</h3>
  * The BlackBerry Dynamics Push Connection API consists of a small number of functions that must
@@ -504,23 +506,23 @@ DEPRECATE_GDPUSHCONNECTION
  *
  * The normal sequence of operations is as follows.
  * -# Application started.
- * -# BlackBerry Dynamics initialization and authorization, see under \reflink GDiOS\endlink.
+ * -# BlackBerry Dynamics initialization and authorization, see under \reflink GDiOS \endlink.
  * -# When the application needs a Push Channel...
  * -# Call
- *  \reflink GDPushConnection::sharedConnection sharedConnection\endlink 
+ * \reflink GDPushConnection::sharedConnection sharedConnection \endlink 
  * to access the Push Connection object,
- * -# Call  \reflink GDPushConnection::isConnected isConnected\endlink to check the connection state,
+ * -# Call \reflink GDPushConnection::isConnected isConnected \endlink to check the connection state,
  * -# If the state is not connected:
- *   -# Set a  \reflink GDPushConnectionDelegate GDPushConnectionDelegate\endlink to handle connection state changes
- *   -# Call  \reflink GDPushConnection::connect connect\endlink to ensure that connection is
+ *   -# Set a \reflink GDPushConnectionDelegate GDPushConnectionDelegate \endlink to handle connection state changes
+ *   -# Call \reflink GDPushConnection::connect connect \endlink to ensure that connection is
  *      being attempted,
- *   -# When the  \reflink GDPushConnectionDelegate::onStatus: onStatus\endlink callback in the
+ *   -# When the \reflink GDPushConnectionDelegate::onStatus: onStatus \endlink callback in the
  *      handler is invoked, go back and check the connection state again.
  * -# If the state is connected, proceed to setting up a Push Channel.
  * .
- * For details of Push Channel set-up, see under \reflink GDPushChannel GDPushChannel\endlink.
+ * For details of Push Channel set-up, see under \reflink GDPushChannel GDPushChannel \endlink.
  *
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Terminate Push Connection</h3>
  * \code
  * [[GDPushConnection sharedConnection] disconnect];
@@ -539,7 +541,7 @@ DEPRECATE_GDPUSHCONNECTION
  * already available. If it is not, then a connection is initiated.
  * The connection attempt is asynchronous. The <tt>onStatus</tt>
  * callback would be invoked, with <tt>isConnected</tt> returning <tt>YES</tt>,
- * when the attempt succeeds (not shown). See  \reflink GDPushConnectionDelegate GDPushConnectionDelegate\endlink.
+ * when the attempt succeeds (not shown). See \reflink GDPushConnectionDelegate GDPushConnectionDelegate \endlink.
  */
 DEPRECATE_GDPUSHCONNECTION
 @interface GDPushConnection : NSObject {
@@ -630,7 +632,7 @@ DEPRECATE_GDPUSHCONNECTION
  *
  * Set this property to an instance of a class that contains the code for the
  * required callback function, i.e. a class that implements the
- *  \reflink GDPushConnectionDelegate GDPushConnectionDelegate\endlink protocol.
+ * \reflink GDPushConnectionDelegate GDPushConnectionDelegate \endlink protocol.
  */
 @property (GD_NSNULLABLE_PROP nonatomic, weak) id<GDPushConnectionDelegate> delegate;
 
@@ -644,15 +646,14 @@ DEPRECATE_GDPUSHCONNECTION
  * \deprecated This class is deprecated and will be removed in a future
  * release. Instead of setting a PushChannel
  * delegate, register for notifications as
- * described in the \reflink GDPushChannel GDPushChannel\endlink class reference.
+ * described in the \reflink GDPushChannel GDPushChannel \endlink class reference.
  *
- * State changes that occur when using \reflink GDPushChannel GDPushChannel\endlink
+ * State changes that occur when using \reflink GDPushChannel GDPushChannel \endlink
  * are handled by creating a class that implements this protocol.
  * The callback for handling received Push Channel notifications is also part
  * of this protocol.
- * @see \ref st01pushchannel
  *
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Receive Push Channel Token</h3>
  * \code
  * -(void)onChannelOpen:(NSString*)token
@@ -722,7 +723,7 @@ DEPRECATE_GDPUSHCONNECTION
  * copy of the token, possibly after checking that it matches the
  * <tt>whichWas</tt> parameter.
  * The function could also initiate connection of a new Push Channel, which
- * would have a new token. See \reflink GDPushChannel::connect connect\endlink.
+ * would have a new token. See \reflink GDPushChannel::connect connect \endlink.
  *
  * <h3>Handle Channel Error</h3>
  * \code
@@ -745,10 +746,10 @@ DEPRECATE_GDPUSHCONNECTION
  * - Delete the application's copy of the token.
  * - Set the error state in an ongoing status display.
  * - Depending on the error code, initiate connection of a new
- * Push Channel, which would have a new token. See \reflink GDPushChannel::connect connect\endlink.
+ * Push Channel, which would have a new token. See \reflink GDPushChannel::connect connect \endlink.
  *
  * <h3>Handle Ping Failure</h3>
- * See under  \reflink GDPushChannelDelegate::onChannelPingFail: onChannelPingFail\endlink
+ * See under \reflink GDPushChannelDelegate::onChannelPingFail: onChannelPingFail \endlink
  * for an explanation of the Ping Failure feature.
 
  * \code
@@ -785,7 +786,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  *
  * This callback will be invoked when the associated Push Channel is
  * opened in the BlackBerry Dynamics proxy infrastructure. See 
- * \reflink GDPushChannel::connect connect\endlink. At this point, a Push
+ * \reflink GDPushChannel::connect connect \endlink. At this point, a Push
  * Channel token will have been issued by the BlackBerry Dynamics proxy
  * infrastructure Network Operation Center (NOC).
  *
@@ -850,7 +851,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * This callback will be invoked when the associated Push Channel is
  * closed.
  * This means closed by the remote end, or by the application having
- * called \reflink GDPushChannel::disconnect disconnect\endlink.
+ * called \reflink GDPushChannel::disconnect disconnect \endlink.
  *
  * Invocation of this callback notifies the application on the device
  * that:
@@ -862,7 +863,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * received, or cause this to be displayed as an ongoing state.
  * The function could also initiate release of the Push Channel object.
  * Alternatively, reconnection could be initiated, see
- * \reflink GDPushChannel::connect connect\endlink.
+ * \reflink GDPushChannel::connect connect \endlink.
  *
  * @param data Token for the Push Channel that was
  *                                      closed.
@@ -874,7 +875,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * infrastructure.
  * The status of the connection to the infrastructure can be monitored by using
  * the
- * \link GDReachability\endlink
+ * \link GDReachability \endlink
  * programming interface.
  */
 - (void)onChannelClose:(NSString*)data;
@@ -896,9 +897,9 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * notifications will not be received, or cause this to be displayed as an
  * ongoing state.
  * The function that is invoked should initiate reconnection, see
- * \reflink GDPushChannel::connect connect\endlink, after checking that the Push Channel service
+ * \reflink GDPushChannel::connect connect \endlink, after checking that the Push Channel service
  * is available,
- * see \link GDReachability.isPushChannelAvailable\endlink.
+ * see \link GDReachability.isPushChannelAvailable \endlink.
  *
  * @param error Reason code for the condition encountered,
  * as follows.
@@ -937,7 +938,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * The function that is invoked should initiate resending of the Push
  * Channel token to the application server, if the token has been lost. This is
  * similar to the processing when the channel is initially opened, see
- *  \reflink GDPushChannelDelegate::onChannelOpen: onChannelOpen\endlink. If the application server is
+ * \reflink GDPushChannelDelegate::onChannelOpen: onChannelOpen \endlink. If the application server is
  * able to accept the token, then Push Channel notification can resume.
  *
  * @see \ref GNP
@@ -1009,7 +1010,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * native settings of the device or computer on which the application is
  * running, if any.
  *
- * @see <a  HREF="http://help.blackberry.com/en/good-control-good-proxy/current/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
+ * @see <a  HREF="https://docs.blackberry.com/en/endpoint-management/blackberry-uem/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
  * @see \ref threads
  * @see \ref background_execution
  * @see <a
@@ -1042,7 +1043,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * -# The message is sent on, and the waiting application's event handler is
  *    invoked again.
  * .
- * (The above is also shown in the \ref sq01pushchannel.)
+ * \image html "sq01 Push Channel.png" "Push Channel sequence diagram"\image rtf "sq01 Push Channel.png" "Push Channel sequence diagram"
  *
  * The BlackBerry Dynamics platform keeps data communications between the
  * application and server alive while the application is waiting for a Push
@@ -1080,32 +1081,32 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  *   notification relates.
  * - The name depends on the type of event or change that has occurred. It will
  *   be one of the following values.
- *   - \reflink GDPushChannel::GDPushChannelOpenedNotification GDPushChannelOpenedNotification\endlink.
- *   - \reflink GDPushChannel::GDPushChannelMessageNotification GDPushChannelMessageNotification\endlink.
- *   - \reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification\endlink.
- *   - \reflink GDPushChannel::GDPushChannelErrorNotification GDPushChannelErrorNotification\endlink.
- *   - \reflink GDPushChannel::GDPushChannelPingFailedNotification GDPushChannelPingFailedNotification\endlink.
+ *   - \reflink GDPushChannel::GDPushChannelOpenedNotification GDPushChannelOpenedNotification \endlink.
+ *   - \reflink GDPushChannel::GDPushChannelMessageNotification GDPushChannelMessageNotification \endlink.
+ *   - \reflink GDPushChannel::GDPushChannelClosedNotification GDPushChannelClosedNotification \endlink.
+ *   - \reflink GDPushChannel::GDPushChannelErrorNotification GDPushChannelErrorNotification \endlink.
+ *   - \reflink GDPushChannel::GDPushChannelPingFailedNotification GDPushChannelPingFailedNotification \endlink.
  *   .
  * - The contents of the user information dictionary, <tt>userInfo</tt>, depends
  *   on the event type. The following values are used as keys.
- *   - \reflink GDPushChannel::GDPushChannelTokenKey GDPushChannelTokenKey\endlink.
- *   - \reflink GDPushChannel::GDPushChannelMessageKey GDPushChannelMessageKey\endlink.
- *   - \reflink GDPushChannel::GDPushChannelErrorKey GDPushChannelErrorKey\endlink.
+ *   - \reflink GDPushChannel::GDPushChannelTokenKey GDPushChannelTokenKey \endlink.
+ *   - \reflink GDPushChannel::GDPushChannelMessageKey GDPushChannelMessageKey \endlink.
+ *   - \reflink GDPushChannel::GDPushChannelErrorKey GDPushChannelErrorKey \endlink.
  *   .
  * .
  * Push Channel state changes can also be detected by key-value observing (KVO)
- * of the \reflink GDPushChannel::state state\endlink property.
+ * of the \reflink GDPushChannel::state state \endlink property.
  * 
  * @see <a
       href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html"
       target="_blank"
- * >Key-Value Observing Programming Guide</a
- * > on the apple.com developer website.
+ * >Key-Value Observing Programming Guide</a>
+ *  on the apple.com developer website.
  * @see <a
       href="https://developer.apple.com/reference/foundation/nsnotificationcenter"
       target="_blank"
- * >NSNotificationCenter class reference</a
- * > on the apple.com developer website.
+ * >NSNotificationCenter class reference</a>
+ *  on the apple.com developer website.
  *
  * <h3>State cycle</h3>
  * The availability of functions in the Push Channel programming interface,
@@ -1113,73 +1114,58 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * following table. The table also summarizes which notifications are expected
  * in each state.
  * <table>
- *     <tr><th>
- *          State</th>
- *     <th>
- *          Functions and actions</th>
- *     <th>
- *          Expected notifications\n See \ref pushchannelconstants</th>
- *
- *  </tr><tr><td>
- *         Prepared</td>
- *     <td>
- *         Application can call <tt>connect</tt>: state becomes Connecting</td>
- *     <td>
- *         None</td>
- *
- *     </tr><tr><td>
- *         Connecting</td>
- *     <td>
- *         BlackBerry Dynamics runtime requests a new channel from the proxy
- *         infrastructure</td>
- *     <td>
- *         <tt>GDPushChannelErrorNotification</tt>: new
- *         state is Failed\n
- *         <tt>GDPushChannelOpenedNotification</tt>: new
- *         state is Open</td>
- *
- *     </tr><tr><td>
- *         Open</td>
- *     <td>
- *         Application can call <tt>disconnect</tt>: state becomes
- *         Disconnecting</td>
- *     <td>
- *         <tt>GDPushChannelMessageNotification</tt>:
- *         no state change\n
- *     <tt>GDPushChannelPingFailedNotification</tt>:
- *         no state change\n
- *         <tt>GDPushChannelClosedNotification</tt>:
- *         new state is Disconnected</td>
- *
- *     </tr><tr><td>
- *         Disconnecting</td>
- *     <td>
- *         BlackBerry Dynamics Runtime requests the proxy infrastructure to
- *         close the channel</td>
- *     <td>
- *         <tt>GDPushChannelMessageNotification</tt>:
- *         no state change\n
- *      <tt>GDPushChannelPingFailedNotification</tt>:
- *         no state change\n
- * <tt>GDPushChannelClosedNotification</tt>:&nbsp;new&nbsp;state&nbsp;is&nbsp;Disconnected</td>
- *
- *     </tr><tr><td>
- *         Disconnected</td>
- *     <td>
- *         Application can call <tt>connect</tt>: state becomes Connecting</td>
- *     <td>
- *         None</td>
- *
- *     </tr><tr><td>
- *         Failed</td>
- *     <td>
- *         Application can call <tt>connect</tt>: state becomes Connecting</td>
- *     <td>
- *         None</td>
+ *     <tr>
+ *          <th>State</th>
+ *          <th class="th50percent">Functions and actions</th>
+ *          <th class="th35percent">Expected notifications\n See \ref pushchannelconstants</th>
  *     </tr>
- *  </table>
- * The transitions in the above table are also shown in the
- * \ref st01pushchannel. Note that an individual Push Channel might or might not
+ *     <tr>
+ *          <td>Prepared</td>
+ *          <td>Application can call <tt>connect</tt>: state becomes Connecting</td>
+ *          <td>None</td>
+ *     </tr>
+ *     <tr>
+ *          <td>Connecting</td>
+ *          <td>BlackBerry Dynamics runtime requests a new channel from the proxy infrastructure</td>
+ *          <td>
+ *              <tt>GDPushChannelErrorNotification</tt>: new state is Failed\n
+ *              <tt>GDPushChannelOpenedNotification</tt>: new state is Open
+ *          </td>
+ *      </tr>
+ *      <tr>
+ *          <td>Open</td>
+ *          <td> Application can call <tt>disconnect</tt>: state becomes Disconnecting</td>
+ *          <td>
+ *              <tt>GDPushChannelMessageNotification</tt>: no state change\n
+ *              <tt>GDPushChannelPingFailedNotification</tt>: no state change\n
+ *              <tt>GDPushChannelClosedNotification</tt>: new state is Disconnected</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Disconnecting</td>
+ *          <td>BlackBerry Dynamics Runtime requests the proxy infrastructure to close the channel</td>
+ *          <td>
+ *              <tt>GDPushChannelMessageNotification</tt>: no state change\n
+ *              <tt>GDPushChannelPingFailedNotification</tt>: no state change\n
+ *              <tt>GDPushChannelClosedNotification</tt>: new state is Disconnected
+ *          </td>
+ *      </tr>
+ *      <tr>
+ *          <td>Disconnected</td>
+ *          <td>Application can call <tt>connect</tt>: state becomes Connecting</td>
+ *          <td>None</td>
+ *      </tr>
+ *      <tr>
+ *          <td>Failed</td>
+ *          <td>Application can call <tt>connect</tt>: state becomes Connecting</td>
+ *          <td>None</td>
+ *     </tr>
+ * </table>
+
+
+ * The transitions in the above table are also shown in this diagram.
+ * \image html "st01 Push Channel.png" "Push Channel state transition diagram"\image rtf "st01 Push Channel.png" "Push Channel state transition diagram"
+ * 
+ * Note that an individual Push Channel might or might not
  * be closed when the overall Push Channel service becomes unavailable.
  *
  * @see \ref GNP
@@ -1215,7 +1201,6 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * The following convention represents best practice for Push Channel
  * identifiers.
  *
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
  * A Push Channel identifier should be composed of a <em>domain</em> followed by
  * a module <em>name</em> and an optional <em>purpose</em>. The parts are
  * separated by full stops (periods). The following examples illustrate the
@@ -1244,9 +1229,8 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  *   or other code module uses more than one Push Channel. Ensuring uniqueness
  *   of purpose values is the responsibility of the code module's developer.
  * .
- *  \htmlonly </div> \endhtmlonly
  *
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Open Push Channel</h3>
  * The following snippet shows a Push Channel being created and opened after
  * checking that the service is available.
@@ -1308,7 +1292,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * <tt>GDPushChannelClosedNotification</tt>
  * notification would be received when the closure is finalized (not shown).
  *
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Handle Push Channel Opening</h3>
  * The following snippet shows a simple handler for when a Push Channel opens.
  * \code
@@ -1387,7 +1371,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * stored token.
  * 
  * The function could also initiate connection of a new Push Channel, which
- * would have a new token. See \reflink GDPushChannel::connect connect\endlink.
+ * would have a new token. See \reflink GDPushChannel::connect connect \endlink.
  *
  * <h3>Handle Channel Error</h3>
  * \code
@@ -1411,11 +1395,11 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * - Delete the application's copy of the token.
  * - Set the error state in an ongoing status display.
  * - Depending on the error code, initiate connection of a new Push Channel,
- *   which would have a new token. See \reflink GDPushChannel::connect connect\endlink.
+ *   which would have a new token. See \reflink GDPushChannel::connect connect \endlink.
+ *
+ * See under Ping Failure in the \ref GNP for an explanation of the Ping Failure feature.
  *
  * <h3>Handle Ping Failure</h3>
- * See under Ping Failure in the \reflink GDPushChannel GDPushChannel\endlink class reference for an
- * explanation of the Ping Failure feature.
  * \code
  * - (void)channelErrorNotification:(NSNotification *)notification
  * {
@@ -1459,7 +1443,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  *
  * Set this property to an instance of a class that contains the code for the
  * required callback functions, i.e. a class that implements
- * the  \reflink GDPushChannelDelegate GDPushChannelDelegate\endlink protocol.
+ * the \reflink GDPushChannelDelegate GDPushChannelDelegate \endlink protocol.
  */
 @property (GD_NSNULLABLE_PROP nonatomic, weak) id<GDPushChannelDelegate> delegate DEPRECATE_GDPUSHCHANNELDELEGATE;
 
@@ -1477,7 +1461,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  *
  * Call this function to construct a new Push Channel object. This
  * function does not initiate data communication.
- * See \reflink GDPushChannel::connect connect\endlink.
+ * See \reflink GDPushChannel::connect connect \endlink.
  *
  * @param pushChannelIdentifier <tt>NSString</tt> containing the identifier for this
  *                              Push Channel, see under Push Channel
@@ -1486,23 +1470,25 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  */
 - (instancetype)initWithIdentifier:(NSString*)pushChannelIdentifier;
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_PUSH_CHANNEL_INIT __attribute((deprecated("Use initWithIdentifier instead")))
 #else
 #   define DEPRECATE_PUSH_CHANNEL_INIT __attribute((deprecated))
 #endif
+/* \endcond */
 
 /** Constructor that prepares a new Push Channel without an identifier
  *  (deprecated).
  *
  * \deprecated This function is deprecated and will be removed in a future
  * release. Use
- * \link GDPushChannel::initWithIdentifier:\endlink
+ * \link GDPushChannel::initWithIdentifier: \endlink
  * instead.
  *
  * Call this function to construct a new Push Channel object. This
  * function doesn't initiate data communication.
- * See \reflink GDPushChannel::connect connect\endlink.
+ * See \reflink GDPushChannel::connect connect \endlink.
  */
 - (instancetype)init DEPRECATE_PUSH_CHANNEL_INIT;
 
@@ -1540,7 +1526,7 @@ DEPRECATE_GDPUSHCHANNELDELEGATE
  * This function causes a request for Push Channel termination to be sent to
  * the BlackBerry Dynamics Network Operation Center (NOC). The NOC will delete
  * the channel, and invalidate the Push Channel token that was issued when the
- * channel was initially opened, see \reflink GDPushChannel::connect connect\endlink.
+ * channel was initially opened, see \reflink GDPushChannel::connect connect \endlink.
  *
  * Disconnection is asynchronous. When disconnection is complete,
  * an <tt>NSNotification</tt> is posted to notify the application. The

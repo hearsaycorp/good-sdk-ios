@@ -11,15 +11,19 @@
 #import "GDFileStat.h"
 #import "GDPersistentStoreCoordinator.h"
 
+/* \cond DOXYGEN_IGNORE */
 #ifndef __has_extension
 #define __has_extension(x) 0  // Compatibility with non-clang compilers.
 #endif
+/* \endcond */
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_GDFILESYSTEMERROR __attribute__((deprecated("Use GDFileManagerErrorDomain instead.")))
 #else
 #   define DEPRECATE_GDFILESYSTEMERROR __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** @deprecated
  * \defgroup gdfilesystemerrordomain GDFileSystem Error Domain

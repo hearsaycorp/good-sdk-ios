@@ -24,13 +24,13 @@ GD_NS_ASSUME_NONNULL_BEGIN
 /** Service provider details.
  *
  * This class is used to return information about a service provider. See
- *  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink. An instance of this class either represents a
+ * \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink. An instance of this class either represents a
  * front-end application, running on a mobile device or computer, or a back-end
  * server.
  *
  * The information returned for an application could be used to send a
  * service request to the service provider using AppKinetics. See the
- *   \reflink GDService GDService class reference\endlink for details of the programming interface.
+ * \reflink GDService GDService class reference\endlink for details of the programming interface.
  *
  * The information returned for a server could be used to establish HTTP or TCP
  * socket communications with an instance of the server.
@@ -60,7 +60,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *
  * Native application identifier of the service provider, if it is an
  * application. This is the value that would be passed as the
- * <tt>application</tt> parameter in a call to  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink.
+ * <tt>application</tt> parameter in a call to \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink.
  */
 @property (GD_NSNULLABLE_PROP nonatomic, strong) NSString* address;
 
@@ -83,7 +83,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * Check this property if the <tt>icon</tt> property is <tt>nil</tt>. If this
  * property is <tt>YES</tt> then there is an icon for the service provider that
  * hasn't yet been retrieved by the BlackBerry Dynamics runtime. A
- * \reflink GDAppEvent GDAppEvent\endlink with type <tt>GDAppEventServicesUpdate</tt> will
+ * \reflink GDAppEvent GDAppEvent \endlink with type <tt>GDAppEventServicesUpdate</tt> will
  * be dispatched when the icon has been retrieved.
  *
  * If the <tt>icon</tt> property is <tt>nil</tt>, and this property is <tt>NO</tt>, it
@@ -97,7 +97,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * a server that provides the service. If there is more than one then the
  * application should use a server selection algorithm, such as that outlined
  * under the Application Server Selection heading in the
- * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink documentation.
+ * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink documentation.
  */
 @property (nonatomic, strong) GD_NSArray(GDAppServer *)* serverCluster;
 

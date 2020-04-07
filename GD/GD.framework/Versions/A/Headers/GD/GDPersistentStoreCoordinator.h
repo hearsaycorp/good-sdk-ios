@@ -29,7 +29,7 @@
  *         Use this in place of <tt>NSSQLiteStoreType</tt>.</dd>
  *     </dl>
  *
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
+ * \htmlonly<div class="bulletlists">\endhtmlonly
  * Note the following.
  * - When these store types are in use, the <tt>URL</tt> parameter will be an
  *   absolute path within the BlackBerry Dynamics secure file system.
@@ -52,17 +52,17 @@
  *   sample application supplied with the BlackBerry Dynamics Software
  *   Development Kit for iOS.
  * .
- *  \htmlonly </div> \endhtmlonly
+ * \htmlonly</div>\endhtmlonly
  *
  * @see <a
             href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/"
             target="_blank"
         >Core Data Programming Guide</a> on the apple.com developer website.
- * @see  \reflink GDFileManager\endlink
- * @see  \reflink sqlite Secure SQL Database API\endlink
- * @see \reflink GDiOS\endlink, for BlackBerry Dynamics authorization.
+ * @see \reflink  GDFileManager \endlink
+ * @see \reflink  sqlite Secure SQL Database API \endlink
+ * @see \reflink GDiOS \endlink, for BlackBerry Dynamics authorization.
  *
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Utilize BlackBerry Dynamics Persistent Store Coordinator</h3>
  * \code
  * - (NSPersistentStoreCoordinator *)persistentStoreCoordinator

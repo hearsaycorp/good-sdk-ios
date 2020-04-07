@@ -7,15 +7,19 @@
 #ifndef GDMac_GDFileStat_h
 #define GDMac_GDFileStat_h
 
+/* \cond DOXYGEN_IGNORE */
 #ifndef __has_extension
 #define __has_extension(x) 0  // Compatibility with non-clang compilers.
 #endif
+/* \endcond */
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_GDFILESTAT __attribute__((deprecated("Use NSDictionary collection with NSFileAttributeKey instead.")))
 #else
 #   define DEPRECATE_GDFILESTAT __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** \struct GDFileStat
  *
@@ -23,7 +27,7 @@
  * This structure is deprecated and will be removed in a future release.
  * It is no longer required. Current BlackBerry Dynamics represents information about
  * files and directories in an NSDictionary collection instead of using this structure.
- * See \reflink GDFileManager::attributesOfItemAtPath:error: GDFileManager::attributesOfItemAtPath:error:\endlink for example.
+ * See \reflink GDFileManager::attributesOfItemAtPath:error: GDFileManager::attributesOfItemAtPath:error: \endlink for example.
  *
  * Information about a file or directory in the BlackBerry Dynamics secure
  * store.

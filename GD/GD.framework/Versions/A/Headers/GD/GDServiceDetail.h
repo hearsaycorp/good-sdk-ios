@@ -21,7 +21,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
 /** Details of a provided service.
  * 
  * This class is used to return information about a provided service. The
- * <tt>services</tt> property of a \reflink GDServiceProvider GDServiceProvider\endlink object is a
+ * <tt>services</tt> property of a \reflink GDServiceProvider GDServiceProvider \endlink object is a
  * collection of instances of this class.
  */
 @interface GDServiceDetail : NSObject
@@ -36,17 +36,19 @@ GD_NS_ASSUME_NONNULL_BEGIN
                  andServiceType:(GDServiceType)type;
 
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_SERVICEDETAIL_INITIALIZER __attribute__((deprecated("Use initWithService:andVersion:andServiceType instead.")))
 #else
 #   define DEPRECATE_SERVICEDETAIL_INITIALIZER __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** Initializer (deprecated).
  * 
  * \deprecated This public initializer is deprecated and will be removed in a
  * future release. Use
- * \link GDServiceDetail::initWithService:andVersion:andServiceType:\endlink
+ * \link GDServiceDetail::initWithService:andVersion:andServiceType: \endlink
  * instead.
  */
 - (instancetype)initWithService:(NSString*)identifier andVersion:(NSString*)version andType:(GDServiceProviderType)type DEPRECATE_SERVICEDETAIL_INITIALIZER;
@@ -64,11 +66,13 @@ GD_NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, readonly) GDServiceType serviceType;
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_SERVICEPROVIDERTYPE __attribute__((deprecated("Use GDServiceType instead.")))
 #else
 #   define DEPRECATE_SERVICEPROVIDERTYPE __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** Indicator of the type of the provided service, either application-based or
  *  server-based (deprecated).

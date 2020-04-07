@@ -12,10 +12,12 @@
 #import "GDAppConfig.h"
 #import "GDVersion.h"
 
+/* \cond DOXYGEN_IGNORE */
 // See: http://clang.llvm.org/docs/LanguageExtensions.html
 #ifndef __has_extension
 #define __has_extension(x) 0  // Compatibility with non-clang compilers.
 #endif
+/* \endcond */
 
 @class GDServiceProvider, GDVersion, GDState;
 
@@ -24,7 +26,7 @@
  *
  * This enumeration represents the type of service for which a service discovery
  * query is being issued. The <tt>serviceType</tt> parameter of the
- *  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink function always takes one of these values.
+ * \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink function always takes one of these values.
  */
 typedef NS_ENUM(NSInteger, GDServiceType)
 {
@@ -42,7 +44,7 @@ typedef NS_ENUM(NSInteger, GDServiceType)
  *
  * This enumeration represents the type of service for which a service discovery
  * query is being issued. The <tt>serviceProviderType</tt> parameter of the
- *  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink function always takes one of these values.
+ * \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink function always takes one of these values.
  */
 typedef NS_ENUM(NSInteger, GDServiceProviderType)
 {
@@ -66,7 +68,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
 
 /** Event dispatched from the BlackBerry Dynamics runtime.
  * 
- * This class is used to deliver events to the \reflink GDiOS\endlink event handler
+ * This class is used to deliver events to the \reflink GDiOS \endlink event handler
  * in the application. See \ref GDiOSDelegate.
  */
 @interface GDAppEvent : NSObject
@@ -91,7 +93,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * 
  * This property contains a numeric result code.
  * For success events, the <tt>GDErrorNone</tt> code is used. Other values in
- * the \ref GDAppResultCode enumeration are used for errors.
+ * the \ref GDAppEvent.code enumeration are used for errors.
  */
 @property (nonatomic, assign) GDAppResultCode code;
 /* error code 0, means success */
@@ -100,7 +102,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * 
  * This property contains a numeric type code. To determine the type of event
  * being notified, compare this property's value to the constants in the \ref
- * GDAppEventType enumeration.
+ * GDAppEvent.type enumeration.
  */
 @property (nonatomic, assign) GDAppEventType type;
 
@@ -110,7 +112,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
 /** Handler for events dispatched from the BlackBerry Dynamics Runtime,
  *  including authorization events.
  * 
- * Errors and state changes that occur when using \reflink GDiOS\endlink can be
+ * Errors and state changes that occur when using \reflink GDiOS \endlink can be
  * handled by creating a class that implements this protocol.
  *
  * @see \ref GDState for an alternative interface.
@@ -122,7 +124,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * 
  * The callback is invoked whenever a BlackBerry Dynamics runtime object event
  * occurs. Runtime object events include authorization results, see
- *  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for details.
+ * \reflink GDiOS::authorize: authorize (GDiOS) \endlink for details.
  *
  * @param anEvent GDAppEvent populated with details of the event.
  */
@@ -162,7 +164,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * interface.
  *
  * @see \ref GC
- * @see <a  HREF="http://help.blackberry.com/en/good-control-good-proxy/current/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
+ * @see <a  HREF="https://docs.blackberry.com/en/endpoint-management/blackberry-uem/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
  * @see \ref threads
  * @see \ref background_execution
  * @see \ref GDURLLoadingSystem for proxy infrastructure usage within the URL
@@ -259,11 +261,11 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *   application. The event will have a number of attributes, including a type
  *   value that indicates whether the user is now authorized.
  * - A <tt>GDStateChangeNotification</tt> is posted to any registered
- *   NSNotification observers. See the \link GDState\endlink class reference for
+ *   NSNotification observers. See the \link GDState \endlink class reference for
  *   how to register.
- * - The <tt>isAuthorized</tt> property of the \reflink GDiOS::state state (GDiOS)\endlink object
+ * - The <tt>isAuthorized</tt> property of the \reflink GDiOS::state state (GDiOS) \endlink object
  *   changes value, which can be notified by key-value observing (KVO). See
- *   again the \link GDState\endlink class reference for details.
+ *   again the \link GDState \endlink class reference for details.
  * .
  * 
  * The authorization states and their corresponding event type values are listed
@@ -329,6 +331,8 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * - That it doesn't attempt to access the principal interfaces after the
  *   authorization state has changed to wiped.
  * .
+ * An authorized application may change an authorization state to 'locked'
+ * and prompt the user to reauthenticate by using \reflink GDAuthenticationManager GDAuthenticationManager \endlink.
  *
  * 
  * <h3>Programming interface restrictions</h3>
@@ -464,7 +468,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *   Otherwise, version should not change in the release.
  * .
  *
- * See the   \reflink GDService GDService class reference\endlink for details of shared services.
+ * See the \reflink GDService GDService class reference\endlink for details of shared services.
  *
  * The syntax rules of entitlement version values are as follows.
  * - A version string consists of one to four version numbers separated by full
@@ -495,22 +499,22 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * <h3>Enterprise Configuration Information</h3>
  * There are a number of functions in this class for obtaining enterprise
  * configuration information, including settings that apply to the current end
- * user. The \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS)\endlink and
- * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink functions are examples of this
+ * user. The \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS) \endlink and
+ * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink functions are examples of this
  * type of function.
  *
  * All the functions of this type:
  * - Return their results in a collection of objects.
- * - Have a corresponding \reflink GDAppEvent GDAppEvent\endlink event type that is
+ * - Have a corresponding \reflink GDAppEvent GDAppEvent \endlink event type that is
  *   dispatched to the application's 
- *   \reflink GDiOSDelegate GDiOSDelegate\endlink 
+ *   \reflink GDiOSDelegate GDiOSDelegate \endlink 
  *   instance when the result would change.
  * - Have a corresponding <tt>NSNotification</tt> that is posted to any
  *   registered observers, when the result would change. See the
- *   \link GDState\endlink class reference for how to register.
- * .
+ *   \link GDState \endlink class reference for how to register.
  *
- * For example, the \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS)\endlink function returns 
+ *
+ * For example, the \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS) \endlink function returns 
  * an <tt>NSDictionary</tt>
  * collection. When there is a change,
  * a <tt>GDPolicyUpdateNotification</tt> is posted, and
@@ -522,7 +526,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *    values.
  * -# When the update event is received, discard the retained collection and
  *    call the function again to get a new collection.
- * .
+ *
  *
  * Don't make a subsequent call to the same function until an update event
  * has been received. The BlackBerry Dynamics runtime generates a new collection
@@ -530,7 +534,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * multiple calls and retains all the returned collections, then they will all
  * consume memory or other application resources.
  * 
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Authorization</h3>
  * The following snippet shows initiation of BlackBerry Dynamics authorization.
  * \code
@@ -641,7 +645,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *
  * The BlackBerry Dynamics runtime object is a "singleton class".
  *
- * @return Reference that can be used to call, for example, \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+ * @return Reference that can be used to call, for example,\reflink GDiOS::authorize: authorize (GDiOS) \endlink.
  */
 + (instancetype)sharedInstance;
 
@@ -710,7 +714,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * The runtime retrieves a set of application configuration settings from the
  * enterprise management console during authorization processing. These will
  * have been stored in the management console. See under
- * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink for a list of settings.</dd>
+ * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink for a list of settings.</dd>
  *
  * <dt>Unlock secure store</dt><dd>
  * The BlackBerry Dynamics secure store is unlocked during authorization. If the
@@ -792,7 +796,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * .
  * 
  * Calling this function is otherwise equivalent to calling the
- * <tt>authorize:</tt> function, above. See  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for details.
+ * <tt>authorize:</tt> function, above. See \reflink GDiOS::authorize: authorize (GDiOS) \endlink for details.
  */
 - (void)authorize;
 
@@ -821,12 +825,12 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * Call this function from any callback that handles background launch, for
  * example the application <tt>didReceiveRemoteNotification:</tt> or
  * <tt>performFetchWithCompletionHandler:</tt> function. Access the
- * \reflink GDiOS::canAuthorizeAutonomously canAuthorizeAutonomously (GDiOS)\endlink property first, to check that a
+ * \reflink GDiOS::canAuthorizeAutonomously canAuthorizeAutonomously (GDiOS) \endlink property first, to check that a
  * no-password policy applies to the current end user and that autonomous
  * authorization is possible.
  * 
  * If authorization can complete autonomously, calling this function
- * results in the same processing and notification as if  \reflink GDiOS::authorize: authorize (GDiOS)\endlink had
+ * results in the same processing and notification as if \reflink GDiOS::authorize: authorize (GDiOS) \endlink had
  * been called. Application identification parameters will be read from the
  * Info.plist file.
  *
@@ -847,12 +851,12 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * Call this function to initiate autonomous BlackBerry Dynamics
  * authorization processing without specifying a delegated event handler. This
  * style of call can be used in the same cases as the
- * \reflink GDiOS::authorize authorize (GDiOS)\endlink function that takes no parameters, see above.
+ * \reflink GDiOS::authorize authorize (GDiOS) \endlink function that takes no parameters, see above.
  * 
  * Calling this function is otherwise equivalent to calling the
  * <tt>authorizeAutonomously:</tt> function, above.
  * 
- * See \reflink GDiOS::authorizeAutonomously: authorizeAutonomously: (GDiOS)\endlink for details.
+ * See \reflink GDiOS::authorizeAutonomously: authorizeAutonomously: (GDiOS) \endlink for details.
  */
 - (BOOL)authorizeAutonomously;
 
@@ -908,7 +912,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *         <td><tt>NSNumber</tt></td>
  *     </tr>
  * </table>
- * \link GDiOS::programmaticAuthorize:\endlink
+ * \link GDiOS::programmaticAuthorize: \endlink
  */
 typedef NSString *ActivationParameter;
 extern ActivationParameter const ActivationParameterUserIdentifier;
@@ -935,12 +939,12 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * <tt>nocAddress</tt> parameter to this function.
  *
  * Calling this function also initiates authorization processing, as if the
- *  \reflink GDiOS::authorize: authorize (GDiOS)\endlink function had
+ * \reflink GDiOS::authorize: authorize (GDiOS) \endlink function had
  * been called.
  *
  * Only call this function after checking that the application is not
  * already activated, by
- * accessing the \reflink GDiOS::activationComplete activationComplete (GDiOS)\endlink property.
+ * accessing the \reflink GDiOS::activationComplete activationComplete (GDiOS) \endlink property.
  *
  * @param activationParameters <tt>NSDictionary</tt>
  *         object containing configuration values. Use the
@@ -948,16 +952,19 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  */
 - (void)programmaticAuthorize:(NSDictionary<ActivationParameter, id> *)activationParameters;
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_PROGRAMMATICAUTHORIZE __attribute((deprecated("Use -programmaticAuthorize:activationParameters instead.")))
 #else
-#   define DEPRECATE_GETWINDOW __attribute((deprecated))
+#   define DEPRECATE_PROGRAMMATICAUTHORIZE __attribute((deprecated))
 #endif
+/* \endcond */
+
 /** Initiate programmatic activation (deprecated).
  *
  * \deprecated This function is deprecated and will be removed in a future
  * release. Use
- * \link GDiOS::programmaticAuthorize:\endlink
+ * \link GDiOS::programmaticAuthorize: \endlink
  * instead.
  *
  * Calling this function is equivalent to calling the
@@ -970,7 +977,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  *
  * \deprecated This function is deprecated and will be removed in a future
  * release. Use
- * \link GDiOS::programmaticAuthorize:\endlink
+ * \link GDiOS::programmaticAuthorize: \endlink
  * instead.
  *
  * Call this function to 
@@ -990,12 +997,12 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * <tt>nocAddress</tt> parameter to this function.
  *
  * Calling this function also initiates authorization processing, as if the
- *  \reflink GDiOS::authorize: authorize (GDiOS)\endlink function had
+ * \reflink GDiOS::authorize: authorize (GDiOS) \endlink function had
  * been called.
  *
  * Only call this function after checking that the application is not
  * already activated, by
- * accessing the \reflink GDiOS::activationComplete activationComplete (GDiOS)\endlink property.
+ * accessing the \reflink GDiOS::activationComplete activationComplete (GDiOS) \endlink property.
  *
  * @param userID <tt>NSString</tt> containing the first enterprise activation
  *               credential: the user identifier. This is typically the
@@ -1037,7 +1044,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * Retrieval of configuration settings may happen during authorization
  * processing, or whenever settings are changed. When changed settings have been
  * retrieved by the runtime, a <tt>GDAppEventRemoteSettingsUpdate</tt> event
- * will be dispatched to the application. See the \reflink GDAppEvent GDAppEvent\endlink
+ * will be dispatched to the application. See the \reflink GDAppEvent GDAppEvent \endlink
  * class reference for details, and see the notes under the Enterprise
  * Configuration Information heading, above.
  *
@@ -1253,10 +1260,9 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  *         The list is represented as
  *         an <tt>NSDictionary</tt>
  *          collection with the following keys:
- *         - \reflink GDiOS::GDProtocolsKeySSLv3_0 GDProtocolsKeySSLv3_0 (GDiOS)\endlink
- *         - \reflink GDiOS::GDProtocolsKeyTLSv1_0 GDProtocolsKeyTLSv1_0 (GDiOS)\endlink
- *         - \reflink GDiOS::GDProtocolsKeyTLSv1_1 GDProtocolsKeyTLSv1_1 (GDiOS)\endlink
- *         - \reflink GDiOS::GDProtocolsKeyTLSv1_2 GDProtocolsKeyTLSv1_2 (GDiOS)\endlink
+ *         - \reflink GDiOS::GDProtocolsKeyTLSv1_0 GDProtocolsKeyTLSv1_0 (GDiOS) \endlink
+ *         - \reflink GDiOS::GDProtocolsKeyTLSv1_1 GDProtocolsKeyTLSv1_1 (GDiOS) \endlink
+ *         - \reflink GDiOS::GDProtocolsKeyTLSv1_2 GDProtocolsKeyTLSv1_2 (GDiOS) \endlink
  *         .
  *         The value in the collection for a particular key will be <tt>YES</tt> if
  *         the corresponding protocol is allowed, and <tt>NO</tt> otherwise.\n
@@ -1274,7 +1280,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  *         1 if a password or other interactive
  *         authentication is enforced by BlackBerry Dynamics,
  *         0 otherwise.\n
- *         See \reflink GDiOS::canAuthorizeAutonomously canAuthorizeAutonomously (GDiOS)\endlink for discussion.
+ *         See \reflink GDiOS::canAuthorizeAutonomously canAuthorizeAutonomously (GDiOS) \endlink for discussion.
  * </td>
  *     <td>
  *         <tt>NSNumber</tt></td>
@@ -1364,11 +1370,12 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * Retrieval of policy settings may happen during authorization processing, or
  * whenever settings are changed. When changed settings have been retrieved by
  * the runtime, a <tt>GDAppEventPolicyUpdate</tt> event will be dispatched to
- * the application. See the \reflink GDAppEvent GDAppEvent\endlink class reference for
+ * the application. See the \reflink GDAppEvent GDAppEvent \endlink class reference for
  * details, and see the notes under the Enterprise Configuration Information
  * heading, above.
  *
- * Note that retrieval isn't triggered by calling this function.
+ * Note that retrieval of that latest policy from the management server is
+ * not triggered by calling this function.
  * 
  * @return <tt>NSDictionary</tt>
  *         containing policy settings.
@@ -1402,7 +1409,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  
   ></tr
   ></table>
- * @see \reflink GDiOS::getApplicationPolicyString getApplicationPolicyString (GDiOS)\endlink
+ * @see \reflink GDiOS::getApplicationPolicyString getApplicationPolicyString (GDiOS) \endlink
  */
 - (GD_NSDictionary(NSString *, id) *)getApplicationPolicy;
 
@@ -1420,7 +1427,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * Retrieval of policy settings may happen during authorization processing, or
  * whenever settings are changed. When changed settings have been retrieved by
  * the runtime, a <tt>GDAppEventPolicyUpdate</tt> event will be dispatched to
- * the application. See the \reflink GDAppEvent GDAppEvent\endlink class reference for
+ * the application. See the \reflink GDAppEvent GDAppEvent \endlink class reference for
  * details, and see the notes under the Enterprise Configuration Information
  * heading, above.
  *
@@ -1433,7 +1440,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  *         attribute values will be the particular values that apply to the end
  *         user.
  * 
- * @see \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS)\endlink
+ * @see \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS) \endlink
  */
 - (NSString*)getApplicationPolicyString;
 
@@ -1483,11 +1490,11 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * such triggered by calling this function.
  * 
  * For each entitlement version that satisfies the above conditions, this
- * function returns a \reflink GDServiceProvider GDServiceProvider\endlink object.
+ * function returns a \reflink GDServiceProvider GDServiceProvider \endlink object.
  *
  * The returned details for an application-based provider can be used to send a
  * service request to the service provider using BlackBerry Dynamics
- * AppKinetics. See the   \reflink GDService GDService class reference\endlink for details of the programming
+ * AppKinetics. See the \reflink GDService GDService class reference\endlink for details of the programming
  * interface. See under Service Provider Requirements on that page for
  * information on service provider registration, which is a prerequisite for an
  * application to be on the list returned by this function.
@@ -1504,7 +1511,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  *
  * When changed details have been retrieved by the runtime, a
  * <tt>GDAppEventServicesUpdate</tt> event will be dispatched to the
- * application. See the \reflink GDAppEvent GDAppEvent\endlink class reference for details,
+ * application. See the \reflink GDAppEvent GDAppEvent \endlink class reference for details,
  * and see the notes under the Enterprise Configuration Information heading,
  * above.
  * 
@@ -1542,7 +1549,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * BlackBerry Dynamics Catalog. The list includes an entry for each entitlement
  * version that meets all the following conditions.
  * - The entitlement version would be on the list of service providers returned
- *   by the \reflink GDiOS::getServiceProviders getServiceProviders (GDiOS)\endlink function, see above.
+ *   by the \reflink GDiOS::getServiceProviders getServiceProviders (GDiOS) \endlink function, see above.
  * - The entitlement version is registered as a provider of the specified
  *   service.
  * - The entitlement version is registered as a provider of the specified
@@ -1569,18 +1576,19 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  */
 - (GD_NSArray(GDServiceProvider *) *)getServiceProvidersFor:(NSString*)serviceId andVersion:(GD_NSNULLABLE NSString*)version andServiceType:(GDServiceType)serviceType;
 
-
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_GETSERVICEPROVIDERSFOR __attribute((deprecated("Use getServiceProvidersFor:andVersion:andServiceType:")))
 #else
 #   define DEPRECATE_GETSERVICEPROVIDERSFOR __attribute((deprecated))
 #endif
+/* \endcond */
 
 /** Discover providers of a specific shared service (deprecated).
  * 
  * \deprecated This function is deprecated and will be removed in a future
  * release. Use
- * \link GDiOS::getServiceProvidersFor:andVersion:andServiceType:\endlink
+ * \link GDiOS::getServiceProvidersFor:andVersion:andServiceType: \endlink
  * instead.
  *
  * This function returns a list of the available providers of a
@@ -1591,7 +1599,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * BlackBerry Dynamics Catalog. The list includes an entry for each entitlement
  * version that meets all the following conditions.
  * - The entitlement version would be on the list of service providers returned
- *   by the \reflink GDiOS::getServiceProviders getServiceProviders (GDiOS)\endlink function, see above.
+ *   by the \reflink GDiOS::getServiceProviders getServiceProviders (GDiOS) \endlink function, see above.
  * - The entitlement version is registered as a provider of the specified
  *   service.
  * - The entitlement version is registered as a provider of the specified
@@ -1624,7 +1632,7 @@ extern ActivationParameter const ActivationParameterShowUserInterface;
  * 
  * Pass a code block of this type as the <tt>block</tt> parameter to the
  * \link GDiOS::getEntitlementVersionsFor:callbackBlock:
- * getEntitlementVersionsFor:\endlink function.
+ * getEntitlementVersionsFor: \endlink function.
  *
  * The block receives the following parameters.
  * @param entitlementVersions <tt>NSArray</tt> of \ref GDVersion objects
@@ -1663,7 +1671,7 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  *   zero elements.
  * - Otherwise, the list will have one element for each version to which the end
  *   user is entitled. Each element will be a
- *   \link GDVersion\endlink
+ *   \link GDVersion \endlink
  *   object.
  * .
  *
@@ -1701,18 +1709,20 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  * membership is changed at the enterprise management console. The BlackBerry
  * Dynamics runtime is notified of these changes by the BlackBerry Dynamics
  * infrastructure, and dispatches a <tt>GDAppEventEntitlementsUpdate</tt> event
- * to the application. See the \reflink GDAppEvent GDAppEvent\endlink class reference for
+ * to the application. See the \reflink GDAppEvent GDAppEvent \endlink class reference for
  * details, and see the notes under the Enterprise Configuration Information
  * heading, above.
  */
 - (void)getEntitlementVersionsFor:(NSString*)identifier
                     callbackBlock:(GDGetEntitlementVersionsForBlock)block;
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_GETWINDOW __attribute((deprecated("Use the window property from the main app delegate instance.")))
 #else
 #   define DEPRECATE_GETWINDOW __attribute((deprecated))
 #endif
+/* \endcond */
 
 /** Get the <tt>UIWindow</tt> for the application (deprecated).
  * \deprecated This function is deprecated and will be removed in a future
@@ -1862,7 +1872,7 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  * @param color <tt>UIColor</tt> for the brand color, or
  *              <tt>nil</tt> to select the default.
  *
- * @see  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for details of which BlackBerry Dynamics user
+ * @see \reflink GDiOS::authorize: authorize (GDiOS) \endlink for details of which BlackBerry Dynamics user
  * interface elements may be shown during authorization processing.
  * @see <a
       href="https://developer.apple.com/reference/uikit/uiviewcontentmode?language=objc"
@@ -1874,6 +1884,7 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
                      bundle:(GD_NSNULLABLE NSBundle*)bundle
                       color:(GD_NSNULLABLE UIColor*)color;
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_CONFIG_UI_WITH_BLOCK_MESSAGE __attribute__((deprecated("No longer supported")))
 #   define DEPRECATE_CONFIG_UI_WITH_WIPE_MESSAGE __attribute__((deprecated("No longer supported")))
@@ -1881,6 +1892,7 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
 #   define DEPRECATE_CONFIG_UI_WITH_BLOCK_MESSAGE __attribute__((deprecated))
 #   define DEPRECATE_CONFIG_UI_WITH_WIPE_MESSAGE __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** Customize the BlackBerry Dynamics blocked screen (deprecated).
  * 
@@ -1941,11 +1953,13 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  */
 @property (GD_NSNULLABLE_PROP nonatomic, weak) id<GDiOSDelegate> delegate;
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_LAUNCHOPTIONS __attribute__((deprecated("No longer required.")))
 #else
 #   define DEPRECATE_LAUNCHOPTIONS __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** Application launch options (deprecated).
  *
@@ -1992,7 +2006,7 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  * The intended use of this property is to check
  * whether it is possible for authorization processing to complete autonomously,
  * before calling the
- * \reflink GDiOS::authorizeAutonomously: authorizeAutonomously: (GDiOS)\endlink function.
+ * \reflink GDiOS::authorizeAutonomously: authorizeAutonomously: (GDiOS) \endlink function.
  * 
  * Note that it won't be possible to authorize autonomously if enterprise
  * policy specifies that the application delegates authentication to another
@@ -2025,7 +2039,7 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  * obtained from the management console, and entered in the remote unlock
  * BlackBerry Dynamics user interface.
  *
- * @see \reflink GDAppEvent GDAppEvent\endlink class reference, which mentions the
+ * @see \reflink GDAppEvent GDAppEvent \endlink class reference, which mentions the
  * <tt>GDErrorRemoteLockout</tt> result code. An event with that result code
  * would be dispatched if a remote lock-out command was received from the
  * management console.
@@ -2044,7 +2058,7 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  * storage and secure communications.
  
  * Blocks are persisted which means that after an application is restarted and the user
- * is authenticated the block screen will be displayed. In addition a \reflink GDAppEvent GDAppEvent\endlink
+ * is authenticated the block screen will be displayed. In addition a \reflink GDAppEvent GDAppEvent \endlink
  * with the result code <tt>GDErrorBlocked</tt> would be dispatched. This event would be received
  * for blocks applied locally with this function and those applied from the management console.
  *
@@ -2069,6 +2083,20 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  */
 - (void)executeUnblock:(NSString *)blockId;
 
+
+/** Executes migration of the application to a different management console.
+ * @return <tt>YES</tt> if destinationTenantID is provided
+ * @return <tt>NO</tt> if destinationTenantID is empty
+ *
+ * Call this function to execute a migration of the application to the specified 
+ * management console. This should only be called by an application that has been informed by the 
+ * management console that a migration request is pending. If a migration request is not pending 
+ * calling this method may result in the container being wiped.
+ *
+ * @param destinationTenantID <tt>NSString</tt> specifying the tenant identifier of the UEM management console.
+ */
+-(BOOL)executePendingConsoleMigration:(NSString *)destinationTenantID;
+
 /** Observable representation of authorization state and user interface state.
  *
  * Access this property to check or observe the state of the BlackBerry Dynamics
@@ -2076,7 +2104,7 @@ typedef void (^GDGetEntitlementVersionsForBlock) (GD_NSArray(GDVersion *)* GD_NS
  *
  * A number of aspects of run-time state are represented in this property,
  * including authorization state and user interface state. The representation is
- * compatible with key-value observing (KVO). See the \link GDState\endlink
+ * compatible with key-value observing (KVO). See the \link GDState \endlink
  * class reference for details.
  * 
  * @return GDState instance representing the current state.

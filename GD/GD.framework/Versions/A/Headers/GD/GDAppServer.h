@@ -11,7 +11,7 @@
  * This class is used to return the details of application server configuration.
  * A collection of instances of this class will be in the
  * <tt>GDAppConfigKeyServers</tt> value returned by the
- * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink function, or in the
+ * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink function, or in the
  * <tt>serverCluster</tt> property of a <tt>GDServiceProvider</tt> object.
  */
 @interface GDAppServer : NSObject

@@ -107,8 +107,8 @@ extern const NSTimeInterval GDLogManagerDetailedMaximumDuration;
  * .
  * To use <tt>NSNotificationCenter</tt>:
  * - Set the notification name to the \ref GDLogUploadNotification value.
- * - Set the notification object to the GD Log Manager object, obtained by
- *     <tt>[GD<tt></tt>LogManager sharedInstance]</tt>.
+ * - Set the notification object to the \ref GDLogManager object, obtained by
+ *     <tt>[G<tt></tt>DLogManager sharedInstance]</tt>.
  * - The posted notifications won't have a <tt>userInfo</tt> dictionary.
  * .
  *
@@ -178,7 +178,7 @@ extern const NSTimeInterval GDLogManagerDetailedMaximumDuration;
  * The upload takes place in background and will be retried as necessary by the
  * runtime. Progress can be monitored and managed by using the programming
  * interface of this class.
- * - The \reflink GDLogManager::openLogUploadUI GDLogManager::openLogUploadUI\endlink function opens a
+ * - The \reflink GDLogManager::openLogUploadUI GDLogManager::openLogUploadUI \endlink function opens a
  *   complete built-in user interface that displays progress and gives the user
  *   a number of options to manage the upload.
  * - The other functions in this class could be utilized instead, to
@@ -200,7 +200,7 @@ extern const NSTimeInterval GDLogManagerDetailedMaximumDuration;
  *
  * Call this function to cancel the upload of activity logs, which
  * would have been started by calling 
- * \reflink GDLogManager::startUpload GDLogManager::startUpload\endlink.
+ * \reflink GDLogManager::startUpload GDLogManager::startUpload \endlink.
  * Upload cannot be resumed after cancellation.
  *
  * @return <tt>YES</tt> if upload was cancelled OK.
@@ -212,7 +212,7 @@ extern const NSTimeInterval GDLogManagerDetailedMaximumDuration;
  *
  * Call this function to suspend the upload of activity logs, which
  * would have been started by calling
- * \reflink GDLogManager::startUpload GDLogManager::startUpload\endlink.
+ * \reflink GDLogManager::startUpload GDLogManager::startUpload \endlink.
  * Upload can be resumed after suspension.
  * 
  * @return <tt>YES</tt> if upload was suspended OK.
@@ -224,7 +224,7 @@ extern const NSTimeInterval GDLogManagerDetailedMaximumDuration;
  *
  * Call this function to resume the upload of activity logs after
  * suspension. Upload would have been suspended by calling
- * \reflink GDLogManager::suspendUpload GDLogManager::suspendUpload\endlink.
+ * \reflink GDLogManager::suspendUpload GDLogManager::suspendUpload \endlink.
  *
  * @return <tt>YES</tt> if upload was resumed OK.
  * @return <tt>NO</tt> otherwise or if this application is in the Wiped state.
@@ -242,7 +242,7 @@ extern const NSTimeInterval GDLogManagerDetailedMaximumDuration;
  * For these reasons, detailed logging can only be switched on by the
  * application for a specified duration, and there is a maximum allowed
  * duration. The maximum duration is 15 minutes and is given by the
- * \reflink GDLogManager::GDLogManagerDetailedMaximumDuration GDLogManager::GDLogManagerDetailedMaximumDuration\endlink constant.
+ * \reflink GDLogManager::GDLogManagerDetailedMaximumDuration GDLogManager::GDLogManagerDetailedMaximumDuration \endlink constant.
  *
  * Detailed activity logging can also be switched on by the BlackBerry Dynamics
  * management console, in which there are a number of options. Check the user
@@ -251,7 +251,7 @@ extern const NSTimeInterval GDLogManagerDetailedMaximumDuration;
  * The ability to switch on detailed logging from the application code can be
  * blocked by enterprise policy. See the
  * <tt>GDAppConfigKeyPreventUserDetailedLogs</tt> item in the collection
- * returned by the \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink function.
+ * returned by the \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink function.
  *
  * Detailed activity logging can be switched off by the application code, if it
  * was switched on by the application code. If detailed logging is switched on

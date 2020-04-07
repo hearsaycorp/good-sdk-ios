@@ -343,7 +343,7 @@ GD_C_API void GDCredential_importDone();
  *
  * Note the following about the returned list.
  * - The list will be returned in a buffer containing a sequence of
- *   \link GDCredential\endlink structures, each corresponding to a credential,
+ *   \link GDCredential \endlink structures, each corresponding to a credential,
  *   if any credentials are available.
  * - The buffer containing the list must be released by the application code, by
  *   calling the \ref GDCredential_free function, below.

@@ -6,10 +6,63 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+
 #import "GDPortability.h"
 
+/** \defgroup jwtcallback BlackBerry Enterprise Identity JWT request callback
+ * \{
+ */
+
+/** Status codes from BlackBerry Enterprise Identity JWT request.
+ * 
+ * These constants can be used for handling errors returned from JWT retrieval
+ *
+ * @see \ref GDUtility class reference.
+ */
 
 GD_NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSInteger, BBDJWTStatusCode) {
+    /** Request successful
+     */
+    BBDJWTStatusOK = 0,
+    
+    /** A general error occurred not covered by other status codes.
+     */
+    BBDJWTStatusUnknownError,
+    
+    /** MTD is not enabled (only for MTD related requests)
+     */
+    BBDJWTMTDNotEnabled,
+    
+    /** Server responded with an error.
+     */
+    BBDJWTServerError,
+    
+    /** Client is not authorised to make this request. For Zero Sign On (ZSO), a valid certificate is not enrolled.
+     */
+    BBDJWTAuthFailure,
+    
+    /** Server has not yet updated to accept a recently enrolled authorisation. Eg a ZSO is enrolled but not yet activated on the
+     * server. This is temporary and can be retried.
+     */
+    BBDJWTPendingActivation
+};
+ 
+/** Completion Block definition for JWT retrieval
+ *
+ * @param JWT If successful an NSString object pointer containing the JWT. Empty otherwise.
+ *
+ * @param status A BBDJWTStatusCode value indicating the status of the request.
+ *
+ * @see BBDJWTStatusCode
+ *
+ * @param error An additional error parameter which may contain the HTTP status code of a server related failure, 0 on success.
+ *
+ */
+typedef void (^BBDJWTCompletion)(NSString* JWT, BBDJWTStatusCode status, int error);
+/** \}
+ */
 
 /** Delegate for handling the results of BlackBerry Dynamics authentication
  *  token requests.
@@ -21,7 +74,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * function in the <tt>GDUti</tt><tt>lity</tt> class.
  *
  * For the token request programming interface, and general information about
- * the mechanism, see the \reflink GDUtility GDUtility\endlink class reference.
+ * the mechanism, see the \reflink GDUtility GDUtility \endlink class reference.
  */
 @protocol GDAuthTokenDelegate
 
@@ -30,7 +83,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * This callback will be invoked when a new BlackBerry Dynamics
  * authentication token has been generated. Token generation is always in
  * response to a call to the
- * \reflink GDUtility::getGDAuthToken:serverName: getGDAuthToken:serverName\endlink
+ * \reflink GDUtility::getGDAuthToken:serverName: getGDAuthToken:serverName \endlink
  * function.
  *
  * The function that is invoked could initiate sending of the token to the
@@ -48,7 +101,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * condition is passed in a parameter.
  * 
  * The request will have been made by calling the
- * \reflink GDUtility::getGDAuthToken:serverName: getGDAuthToken:serverName\endlink
+ * \reflink GDUtility::getGDAuthToken:serverName: getGDAuthToken:serverName \endlink
  * function.
  *
  * Invocation of this callback notifies the application that a token wasn't
@@ -67,7 +120,8 @@ GD_NS_ASSUME_NONNULL_BEGIN
 - (void)onGDAuthTokenFailure:(NSError*) authTokenError;
 
 @end
-/** BlackBerry Dynamics authentication token request.
+
+/** BlackBerry Dynamics utility for managing authentication tokens and identity.
  * 
  * 
  * <h3>BlackBerry Dynamics Authentication Token Mechanism</h3>
@@ -81,7 +135,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * authentication token mechanism. This class includes the programming interface
  * for requesting tokens.
  * 
- * @see  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for more details of BlackBerry Dynamics authorization
+ * @see \reflink GDiOS::authorize: authorize (GDiOS) \endlink for more details of BlackBerry Dynamics authorization
  *      processing.
  * @see \ref ServerAPIGDAuthToken
  *
@@ -104,10 +158,10 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *
  * The sequence of programming interfaces used in BlackBerry Dynamics auth is as
  * follows.
- * -# The mobile application calls \reflink GDUtility::getGDAuthToken:serverName: getGDAuthToken:serverName\endlink to
+ * -# The mobile application calls \reflink GDUtility::getGDAuthToken:serverName: getGDAuthToken:serverName \endlink to
  *    request a token.
  * -# All being well, a token is issued and the
- *     \reflink GDAuthTokenDelegate::onGDAuthTokenSuccess: onGDAuthTokenSuccess\endlink callback is
+ *    \reflink GDAuthTokenDelegate::onGDAuthTokenSuccess: onGDAuthTokenSuccess \endlink callback is
  *    invoked and passed the new token.
  * -# The application sends the token to the application server, using an HTTP
  *    request, socket, or other method. In the same communication, the
@@ -129,7 +183,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *
  * Note that a BlackBerry Dynamics application can obtain the identifier of the
  * end user from the <tt>GDAppConfigKeyUserId</tt> value in the collection
- * returned by the \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink function.
+ * returned by the \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink function. 
  * 
  * <h3>Challenge Strings</h3>
  * A <em>challenge string </em>can be included in a BlackBerry Dynamics auth
@@ -201,9 +255,9 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * request.
  * 
  * The request is asynchronous. If the request succeeds, the token will be
- * passed to the  \reflink GDAuthTokenDelegate::onGDAuthTokenSuccess: onGDAuthTokenSuccess\endlink callback in the
+ * passed to the \reflink GDAuthTokenDelegate::onGDAuthTokenSuccess: onGDAuthTokenSuccess \endlink callback in the
  * delegate. If the attempt fails, an error will
- * be passed to the  \reflink GDAuthTokenDelegate::onGDAuthTokenFailure: onGDAuthTokenFailure\endlink callback in
+ * be passed to the \reflink GDAuthTokenDelegate::onGDAuthTokenFailure: onGDAuthTokenFailure \endlink callback in
  * the delegate instead.
  *
  * The <tt>delegate</tt> property must be set before this function is
@@ -235,6 +289,37 @@ GD_NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)getDynamicsSharedUserIDWithError:(NSError **)error;
 
+/** Get JWT from BlackBerry Enterprise Identity (EID) server
+ *
+ * Call this function to request a BlackBerry Enterprise Identity
+ * JWT Bearer Token for authentication purposes. Pass a registered client ID string, scope
+ * string and closure reference (for calling back) as parameters. Tokens are cached
+ * until expired, but a new token from the server may be specified by setting the refresh flag true.
+ *
+ * This function requests a BlackBerry Dynamics JWT from
+ * the BlackBerry Dynamics runtime. The runtime might connect to the BlackBerry
+ * Dynamics infrastructure installed at the enterprise in order to service the
+ * request.
+ *
+ * The request is asynchronous.
+ *
+ * @param clientID <tt>NSString</tt> containing the client ID.
+ *
+ * @param scope <tt>NSString</tt> the scope for the token.
+ *
+ * @param resourceServer <tt>NSString</tt> optional resource server specifier (not currently used)
+ *
+ *
+ * @param refresh A flag to force a new token to be fetched from the server.
+ *
+ * @param callback block of type \ref BBDJWTCompletion, void (^BBDJWTCompletion)(NSString* JWT, BBDJWTStatusCode status, int error);
+ *
+ * @param error Optional pointer to NSError object which may contain further information.
+ 
+ *
+ */
+- (BOOL) getEIDToken:(NSString *) clientID withScope:(NSString*) scope withResourceServer:(NSString*) resourceServer withRefresh:(BOOL) refresh withCompletion:(BBDJWTCompletion) callback withError:(NSError**) error;
+
 /** Delegated event-handling.
  * 
  * BlackBerry Dynamics authentication token requests are asynchronous. When a
@@ -253,7 +338,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
 /**
  * \defgroup gdauthtokendomain BlackBerry Dynamics authentication token error domain
  * These constants can be used when handling BlackBerry Dynamics authentication
- * token request errors, in a \reflink GDAuthTokenDelegate GDAuthTokenDelegate\endlink
+ * token request errors, in a \reflink GDAuthTokenDelegate GDAuthTokenDelegate \endlink
  * implementation.
  *
  * \{

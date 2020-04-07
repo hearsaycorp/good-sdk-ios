@@ -9,6 +9,8 @@
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
+/* \cond DOXYGEN_IGNORE */
+
 // See: http://clang.llvm.org/docs/LanguageExtensions.html
 #   ifndef __has_extension
 #       define __has_extension(x) 0  // Compatibility with non-clang compilers.
@@ -19,6 +21,8 @@
 #   else
 #       define DEPRECATE_APP_COPYPASTEON __attribute__((deprecated))
 #   endif
+
+/* \endcond */
 
 #endif
 
@@ -46,7 +50,7 @@ extern const NSString* const GDAppConfigKeyPreventDataLeakageIn;
 /**
  * Deprecated constant key value for the Data Leakage security policy
  * indicator.\ See under \ref GDiOS::getApplicationConfig.
- * 
+ *
  * @deprecated This key is deprecated and will be removed in a future release.
  *             Use the <tt>GDAppConfigKeyPreventDataLeakageOut</tt> value
  *             instead.
@@ -97,6 +101,7 @@ extern const NSString* const GDAppConfigKeyPreventCustomKeyboards;
  * \ref GDiOS::getApplicationConfig.
  */
 extern const NSString* const GDAppConfigKeyPreventScreenRecording;
+
 #endif
 
 /** Constant key value for whether the application is protected by a BlackBerry
@@ -104,6 +109,14 @@ extern const NSString* const GDAppConfigKeyPreventScreenRecording;
  *  \ref GDiOS::getApplicationConfig.
  */
 extern const NSString* const GDAppConfigKeyProtectedByPassword;
+
+/** Constant key value for whether BlackBerry Enterprise Identity is setup.
+ */
+extern const NSString* const GDAppEnterpriseIdActivated;
+
+/** Constant key value containing a JSON array of available features.
+ */
+extern const NSString* const GDAppConfigKeyEnterpriseIdFeatures;
 
 /** Constant key value for extra information from the management
  *  console.\ See under \ref GDiOS::getApplicationConfig.
@@ -114,7 +127,7 @@ extern const NSString* const GDAppConfigKeyExtraInfo;
  * These constants represent secure communication protocols. They are
  * used in the programming interface for the list of protocols that are allowed
  * and disallowed by the enterprise. Under
- * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink, see the
+ * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink, see the
  * <tt>GDAppConfigKeyCommunicationProtocols</tt> item.
  *
  * The following common abbreviations are used:\n
@@ -128,11 +141,6 @@ extern const NSString* const GDAppConfigKeyExtraInfo;
  *  enterprise.\ See under \ref GDiOS::getApplicationConfig.
  */
 extern const NSString* const GDAppConfigKeyCommunicationProtocols;
-
-/** Constant value for a secure communication protocol: SSL version 3.0.\ See
- *  under \ref GDiOS::getApplicationConfig.
- */
-extern const NSString* const GDProtocolsKeySSLv3_0;
 
 /** Constant value for a secure communication protocol: TLS version 1.0.\ See
  *  under \ref GDiOS::getApplicationConfig.

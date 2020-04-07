@@ -11,8 +11,8 @@
  * This class is a subclass of the native <tt>NSInputStream</tt> class, for
  * access to the BlackBerry Dynamics secure file system.
  *
- * @see  \reflink GDFileManager\endlink
- * @see \link GDFileHandle\endlink
+ * @see \reflink  GDFileManager \endlink
+ * @see \link GDFileHandle \endlink
  *
  * <h2>Programming Interface</h2>
  * This class supports the <tt>read</tt> and <tt>hasBytesAvailable</tt> member
@@ -60,8 +60,8 @@
  * access to decrypted data.
  *
  * Note. This constructor is used by the
- * \reflink GDFileManager::getReadStream:error: getReadStream:\endlink
- * function in the  \reflink GDFileManager\endlink class.
+ * \reflink GDFileManager::getReadStream:error: getReadStream: \endlink
+ * function in the \reflink  GDFileManager \endlink class.
  *
  * @param filePath <tt>NSString</tt> containing the path, within the secure
  *                 store, of the file to be opened.

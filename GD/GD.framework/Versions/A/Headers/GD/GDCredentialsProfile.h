@@ -251,7 +251,7 @@ GD_C_API void GDCredentialsProfile_register(GDCredentialsProfileEventCb cb, void
  * 
  * Note the following about the returned list.
  * - The list will be returned in a buffer containing a sequence of
- *   \link GDCredentialsProfile\endlink structures, each corresponding to a UCP,
+ *   \link GDCredentialsProfile \endlink structures, each corresponding to a UCP,
  *   if any profiles are available.
  * - The buffer containing the list must be released by the application code, by
  *   calling the \ref GDCredentialsProfile_free function, below.

@@ -7,6 +7,7 @@
 #import <GD/GD/GDAppConfig.h>
 #import <GD/GD/GDAppResultCode.h>
 #import <GD/GD/GDAppServer.h>
+#import <GD/GD/GDAuthenticationManager.h>
 #import <GD/GD/GDCReadStream.h>
 #import <GD/GD/GDCWriteStream.h>
 #import <GD/GD/GDCommon.h>
@@ -32,6 +33,7 @@
 #import <GD/GD/GDPortability.h>
 #import <GD/GD/GDPush.h>
 #import <GD/GD/GDReachability.h>
+#import <GD/GD/GDSafeUrl.h>
 #import <GD/GD/GDServiceDetail.h>
 #import <GD/GD/GDServiceProvider.h>
 #import <GD/GD/GDServices.h>

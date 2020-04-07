@@ -7,10 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+/* \cond DOXYGEN_IGNORE */
 // See: http://clang.llvm.org/docs/LanguageExtensions.html
 #ifndef __has_extension
 #define __has_extension(x) 0  // Compatibility with non-clang compilers.
 #endif
+/* \endcond */
 
 /** Enumerated constants for use with the BlackBerry Dynamics name service.
  * 
@@ -30,11 +32,13 @@ typedef NS_ENUM(NSInteger, GDNslookupType)
     GDNslookupARECORD,
 };
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_ERRORHOSTNOTLISTED __attribute__((deprecated("No longer required")))
 #else
 #   define DEPRECATE_ERRORHOSTNOTLISTED __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /**
  * \defgroup gdnslookupdomain BlackBerry Dynamics Name Service Error Domain
@@ -143,6 +147,21 @@ typedef void (^GDNslookupCompletion)(NSDictionary *response, NSError *error);
  *                   or <tt>nil</tt> otherwise.
  */
 + (void)nslookup:(NSString*)host type:(GDNslookupType)type completion:(GDNslookupCompletion)completion;
+
+/** Configure usage of a web proxy server for connections through the BlackBerry Dynamics proxy infrastructure.
+ * The proxy configuration may be specified within the BlackBerry Dynamics management console using either a
+ * Proxy Auto-Configuration (PAC) file or manually.
+ *
+ * - If <tt>YES</tt>, the application should specify its own web proxy server to which web requests (HTTP, HTTPS) should be forwarded.
+ * - If <tt>NO</tt>, all web requests through the BlackBerry Dynamics proxy infrastructure will use the web proxy
+ * server configuration defined in the BlackBerry Dynamics management console (if any).
+ 
+ * The runtime sets this property to <tt>NO</tt> by default.
+ *
+ * This is a class property.
+ */
+@property (class, nonatomic, assign) BOOL webProxyAppliedByApp;
+
 @end
 
 

@@ -27,7 +27,7 @@ extern "C" {
 /** Route information constants.
  *
  * Use the constants in this enumeration to check the return value of
- * \ref GD_getRouteInfo.
+ * GD_getRouteInfo.
  */
 enum GD_ROUTE
 {
@@ -44,6 +44,7 @@ enum GD_ROUTE
      * infrastructure.
      */
     GD_ROUTE_GOOD_PROXY,
+    
     /** The connection will be denied via the BlackBerry Dynamics SDK
      */
     GD_ROUTE_DENY,
@@ -51,6 +52,7 @@ enum GD_ROUTE
     /** The connection will be routed direct to the Internet per WhiteList.
      */
     GD_ROUTE_INTERNET_LISTED
+
 };
 
 /** C API.
@@ -85,15 +87,15 @@ GD_C_API int GD_getnameinfo(const struct sockaddr* address, socklen_t addressLen
  * to the Connectivity Profile entries to determine routing.
  *
  * The input socket address structure must have been obtained from the
- * \ref GD_getaddrinfo function.
+ * GD_getaddrinfo function.
  *
  * @param address pointer to a <tt>sockaddr</tt> structure for the required
  *                connection.
  *
- * @return \ref GD_ROUTE constant for the result.
+ * @return GD_ROUTE constant for the result.
  */
 GD_C_API enum GD_ROUTE GD_getRouteInfo(const struct sockaddr* address);
-
+    
 #ifdef __cplusplus
 }
 #endif

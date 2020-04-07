@@ -24,7 +24,6 @@ extern "C" {
 #   define GD_C_API_EXT
 #endif
 
-#include "GDCryptoAlgorithms.h"
 #include <stddef.h>
 
 /** Retrieve the current FIPS 140-2 mode of operation.
@@ -58,6 +57,17 @@ GD_C_API void GDX509_free(struct GDX509* cert);
  * A list of X509 certificate structures.
  */
 struct GD_C_API GDX509List;
+
+/** Digest algorithm structure.
+ * A structure representing a cryptographic digest algorithm.
+ */
+struct GD_C_API GDDigest;
+
+/** Digest context structure.
+ * A structure representing a cryptographic digest algorithm context.  A context is used for calculating the message digest (hash)
+ * of a message.
+ */
+struct GD_C_API GDDigestContext;
 
 /** Retrieve a list of X509 certificates within a PEM container.
  * Decodes a PEM container and returns a list of certificates within.

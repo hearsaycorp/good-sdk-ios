@@ -87,7 +87,7 @@ GD_C_API void GD_myipaddress(const char* host, unsigned int port, completionCall
  * Call this function to retrieve the IP address of the BlackBerry Dynamics
  * end point for a specified host and supply extended data to the results
  * callback. This function does the same retrieval as the
- * \ref GD_myipaddress() function, see above.
+ * GD_myipaddress() function, see above.
  *
  * The completion callback will receive extended data, which is passed as a
  * parameter to this function.
@@ -98,7 +98,7 @@ GD_C_API void GD_myipaddress(const char* host, unsigned int port, completionCall
  *
  * @param callback Function to execute when the retrieval completes. The function
  *                 receives a results parameter, as described above under
- *                 \ref GD_myipaddress(), and extended data, as passed in the
+ *                 GD_myipaddress(), and extended data, as passed in the
  *                 <tt>data</tt> parameter, below.
  *
  * @param data <tt>void *</tt> pointer to the extended data for the callback.

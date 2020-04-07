@@ -263,7 +263,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
 @end
 
 /** \page st02gdsocket GDSocket state transition diagram
- *  \image html "st02 GD Socket.png" "GDSocket state transition diagram" \image rtf "st02 GD Socket.png" "GDSocket state transition diagram"
+ * \image html "st02 GD Socket.png" "GDSocket state transition diagram"\image rtf "st02 GD Socket.png" "GDSocket state transition diagram"
  * @see GDSocket
  */
 
@@ -282,12 +282,12 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * 
  * BlackBerry Dynamics secure communication does not go via the proxy specified
  * in the device's native settings, if any.
- * @see \reflink GDiOS\endlink, for BlackBerry Dynamics authorization.
+ * @see \reflink GDiOS \endlink, for BlackBerry Dynamics authorization.
  * @see \ref threads
  * @see \ref background_execution
  * @see GDHttpRequest
  * @see GDNetUtility
- * @see <a  HREF="http://help.blackberry.com/en/good-control-good-proxy/current/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
+ * @see <a  HREF="https://docs.blackberry.com/en/endpoint-management/blackberry-uem/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
  *
  *
  * <h3>Overview</h3>
@@ -411,7 +411,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * SSL/TLS connections with an application server.
  *
  * The runtime can be configured to offer these protocols, as follows.
- * -# Add a new row to the application's Info.plist fi<tt></tt>le*:
+ * -# Add a new row to the application's Info.plist file:
  *     - Key: <tt>GDControlTLSVersions</tt>
  *     - Type: <tt>String</tt> (the default)
  *     .
@@ -460,7 +460,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *
  * Note. The application server configuration set in the management console can
  * be obtained in the application code by using the
- * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink function.
+ * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink function.
  *
  * The connection to the application server will be made through the BlackBerry
  * Dynamics proxy infrastructure. The status of the application's connection to
@@ -468,7 +468,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * GDReachability interface.
  *
  * @see \ref GC
- * @see \reflink GDReachability GDReachability\endlink class reference.
+ * @see \reflink GDReachability GDReachability \endlink class reference.
  */
 @interface GDSocket : NSObject {
     /** \privatesection */
@@ -627,11 +627,13 @@ GD_NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_GDHTTPREQUESTDELEGATE __attribute__((deprecated("GDHttpRequestDelegate interface has been deprecated")))
 #else
 #   define DEPRECATE_GDHTTPREQUESTDELEGATE __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** Delegate for handling GDHttpRequest state transitions (deprecated).
  * 
@@ -708,16 +710,14 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
     GDHttpRequest_DONE = 5
 } DEPRECATE_GDHTTPREQUESTDELEGATE;
 
-/** \page st03gdhttprequest GDHttpRequest state transition diagram (deprecated)
- *  \image html "st03 GD HTTP Request.png" "GDHttpRequest state transition diagram" \image rtf "st03 GD HTTP Request.png" "GDHttpRequest state transition diagram"
- * @see GDHttpRequest (deprecated).
- */
-
 // See: http://clang.llvm.org/docs/LanguageExtensions.html
+/* \cond DOXYGEN_IGNORE */
 #ifndef __has_extension
 #define __has_extension(x) 0  // Compatibility with non-clang compilers.
 #endif
+/* \endcond */
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_CLEARCOOKIES __attribute__((deprecated("No longer supported")))
 #else
@@ -728,6 +728,7 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
 #else
 #   define DEPRECATE_GDHTTPREQUEST __attribute__((deprecated))
 #endif
+/* \endcond */
 /** Standards-based HTTP request, also supporting HTTPS and communication across
  *  the firewall (deprecated).
  *
@@ -752,7 +753,7 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  * application thread.</b>
  *
  * @see GDiOS, for BlackBerry Dynamics authorization
- * @see <a  HREF="http://help.blackberry.com/en/good-control-good-proxy/current/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
+ * @see <a  HREF="https://docs.blackberry.com/en/endpoint-management/blackberry-uem/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
  * @see \ref threads
  * @see \ref background_execution
  * @see GDSocket
@@ -865,8 +866,6 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  *         <tt>getReceiveBuffer</tt> (deprecated)</td>
  *     </tr>
  *  </table>
- * The transitions in the above table are also shown in the
- * \ref st03gdhttprequest.
  *
  * <h3>XHR differences</h3>
  * Differences between this programming interface and the XmlHttpRequest
@@ -904,7 +903,7 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  *
  * Note. The application server configuration set in the management console can
  * be obtained in the application code by using the
- * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink function.
+ * \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink function.
  *
  * The connection to the application server will be made through the BlackBerry
  * Dynamics proxy infrastructure. The status of the application's connection to
@@ -912,7 +911,7 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  * GDReachability interface.
  *
  * @see \ref GC
- * @see \reflink GDReachability GDReachability\endlink class reference.
+ * @see \reflink GDReachability GDReachability \endlink class reference.
  * 
 <h3>HTTPS Security</h3>
  * BlackBerry Dynamics secure communication supports HTTPS, using a Secure
@@ -951,7 +950,7 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  * SSL/TLS connections with an application server.
  *
  * The runtime can be configured to offer these protocols, as follows.
- * -# Add a new row to the application's Info.plist fi<tt></tt>le*:
+ * -# Add a new row to the application's Info.plist file:
  *     - Key: <tt>GDControlTLSVersions</tt>
  *     - Type: <tt>String</tt> (the default)
  *     .
@@ -990,7 +989,7 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  * 
 <h3>HTTP proxy support</h3>
  * HTTP and HTTPS requests can be relayed by an HTTP
- * or HTTPS 
+ * or HTTPS
  * proxy that resides on the Internet or behind the enterprise firewall.
  * Authentication with the proxy is supported.
  *
@@ -1013,7 +1012,6 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  * authentication with HTTP proxies.
  *
  * <h4>Kerberos Authentication</h4>
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
  * The BlackBerry Dynamics runtime supports Kerberos version 5 authentication.
  * If using Kerberos authentication:
  * - Supply username and password credentials
@@ -1024,7 +1022,7 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  * - The BlackBerry Dynamics runtime will use these credentials to request
  *   Kerberos tickets. The tickets are persisted on the device in the BlackBerry
  *   Dynamics secure store. (The ticket store isn't generally accessible to the
- *   application, but see  \reflink GDCacheController::clearCredentialsForMethod:  clearCredentialsForMethod:\endlink.)
+ *   application, but see \reflink  GDCacheController::clearCredentialsForMethod:  clearCredentialsForMethod: \endlink.)
  * - The stored Kerberos tickets are then used to authenticate the user on any
  *   site that supports Kerberos authentication. So long as the ticket continues
  *   to be accepted, there is no need for credentials to be supplied again, and
@@ -1044,7 +1042,6 @@ typedef NS_ENUM(NSInteger, GDHttpRequest_state_t)
  *   \link GDCacheController::kerberosAllowDelegation:
  *   GDCacheController::kerberosAllowDelegation:\endlink.
  * .
- *  \htmlonly </div> \endhtmlonly
  * 
 
  * <h3>HTTP Cookie Handling</h3>

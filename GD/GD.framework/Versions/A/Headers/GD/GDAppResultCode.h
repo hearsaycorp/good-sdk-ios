@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, GDAppEventType)
      *
      * The event result code will be <TT>GDErrorNone</TT>.
      *
-     * See  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for authorization processing initiation.
+     * See \reflink GDiOS::authorize: authorize (GDiOS) \endlink for authorization processing initiation.
      */
     GDAppEventAuthorized = 0,
     
@@ -44,30 +44,30 @@ typedef NS_ENUM(NSInteger, GDAppEventType)
      * The event result code will indicate the condition that has arisen.
      * See \ref GDAppResultCode.
      *
-     * See  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for authorization processing initiation.
+     * See \reflink GDiOS::authorize: authorize (GDiOS) \endlink for authorization processing initiation.
      */
     GDAppEventNotAuthorized = 1,
     
     /** A change to application configuration or other settings from the
      *  enterprise has been received.\ An event of this type is dispatched
      *  whenever there is a change in any value that is returned by
-     *  \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS)\endlink.
+     *  \reflink GDiOS::getApplicationConfig getApplicationConfig (GDiOS) \endlink.
      */
     GDAppEventRemoteSettingsUpdate = 2,
     
     /** A change to services-related configuration of one or more applications
-     *  has been received.\ See under  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink.
+     *  has been received.\ See under \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink.
      */
     GDAppEventServicesUpdate = 3,
     
     /** A change to one or more application-specific policy settings has been
-     *  received.\ See under \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS)\endlink.
+     *  received.\ See under \reflink GDiOS::getApplicationPolicy getApplicationPolicy (GDiOS) \endlink.
      */
     GDAppEventPolicyUpdate = 4,
     
     /** A change to the entitlements data of the end user has been received.\ If
      *  the entitlements of the end user had previously been checked, by calling
-     *  the \reflink GDiOS::getEntitlementVersionsFor:callbackBlock: getEntitlementVersionsFor:callbackBlock: (GDiOS)\endlink
+     *  the \reflink GDiOS::getEntitlementVersionsFor:callbackBlock: getEntitlementVersionsFor:callbackBlock: (GDiOS) \endlink
      *  function, then the entitlements should be checked again now.
      */
     GDAppEventEntitlementsUpdate = 6,
@@ -80,7 +80,7 @@ typedef NS_ENUM(NSInteger, GDAppEventType)
     *
     *   The event result code will be <TT>GDErrorNone</TT>.
     *
-    *   See  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for authorization processing initiation.
+    *   See \reflink GDiOS::authorize: authorize (GDiOS) \endlink for authorization processing initiation.
     */
     GDAppEventBackgroundAuthorized = 7,
     
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, GDAppEventType)
      * The event result code will indicate the condition that has arisen.
      * See \ref GDAppResultCode.
      *
-     * See  \reflink GDiOS::authorize: authorize (GDiOS)\endlink for authorization processing initiation.
+     * See \reflink GDiOS::authorize: authorize (GDiOS) \endlink for authorization processing initiation.
      */
     GDAppEventBackgroundNotAuthorized = 8,
 };
@@ -119,21 +119,21 @@ typedef NS_ENUM(NSInteger, GDAppResultCode)
     /** Device activation failed.\ Device activation is part of authorization
      *  processing.\ This code notifies the application that processing didn't
      *  succeed this time, but might succeed if another attempt is made.\ See
-     *  under  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+     *  under \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
      */
     GDErrorActivationFailed = -101,
     
     /** Enterprise activation failed.\ Enterprise activation is part of
      *  authorization processing.\ This code notifies the application that
      *  processing didn't succeed this time, but might succeed if another
-     *  attempt is made.\ See under  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+     *  attempt is made.\ See under \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
      */
     GDErrorProvisioningFailed = -102,
     
     /** Connection to the Push Channel service failed but is required to
      *  complete authorization.\ This code notifies the application that
      *  authorization processing didn't succeed this time, but might succeed if
-     *  another attempt is made. See  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+     *  another attempt is made. See \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
      */
     GDErrorPushConnectionTimeout = -103,
     
@@ -249,7 +249,7 @@ typedef NS_ENUM(NSInteger, GDAppResultCode)
      *  establish a data connection for programmatic activation.\ This code
      *  notifies the application that programmatic activation didn't succeed
      *  this time, but might succeed if another attempt is made.\ See under
-     *   \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+     *  \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
      */
     GDErrorProgrammaticActivationNoNetwork = -601,
     
@@ -258,7 +258,7 @@ typedef NS_ENUM(NSInteger, GDAppResultCode)
      *  activation processing.\ This code notifies the application that
      *  programmatic activation didn't succeed this time, but could succeed if
      *  another attempt is made with different credential values.\ See under
-     *   \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+     *  \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
      */
     GDErrorProgrammaticActivationCredentialsFailed = -602,
     
@@ -266,7 +266,7 @@ typedef NS_ENUM(NSInteger, GDAppResultCode)
      *  was established but communication with a required server resource
      *  subsequently failed.\ This code notifies the application that
      *  programmatic activation didn't succeed this time, but could succeed if
-     *  another attempt is made later.\ See under  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+     *  another attempt is made later.\ See under \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
      *
      * It is recommended not to make repeated attempts at programmatic
      * activation with no delay between attempts. Instead, an exponential
@@ -277,10 +277,7 @@ typedef NS_ENUM(NSInteger, GDAppResultCode)
     /** Programmatic activation failed.\ A general failure occurred during
      *  programmatic activation processing.\ This code notifies the application
      *  that programmatic activation didn't succeed this time, but could succeed
-     *  if another attempt is made.\ See under  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+     *  if another attempt is made.\ See under \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
      */
     GDErrorProgrammaticActivationUnknown = -600
 };
-
-/** \}
- */

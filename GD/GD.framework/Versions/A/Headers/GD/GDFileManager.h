@@ -7,17 +7,21 @@
 #import "GDCWriteStream.h"
 #import "GDPortability.h"
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATED_IN_NSFILEMANAGER __attribute__((deprecated("Deprecated in NSFileManager. Do not use.")))
 #else
 #   define DEPRECATED_IN_NSFILEMANAGER __attribute__((deprecated))
 #endif
+/* \endcond */
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_unavailable_with_message)
 #   define UNAVAILABLE_IN_GDFILEMANAGER __attribute__((unavailable("Unavailable in GDFileManager. Do not use.")))
 #else
 #   define UNAVAILABLE_IN_GDFILEMANAGER __attribute__((deprecated))
 #endif
+/* \endcond */
 
 #if (defined(__MAC_10_12) && defined(__MAC_OS_X_VERSION_MAX_ALLOWED) && __MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_12)\
  || (defined(__IPHONE_10_0) && defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0)
@@ -108,14 +112,13 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
  * The secure file system is part of the BlackBerry Dynamics Secure
  * Storage feature.
  *
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
  * For applications, the BlackBerry Dynamics secure file system behaves like the
  * default file system, with the following differences.
  * - All data within the secure file system is stored on the device
  *   in an encrypted form.
  * - Directory and file names are also encrypted.
  * - The secure file system cannot be accessed until BlackBerry Dynamics
- *   authorization processing is complete, see under  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+ *   authorization processing is complete, see under \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
  * .
  *
  * Every operating system has a maximum supported length for the names of files
@@ -147,10 +150,9 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
  * The encryption method used by the BlackBerry Dynamics runtime generally
  * requires that the user has entered a security password, from which an
  * encryption key is derived.
- *  \htmlonly </div> \endhtmlonly
  *
  * 
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
+ * \htmlonly<div class="bulletlists">\endhtmlonly
  * <h2>Usage</h2>
  * This class is a subclass of the native <tt>NSFileManager</tt> class. It
  * should be easy to replace references to <tt>NSFileManager</tt> with
@@ -231,7 +233,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
  * Elements of the base class that aren't overriden are not listed. See the
  * documentation of the base class, <tt>NSFileManager</tt>, for full
  * descriptions.
- *  \htmlonly </div> \endhtmlonly
+ * \htmlonly</div>\endhtmlonly
  *
  * @see <a
             href="https://developer.apple.com/reference/foundation/nsfilemanager"
@@ -248,12 +250,12 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
         >NSSearchPathForDirectoriesInDomains reference documentation</a
         > on the apple.com developer website.
  * @see \ref gdfilemanagererrordomain
- * @see  \reflink sqlite Secure SQL Database API\endlink
+ * @see \reflink  sqlite Secure SQL Database API \endlink
  * @see \ref GDPersistentStoreCoordinator
  * @see \ref GDFileHandle 
  * @see \ref capilist
   *
- *  <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
+ * <h2>Code Snippets</h2> The following code snippets illustrate some common tasks.
  * <h3>Simple conversion to secure file system</h3>
  * The following code snippets illustrate simple conversion of a function that
  * uses the native file system to use the secure files system instead.
@@ -412,11 +414,13 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
  */
 + (GD_NSNULLABLE NSString*)pathForManagerFromCPath: (NSString*) filePath;
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_EXP_LOGFILE_TO_DOC_FOLDER __attribute__((deprecated("Will be removed.")))
 #else
 #   define DEPRECATE_EXP_LOGFILE_TO_DOC_FOLDER __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** Dump BlackBerry Dynamics logs out to an accessible folder (deprecated).
  *
@@ -437,16 +441,18 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
 
 + (BOOL)exportLogFileToDocumentsFolder:(NSError**)error DEPRECATE_EXP_LOGFILE_TO_DOC_FOLDER;
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_UPLOAD_LOGS __attribute__((deprecated("Use startUpload in GDLogManager instead.")))
 #else
 #   define DEPRECATE_UPLOAD_LOGS __attribute__((deprecated))
 #endif
+/* \endcond */
 
 /** Upload BlackBerry Dynamics logs to BlackBerry (deprecated).
  * 
  * @deprecated This function is deprecated and will be removed in a
- * future release. Use \reflink GDLogManager::startUpload GDLogManager::startUpload\endlink instead.
+ * future release. Use \reflink GDLogManager::startUpload GDLogManager::startUpload \endlink instead.
  *
  * Call this function to upload BlackBerry Dynamics activity logs
  * for support purposes. The logs will be uploaded to a server in the BlackBerry
@@ -479,7 +485,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
  *
  * @return <tt>nil</tt> always.
  */
-- (NSURL *)containerURLForSecurityApplicationGroupIdentifier:(NSString *)groupIdentifier;
+- (nullable NSURL *)containerURLForSecurityApplicationGroupIdentifier:(NSString *)groupIdentifier;
 
 - (GD_NSNULLABLE GD_NSArray(NSURL*)*)contentsOfDirectoryAtURL:(NSURL *)url includingPropertiesForKeys:(GD_NSNULLABLE GD_NSArray(GD_NSURLResourceKey)*)keys options:(NSDirectoryEnumerationOptions)mask error:(NSError **)error;
 
@@ -687,7 +693,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
 /** Deprecated in base class.
  * 
  * \deprecated This function is deprecated in the base class. Use
- * \reflink GDFileManager::setAttributes:ofItemAtPath:error: setAttributes:ofItemAtPath:error:\endlink
+ * \reflink GDFileManager::setAttributes:ofItemAtPath:error: setAttributes:ofItemAtPath:error: \endlink
  * instead.
  */
 - (BOOL)changeFileAttributes:( NSDictionary *)attributes atPath:( NSString *)path DEPRECATED_IN_NSFILEMANAGER;
@@ -695,7 +701,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
 /** Deprecated in base class.
  * 
  * \deprecated This function is deprecated in the base class. Use
- * \reflink GDFileManager::attributesOfItemAtPath:error: attributesOfItemAtPath:error:\endlink
+ * \reflink GDFileManager::attributesOfItemAtPath:error: attributesOfItemAtPath:error: \endlink
  * instead.
  */
 - (GD_NSNULLABLE NSDictionary *)fileAttributesAtPath:( NSString *)path traverseLink:(BOOL)flag DEPRECATED_IN_NSFILEMANAGER;
@@ -703,7 +709,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
 /** Deprecated in base class.
  * 
  * \deprecated This function is deprecated in the base class. Use
- * \reflink GDFileManager::attributesOfFileSystemForPath:error: attributesOfFileSystemForPath:error:\endlink
+ * \reflink GDFileManager::attributesOfFileSystemForPath:error: attributesOfFileSystemForPath:error: \endlink
  * instead.
  */
 - (GD_NSNULLABLE NSDictionary *)fileSystemAttributesAtPath:( NSString *)path  DEPRECATED_IN_NSFILEMANAGER;
@@ -711,7 +717,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
 /** Deprecated in base class.
  * 
  * \deprecated This function is deprecated in the base class. Use
- * \reflink GDFileManager::contentsOfDirectoryAtPath:error: contentsOfDirectoryAtPath:error:\endlink
+ * \reflink GDFileManager::contentsOfDirectoryAtPath:error: contentsOfDirectoryAtPath:error: \endlink
  * instead.
  */
 - (GD_NSNULLABLE NSArray *)directoryContentsAtPath:( NSString *)path DEPRECATED_IN_NSFILEMANAGER;
@@ -719,7 +725,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
 /** Deprecated in base class.
  * 
  * \deprecated This function is deprecated in the base class. Use
- * \reflink GDFileManager::createDirectoryAtPath:withIntermediateDirectories:attributes:error: createDirectoryAtPath:withIntermediateDirectories:attributes:error:\endlink
+ * \reflink GDFileManager::createDirectoryAtPath:withIntermediateDirectories:attributes:error: createDirectoryAtPath:withIntermediateDirectories:attributes:error: \endlink
  * instead.
  */
 - (BOOL)createDirectoryAtPath:( NSString *)path attributes:( NSDictionary *)attributes DEPRECATED_IN_NSFILEMANAGER;
@@ -727,7 +733,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
 /** Deprecated in base class.
  * 
  * \deprecated This function is deprecated in the base class. Use
- * \reflink GDFileManager::createSymbolicLinkAtPath:withDestinationPath:error: createSymbolicLinkAtPath:withDestinationPath:error:\endlink
+ * \reflink GDFileManager::createSymbolicLinkAtPath:withDestinationPath:error: createSymbolicLinkAtPath:withDestinationPath:error: \endlink
  * instead.
  */
 - (BOOL)createSymbolicLinkAtPath:( NSString *)path pathContent:( NSString *)otherPath DEPRECATED_IN_NSFILEMANAGER;
@@ -735,7 +741,7 @@ typedef NS_ENUM(NSInteger, GDFileManagerErrorType)
 /** Deprecated in base class.
  * 
  * \deprecated This function is deprecated in the base class. Use
- * \reflink GDFileManager::destinationOfSymbolicLinkAtPath:error: destinationOfSymbolicLinkAtPath:error:\endlink
+ * \reflink GDFileManager::destinationOfSymbolicLinkAtPath:error: destinationOfSymbolicLinkAtPath:error: \endlink
  * instead.
  */
 - (GD_NSNULLABLE NSString *)pathContentOfSymbolicLinkAtPath:( NSString *)path  DEPRECATED_IN_NSFILEMANAGER;

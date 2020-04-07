@@ -129,7 +129,7 @@ struct GD_C_API GDError {
  *
  * For example, this structure is used to encapsulate the binary DER encoded
  * representation of X.509 ASN1 certificate data in a
- * \link GDX509Certificate\endlink instance.
+ * \link GDX509Certificate \endlink instance.
  * 
  * @see clientcertificateimport
  */

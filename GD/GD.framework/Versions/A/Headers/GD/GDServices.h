@@ -10,11 +10,13 @@
 #import <Foundation/Foundation.h>
 #import "GDPortability.h"
 
+/* \cond DOXYGEN_IGNORE */
 #if __has_extension(attribute_deprecated_with_message)
 #   define DEPRECATE_BRINGTOFRONTWITHOUTCOMPLETION __attribute((deprecated("Use bringToFront:completion:error:")))
 #else
 #   define DEPRECATE_BRINGTOFRONTWITHOUTCOMPLETION __attribute((deprecated))
 #endif
+/* \endcond */
 
 GD_NS_ASSUME_NONNULL_BEGIN
 
@@ -44,17 +46,17 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * this domain isn't used for errors that are specific to a service, nor for
  * errors that are specific to a service provider application.
  * 
- * For an overall description of AppKinetics see the   \reflink GDService GDService class reference\endlink.
+ * For an overall description of AppKinetics see the \reflink GDService GDService class reference\endlink.
  *
  * An <tt>NSError</tt> with this value as its domain could be encountered:
  * - In the <tt>error</tt> parameter following a call to
- *    \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink where the request was not accepted by the
+ *   \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink where the request was not accepted by the
  *   AppKinetics system.
  * - In the <tt>error</tt> parameter following a call to
- *    \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink where the response was not accepted by the
+ *   \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink where the response was not accepted by the
  *   AppKinetics system.
  * - As the <tt>params</tt> object passed to an invocation of
- *    \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink where a request that had
+ *   \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink where a request that had
  *   been accepted subsequently failed in the system.
  * .
  * Of the above, <tt>sendTo:</tt> and
@@ -66,7 +68,11 @@ extern NSString* const GDServicesErrorDomain;
 
 /** A general AppKinetics error occurred.
  */
-extern NSInteger const GDServicesErrorGeneral; 
+extern NSInteger const GDServicesErrorGeneral;
+
+/** Application's process has been suspended by system.
+ */
+extern NSInteger const GDServicesErrorProcessSuspended;
 
 /** The service consumer sent a request to an application that couldn't be found
  *  on the device or computer.
@@ -130,7 +136,7 @@ extern NSInteger const GDServicesErrorEnterpriseUserNotMatch;
  * These miscellaneous constants are part of the AppKinetics programming
  * interface.
  *
- * For an overall description of AppKinetics see the   \reflink GDService GDService class reference\endlink.
+ * For an overall description of AppKinetics see the \reflink GDService GDService class reference\endlink.
  * 
  * \{
  */
@@ -139,7 +145,7 @@ extern NSInteger const GDServicesErrorEnterpriseUserNotMatch;
  * 
  * This enumeration represents a preference for which application is to execute
  * in foreground. The <tt>option</tt> parameter of the
- *  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink and  \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink functions
+ * \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink and \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink functions
  * always takes one of these values. See function references for details.
  */
 
@@ -160,7 +166,7 @@ typedef NS_ENUM(NSInteger, GDTForegroundOption)
  * 
  * Use this constant to send or identify a front request. See under Foreground
  * Execution and Front Request Programming Interface in the
- *   \reflink GDService GDService class reference\endlink.
+ * \reflink GDService GDService class reference\endlink.
  */
 extern NSString* const GDFrontRequestService;
 
@@ -168,7 +174,7 @@ extern NSString* const GDFrontRequestService;
  * 
  * Use this constant to identify the method in a front request. See under
  * Foreground Execution and Front Request Programming Interface in the
- *   \reflink GDService GDService class reference\endlink.
+ * \reflink GDService GDService class reference\endlink.
  */
 extern NSString* const GDFrontRequestMethod;
 
@@ -183,11 +189,11 @@ extern NSString* const GDFrontRequestMethod;
  * This class is part of the service consumer side of the AppKinetics
  * programming interface.
  *
- * The  \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink callback would be
+ * The \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink callback would be
  * invoked after the application had sent a service request to a service
  * provider, and the provider had responded or an error had occurred.
  * 
- * @see The   \reflink GDService GDService class reference\endlink for an overall description of AppKinetics.
+ * @see The \reflink GDService GDService class reference\endlink for an overall description of AppKinetics.
  *
  * This class also includes a callback that is invoked when transmission of a
  * service request completes.
@@ -201,12 +207,12 @@ extern NSString* const GDFrontRequestMethod;
  * -# \link GDServiceClientDelegate::GDServiceClientWillStartReceivingFrom:attachmentPath:fileSize:forRequestID:
  *    GDServiceWillStartReceivingFrom:attachmentPath:fileSize:forRequestID:\endlink
  *    once for each file attachment.
- * -#  \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink once.
+ * -# \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink once.
  * .
  * The first two of these callbacks enable the application to display a
  * receiving status in its user interface. No action should be taken on any
  * attachment files until the last callback,
- *  \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink.
+ * \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink.
  */
 @protocol GDServiceClientDelegate<NSObject>
 @required
@@ -216,13 +222,13 @@ extern NSString* const GDFrontRequestMethod;
  * AppKinetics service request. The parameters give the details of the service
  * response.
  * 
- * For an overall description of AppKinetics see the   \reflink GDService GDService class reference\endlink.
+ * For an overall description of AppKinetics see the \reflink GDService GDService class reference\endlink.
  * 
  * See under Callback Invocation Sequence, above, for the position of this
  * callback in the order of service response callbacks.
  * 
  * A service response may be received in relation to a call to
- *  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink that was accepted by the AppKinetics system.
+ * \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink that was accepted by the AppKinetics system.
  *
  * The response can include file attachments and a results object from the
  * provider application. Check the type of the results object to determine
@@ -246,7 +252,7 @@ extern NSString* const GDFrontRequestMethod;
  * <tt>NSError</tt> then the service
  * request succeeded. In that case the results object will be of a valid service
  * parameter type, as defined under Service Parameters in the
- *   \reflink GDService GDService class reference\endlink.
+ * \reflink GDService GDService class reference\endlink.
  * 
  * @param application <tt>NSString</tt> containing the native application identifier of
  *                    the provider application to which the original service
@@ -257,13 +263,13 @@ extern NSString* const GDFrontRequestMethod;
  * @param attachments <tt>NSArray</tt> of <tt>NSString</tt>
  *                    objects containing the paths of files that were attached
  *                    to the service response. See under File Attachments in the
- *                      \reflink GDService GDService class reference\endlink.
+ *                    \reflink GDService GDService class reference\endlink.
  * 
  * @param requestID <tt>NSString</tt> containing the ID assigned to the original
  *                  service request. An application that makes multiple
  *                  concurrent service requests can use this value to tie the
  *                  response back to the original request. The application must
- *                  have retained the ID from when  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink
+ *                  have retained the ID from when \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink
  *                  was originally called.
  */
 - (void) GDServiceClientDidReceiveFrom:(NSString*)application
@@ -287,7 +293,7 @@ extern NSString* const GDFrontRequestMethod;
  * <tt>GDServiceClientDidFinishSendingTo:</tt>
  * callback.
  *
- * @see  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink for details of sending service requests.
+ * @see \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink for details of sending service requests.
  * 
  * @param application <tt>NSString</tt> containing the native application identifier of
  *                    the recipient of the file.
@@ -315,7 +321,7 @@ extern NSString* const GDFrontRequestMethod;
  * The function that is invoked can delete or modify any of the original
  * file attachments, and free any resources used to hold the request parameters.
  *
- * @see  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink for details of sending service requests.
+ * @see \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink for details of sending service requests.
  * 
  * @param requestID <tt>NSString</tt> containing the unique identifier of the service
  *                  request whose sending has completed.
@@ -344,7 +350,7 @@ extern NSString* const GDFrontRequestMethod;
  * 
  * The function that is invoked could display a receiving status in its user
  * interface. The status could be cleared on receipt of the
- *  \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink callback.
+ * \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink callback.
  * 
  * @param application <tt>NSString</tt> containing the native application identifier of
  *                    the provider application that sent the service response to
@@ -376,7 +382,7 @@ extern NSString* const GDFrontRequestMethod;
  *
  * The function that is invoked could display or update a receiving status
  * in its user interface. The status could be cleared on receipt of the
- *  \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink callback.
+ * \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink callback.
  * 
  * @param application <tt>NSString</tt> containing the native application identifier of
  *                    the provider application that sent the service response
@@ -385,7 +391,7 @@ extern NSString* const GDFrontRequestMethod;
  * @param path <tt>NSString</tt> containing the path of the attachment. The value will
  *             be the same as one of the elements in the <tt>attachments</tt>
  *             parameter passed to the subsequent
- *              \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink invocation.
+ *             \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink invocation.
  *
  * @param size <tt>NSNumber</tt> representing the size 
  *             of the file in bytes. The value will be an <tt>unsigned
@@ -412,20 +418,20 @@ extern NSString* const GDFrontRequestMethod;
  * To utilize this interface, the application must meet the requirements listed
  * under Service Consumer Requirements, below.
  * 
- * For an overall description of AppKinetics see the   \reflink GDService GDService class reference\endlink.
+ * For an overall description of AppKinetics see the \reflink GDService GDService class reference\endlink.
  * 
  * The functions in this programming interface cannot be used until
  * BlackBerry Dynamics authorization processing is
- * complete, see under  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+ * complete, see under \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
  * 
- * @see  \reflink iccerrors AppKinetics Errors\endlink
+ * @see \reflink  iccerrors AppKinetics Errors \endlink
  * 
  * <h3>Service Consumer Requirements</h3>
  * To function as an AppKinetics service consumer, a BlackBerry Dynamics
  * application must:
  * - Instantiate a single object of the <tt>GDServi</tt><tt>ceClient</tt> class.
  * - Set the delegate to an instance of a class that
- *   implements the  \reflink GDServiceClientDelegate GDServiceClientDelegate\endlink
+ *   implements the \reflink GDServiceClientDelegate GDServiceClientDelegate \endlink
  *   protocol, typically
  *   <tt>self</tt>.
  * - Register the AppKinetics URL type
@@ -446,19 +452,22 @@ extern NSString* const GDFrontRequestMethod;
  * request includes a method name, and can include service parameters and file
  * attachments to be conveyed to the provider application.
  *
- * For an overall description of AppKinetics see the   \reflink GDService GDService class reference\endlink.
+ * For an overall description of AppKinetics see the \reflink GDService GDService class reference\endlink.
  * 
  * The AppKinetics system will assign a unique identifier to the service request
  * and make this available to the application. This value will also be returned
  * with any response to the request. An application that makes multiple
  * concurrent requests can use the request identifier to match responses with
  * requests.
- * 
+ *
+ * This method may perform storage or network I/O, and therefore <b>should not
+ * be called on the UI thread</b>.
+ *
  * @param application <tt>NSString</tt> containing the
  *                    native bundle identifier
  *                    of the service provider application.
  * A suitable value could be obtained from the address field of a
- * <tt>GDServiceProvider</tt> object returned by the  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink
+ * <tt>GDServiceProvider</tt> object returned by the \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink
  * function.
  *
  * @param service <tt>NSString</tt> containing the identifier of the service to which
@@ -475,13 +484,13 @@ extern NSString* const GDFrontRequestMethod;
  *               offers.
  *
  * @param params The service parameters object for the request. See under
- *               Service Parameters in the   \reflink GDService GDService class reference\endlink.
+ *               Service Parameters in the \reflink GDService GDService class reference\endlink.
  *
  * @param attachments <tt>NSArray</tt> of <tt>NSString</tt>
  *                    objects containing the paths of files in the
  *                    BlackBerry Dynamics secure file system that are to
  *                    be attached to the request. See under File Attachments in
- *                    the   \reflink GDService GDService class reference\endlink.
+ *                    the \reflink GDService GDService class reference\endlink.
  *
  * @param option <tt>GDTForegroundOption</tt> specifying the foreground execution preference
  *               for processing of the request:\n
@@ -492,7 +501,7 @@ extern NSString* const GDFrontRequestMethod;
  *               <tt>GDENoForegroundPreference</tt> to specify that there is no
  *               preference.\n
  *               See also the notes under Foreground Execution in the
- *                 \reflink GDService GDService class reference\endlink.
+ *               \reflink GDService GDService class reference\endlink.
  *
  * @param requestID Location of a an <tt>NSString</tt> pointer for returning the
  *                  unique identifier assigned to the request by the AppKinetics
@@ -527,7 +536,7 @@ bringServiceToFront:(GDTForegroundOption)option
  *
  * This function can be used to cancel a single service request. Specify the
  * unique identifier of the request, which will have been generated when
- *  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink was called.
+ * \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink was called.
  *
  * This function can also be used to cancel all service requests addressed
  * to a specific application.
@@ -536,7 +545,7 @@ bringServiceToFront:(GDTForegroundOption)option
  * - The
  *   <tt>GDServiceClientDidFinishSendingTo:</tt>
  *   callback in the sending application isn't subsequently invoked.
- * - The  \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink callback in the
+ * - The \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink callback in the
  *   receiving application won't be invoked.
  * .
  * Cancellation will fail if the service request has already been delivered, in
@@ -561,7 +570,7 @@ bringServiceToFront:(GDTForegroundOption)option
  * Call this function to bring another application to the
  * foreground. This would typically be used when a service provider application
  * has requested foreground execution to process a request that has already been
- * sent. See under Foreground Execution in the   \reflink GDService GDService class reference\endlink for
+ * sent. See under Foreground Execution in the \reflink GDService GDService class reference\endlink for
  * details.
  * 
 This function is asynchronous. Success or failure is returned by
@@ -591,13 +600,13 @@ This function is asynchronous. Success or failure is returned by
 /** Bring another application to the foreground (deprecated).
  * 
  * \deprecated This function is deprecated and will be removed in a future
- * release. Use  \reflink GDServiceClient::bringToFront:completion:error: bringToFront:\endlink with a completion block
+ * release. Use \reflink GDServiceClient::bringToFront:completion:error: bringToFront: \endlink with a completion block
  * instead.
  * 
  * Call this function to bring another application to the
  * foreground. This would typically be used when a service provider application
  * has requested foreground execution to process a request that has already been
- * sent. See under Foreground Execution in the   \reflink GDService GDService class reference\endlink for
+ * sent. See under Foreground Execution in the \reflink GDService GDService class reference\endlink for
  * details.
  * 
 Don't use this function outside the context of service request
@@ -621,7 +630,7 @@ Don't use this function outside the context of service request
  * Set this property to an instance of a class in the application that contains
  * the code for the required callback function
  * , i.e. a class that implements
- * the  \reflink GDServiceClientDelegate GDServiceClientDelegate\endlink protocol.
+ * the \reflink GDServiceClientDelegate GDServiceClientDelegate \endlink protocol.
  * The class should be coded to handle responses from service providers to which
  * the application sends service requests.
  * 
@@ -641,7 +650,7 @@ Don't use this function outside the context of service request
  * applications that provide services. An instance of the class must be set as
  * the observer for inbound service requests, by
  * setting the <tt>delegate</tt> property
- * of the application's \reflink GDService GDService\endlink instance.
+ * of the application's \reflink GDService GDService \endlink instance.
  * 
  * This class also includes a callback that is invoked when transmission of a
  * service response completes.
@@ -658,14 +667,14 @@ Don't use this function outside the context of service request
  * -# \link GDServiceDelegate::GDServiceWillStartReceivingFrom:attachmentPath:fileSize:forRequestID:
  *    GDServiceWillStartReceivingFrom:attachmentPath:fileSize:forRequestID:\endlink
  *    once for each file attachment.
- * -#  \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom\endlink once.
+ * -# \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom \endlink once.
  * .
  * The first two of these callbacks enable the application to display a
  * receiving status in its user interface. No action should be taken on any
  * attachment files until the last callback,
- *  \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom\endlink.
+ * \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom \endlink.
  * 
- * @see The   \reflink GDService GDService class reference\endlink for:
+ * @see The \reflink GDService GDService class reference\endlink for:
  * - An overall description of AppKinetics.
  * - A list of requirements for applications that provide services, under
  *   Service Provider Requirements
@@ -680,7 +689,7 @@ Don't use this function outside the context of service request
  * application within the AppKinetics system. The parameters with which this
  * function is called give the details of the service request.
  *
- * For an overall description of AppKinetics see the   \reflink GDService GDService class reference\endlink.
+ * For an overall description of AppKinetics see the \reflink GDService GDService class reference\endlink.
  *
  * See under Callback Invocation Sequence, above, for the position of this
  * callback in the order of service request callbacks.
@@ -690,13 +699,13 @@ Don't use this function outside the context of service request
  * -# Process the request, if valid.
  * -# If required by the service definition or other published interface,
  *    respond to the request with a success or failure result by calling the
- *     \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink function.
+ *    \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink function.
  * .
  * If the application determines that a service request is invalid then the
  * application should return an error in the <tt>replyTo</tt> call. For some
  * check failures, the application must set a particular code in the returned
  * error. These are documented in the Parameters section, below.
- * @see  \reflink iccerrors AppKinetics Errors\endlink.
+ * @see \reflink  iccerrors AppKinetics Errors \endlink.
  *
  * @param application <tt>NSString</tt> containing the native application identifier of
  *                    the consumer application that sent the service request.
@@ -724,7 +733,7 @@ Don't use this function outside the context of service request
  *
  * @param params The service parameters in the request, sent by the consumer
  *               application. See under Service Parameters in the
- *                 \reflink GDService GDService class reference\endlink. If the service parameters are in some
+ *               \reflink GDService GDService class reference\endlink. If the service parameters are in some
  *               way invalid then a service-specific error code could be set, or
  *               this could be handled in some other way according to the
  *               service definition.
@@ -732,7 +741,7 @@ Don't use this function outside the context of service request
  * @param attachments <tt>NSArray</tt> of <tt>NSString</tt>
  *                    objects containing the paths of files that were attached
  *                    to the service request. See under File Attachments in the
- *                      \reflink GDService GDService class reference\endlink. If the file attachments are in
+ *                    \reflink GDService GDService class reference\endlink. If the file attachments are in
  *                    some way invalid then a service-specific error code could
  *                    be set in the results object, or this could be handled in
  *                    some other way according to the service definition.
@@ -740,7 +749,7 @@ Don't use this function outside the context of service request
  * @param requestID <tt>NSString</tt> containing the unique identifier assigned to this
  *                  service request by the AppKinetics system. The application
  *                  must pass this value as the <tt>requestID</tt> parameter in
- *                  the  \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink call if it responds to the
+ *                  the \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink call if it responds to the
  *                  request.
  */
 - (void) GDServiceDidReceiveFrom:(NSString*)application
@@ -768,7 +777,7 @@ Don't use this function outside the context of service request
  * <tt>GDServiceDidFinishSendingTo:</tt>
  * callback.
  *
- * @see  \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink for details of sending a service response.
+ * @see \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink for details of sending a service response.
  *
  * @param application <tt>NSString</tt> containing the native application identifier of
  *                    the recipient of the file.
@@ -796,7 +805,7 @@ Don't use this function outside the context of service request
  * file attachments, and free any resources used to hold the response
  * parameters.
  *
- * @see  \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink for details of sending service responses.
+ * @see \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink for details of sending service responses.
  * 
  * @param requestID <tt>NSString</tt> containing the unique identifier of the service
  *                  request to which the sending of the response has completed.
@@ -825,7 +834,7 @@ Don't use this function outside the context of service request
  * 
  * The function that is invoked could display a receiving status in its user
  * interface. The status could be cleared on receipt of the
- *  \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom\endlink callback.
+ * \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom \endlink callback.
  * 
  * @param application <tt>NSString</tt> containing the native application identifier of
  *                    the consumer application that sent the service request to
@@ -856,7 +865,7 @@ Don't use this function outside the context of service request
  *
  * The function that is invoked could display a receiving status in its user
  * interface. The status could be cleared on receipt of the
- *  \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom\endlink callback.
+ * \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom \endlink callback.
  * 
  * @param application <tt>NSString</tt> containing the native application identifier of
  *                    the consumer application that sent the service request to
@@ -865,7 +874,7 @@ Don't use this function outside the context of service request
  * @param path <tt>NSString</tt> containing the path of the attachment. The value will
  *             be the same as one of the elements in the <tt>attachments</tt>
  *             parameter passed to the subsequent
- *              \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom\endlink invocation.
+ *             \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom \endlink invocation.
  *
  * @param size <tt>NSNumber</tt> representing the size 
  *             of the file in bytes. The value will be an <tt>unsigned
@@ -897,12 +906,12 @@ Don't use this function outside the context of service request
  * 
  * The functions in this interface cannot be used until BlackBerry Dynamics
  * authorization processing is
- * complete, see under  \reflink GDiOS::authorize: authorize (GDiOS)\endlink.
+ * complete, see under \reflink GDiOS::authorize: authorize (GDiOS) \endlink.
  * 
- * @see  \reflink iccerrors AppKinetics Errors\endlink
- * @see \reflink GDServiceClient GDServiceClient\endlink for the parts of the interface that are specific
+ * @see \reflink  iccerrors AppKinetics Errors \endlink
+ * @see \reflink GDServiceClient GDServiceClient \endlink for the parts of the interface that are specific
  *      to service consumers.
- * @see  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink for the service discovery programming
+ * @see \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink for the service discovery programming
  *      interface.
  * 
  * <h3>AppKinetics</h3>
@@ -925,13 +934,13 @@ Don't use this function outside the context of service request
  * The sequence of programming interfaces used in a typical AppKinetics
  * interaction is as follows.
  * -# The consumer application executes a service discovery query, by calling
- *     \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink.
- * -# The consumer application calls  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink.
- * -# The  \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom\endlink callback in the provider
+ *    \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink.
+ * -# The consumer application calls \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink.
+ * -# The \reflink GDServiceDelegate::GDServiceDidReceiveFrom:forService:withVersion:forMethod:withParams:withAttachments:forRequestID: GDServiceDidReceiveFrom \endlink callback in the provider
  *    application is invoked by the AppKinetics system.
  * -# The provider application executes any required processing and then calls
- *     \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink.
- * -# The  \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom\endlink callback in the
+ *    \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink.
+ * -# The \reflink GDServiceClientDelegate::GDServiceClientDidReceiveFrom:withParams:withAttachments:correspondingToRequestID: GDServiceClientDidReceiveFrom \endlink callback in the
  *    consumer is invoked by the AppKinetics system.
  * .
  * Note that an AppKinetics interaction can be initiated with any BlackBerry
@@ -1098,7 +1107,7 @@ Don't use this function outside the context of service request
  * The AppKinetics system supports the sending of empty files in the current
  * release, but did not in some earlier releases.
  * 
- * @see  \reflink GDFileManager\endlink for the secure fi<tt></tt>le system programming
+ * @see \reflink  GDFileManager \endlink for the secure file system programming
  *      interface.
  *
  * <h3>Foreground Execution</h3>
@@ -1107,12 +1116,12 @@ Don't use this function outside the context of service request
  * request. This could be used when request processing always requires user
  * interaction, for example if the service is a special web browser or document
  * editor. See the <tt>option</tt> parameter of the
- *  \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient)\endlink function.
+ * \reflink GDServiceClient::sendTo:withService:withVersion:withMethod:withParams:withAttachments:bringServiceToFront:requestID:error: sendTo (GDServiceClient) \endlink function.
  *
  * Similarly, an AppKinetics service response can specify a preference that the
  * service consumer application executes in foreground in order to process the
  * response. This might be used to return the original application to the
- * foreground. See the <tt>option</tt> parameter of the  \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink
+ * foreground. See the <tt>option</tt> parameter of the \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink
  * function.
  *
  * It is also possible that a service provider itself determines its need to
@@ -1138,7 +1147,7 @@ Don't use this function outside the context of service request
  * -# Service consumer receives the front request. See under Front Request
  *    Programming Interface, below, for details.
  * -# Service consumer brings the provider to the foreground, by calling the
- *     \reflink GDServiceClient::bringToFront:completion:error: bringToFront:\endlink function.
+ *    \reflink GDServiceClient::bringToFront:completion:error: bringToFront: \endlink function.
  * -# Service provider completes processing of the original request.
  * .
  * Note that the service consumer could also leave the provider in background,
@@ -1219,11 +1228,11 @@ Don't use this function outside the context of service request
  * - Identifying the received service request as a front request.
  * - Any checks that are required to determine whether the application should
  *   yield foreground execution to the application that sent the front request.
- * - A call to the  \reflink GDServiceClient::bringToFront:completion:error: bringToFront:\endlink function, to be
+ * - A call to the \reflink GDServiceClient::bringToFront:completion:error: bringToFront: \endlink function, to be
  *   executed if all checks pass.
  * .
  * A minimal handler would identify a front request, make no checks, and then
- * always call the  \reflink GDServiceClient::bringToFront:completion:error: bringToFront:\endlink function.
+ * always call the \reflink GDServiceClient::bringToFront:completion:error: bringToFront: \endlink function.
  * 
  * Note that the front request service definition doesn't contain any service
  * responses nor errors so the application mustn't send any. If the application
@@ -1264,7 +1273,7 @@ Don't use this function outside the context of service request
  * - Register the AppKinetics URL type
  *   on the device. This will normally be achieved by utilizing the mandatory
  *   BlackBerry Dynamics build-time configuration, as detailed in the
- *   \reflink GDiOS\endlink class reference.
+ *   \reflink GDiOS \endlink class reference.
  * .
  * Note that an application that provides multiple services still instantiates
  * only a single object of this class. The delegate of the object handles
@@ -1283,7 +1292,7 @@ Don't use this function outside the context of service request
  * for different device types.
  * 
  * 
- * @see  \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType:  getServiceProvidersFor:  (GDiOS)\endlink for details of the service discovery
+ * @see \reflink GDiOS::getServiceProvidersFor:andVersion:andServiceType: getServiceProvidersFor: (GDiOS) \endlink for details of the service discovery
  *      programming interface.
  */
 @interface GDService : NSObject
@@ -1296,7 +1305,7 @@ Don't use this function outside the context of service request
  * application. The results object will notify the consumer of the success or
  * failure of the request.
  * 
- * For an overall description of AppKinetics see the   \reflink GDService GDService class reference\endlink.
+ * For an overall description of AppKinetics see the \reflink GDService GDService class reference\endlink.
  *
  * If the request failed for any reason, pass an <tt>NSError</tt> as the
  * results object. Populate the <tt>NSError</tt> with a suitable error code and
@@ -1309,7 +1318,7 @@ Don't use this function outside the context of service request
  * 
  * If the request succeeded then pass a results object of a valid service
  * parameter type, as defined under Service Parameters in the
- *   \reflink GDService GDService class reference\endlink.
+ * \reflink GDService GDService class reference\endlink.
  * 
  * @param application <tt>NSString</tt> containing the native application idenitifer of
  *                    the consumer, as supplied in the original service request.
@@ -1326,13 +1335,13 @@ Don't use this function outside the context of service request
  *               <tt>GDENoForegroundPreference</tt> to specify that there is no
  *               preference.\n
  *               See also the notes under Foreground Execution in the
- *                 \reflink GDService GDService class reference\endlink.
+ *               \reflink GDService GDService class reference\endlink.
  *
  * @param attachments <tt>NSArray</tt> of <tt>NSString</tt>
  *                    objects containing the paths of files in the BlackBerry
  *                    Dynamics secure file system that are to be attached to the
  *                    response. See under File Attachments in the
- *                      \reflink GDService GDService class reference\endlink.
+ *                    \reflink GDService GDService class reference\endlink.
  *
  * @param requestID <tt>NSString</tt> containing the identifier of the service request
  *                  to which this is a response. The identifier will have been
@@ -1358,7 +1367,7 @@ bringClientToFront:(GDTForegroundOption)option
  * Call this function to bring another application to the
  * foreground. This could be used when the application is a service provider, to
  * bring the service consumer back to the foreground without sending a response.
- * See under Foreground Execution in the   \reflink GDService GDService class reference\endlink for details.
+ * See under Foreground Execution in the \reflink GDService GDService class reference\endlink for details.
  * 
 This function is asynchronous. Success or failure is returned by
  * invocation of a code block specified in the <tt>completion</tt> parameter.
@@ -1387,13 +1396,13 @@ This function is asynchronous. Success or failure is returned by
 /** Bring another application to the foreground (deprecated).
  *
  * \deprecated This function is deprecated and will be removed in a future
- * release. Use \reflink GDService::bringToFront:completion:error: GDService::bringToFront:completion:error:\endlink
+ * release. Use \reflink GDService::bringToFront:completion:error: GDService::bringToFront:completion:error: \endlink
  * instead.
  *
  * Call this function to bring another application to the
  * foreground. This could be used when the application is a service provider, to
  * bring the service consumer back to the foreground without sending a response.
- * See under Foreground Execution in the   \reflink GDService GDService class reference\endlink for details.
+ * See under Foreground Execution in the \reflink GDService GDService class reference\endlink for details.
  * 
 Don't use this function outside the context of service request
  * processing.
@@ -1414,13 +1423,13 @@ Don't use this function outside the context of service request
  * Set this property to the observer object instance in the application.
  * 
  * The observer object must:
- * - Implement the  \reflink GDServiceDelegate GDServiceDelegate\endlink 
+ * - Implement the \reflink GDServiceDelegate GDServiceDelegate \endlink 
  *   protocol.
  * - Process received service requests in accordance with the published
  *   interface of the service provided. The interface could be, for example, a
  *   BlackBerry Dynamics service definition.
  * .
- * The processing could include calling  \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService)\endlink to issue a
+ * The processing could include calling \reflink GDService::replyTo:withParams:bringClientToFront:withAttachments:requestID:error: replyTo (GDService) \endlink to issue a
  * service response.
  * 
  */

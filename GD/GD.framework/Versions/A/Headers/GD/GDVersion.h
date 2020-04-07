@@ -26,7 +26,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * values, in which the numbers are separated by full stops (periods).
  *
  * Objects of this class are used in the
- * \reflink GDiOS::getEntitlementVersionsFor:callbackBlock: getEntitlementVersionsFor: (GDiOS)\endlink
+ * \reflink GDiOS::getEntitlementVersionsFor:callbackBlock: getEntitlementVersionsFor: (GDiOS) \endlink
  * results list.
  *
  * <h3>Interface Usage</h3>

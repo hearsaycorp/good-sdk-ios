@@ -30,15 +30,14 @@ namespace GSS_API
 /** Generic Security Service Application Program Interface status code.
  * 
  * This enumeration represents the status of a BlackBerry Dynamics GSS-API
- * operation. The
- * \link GD.GSS_API.NegotiateScheme.getGssApiStatus getGssApiStatus\endlink
+ * operation. The NegotiateScheme.getGssApiStatus getGssApiStatus()
  * function returns one of these values.
  *
  * Some GSS-API status codes are defined by the standard, see <a
  *     HREF="https://tools.ietf.org/html/rfc2743"
  *     target="_blank"
- * >RFC 2743 - Generic Security Service Application Program Interface</a
- * > on the ietf.org website.
+ * >RFC 2743 - Generic Security Service Application Program Interface</a>
+ *  on the ietf.org website.
  *
  * Codes that aren't defined in the standard have generally accepted meanings
  * that can be found by searching the Internet. For example, the <a
@@ -182,14 +181,17 @@ enum class GssStatusCode
 };
     
 /** Generic Security Service Application Program Interface negotiation
- *  mechanisms.
+ *  mechanisms (deprecated).
+ *
+ * \deprecated This enumeration is deprecated and will
+ * be removed in a future release. It is no longer required.
  *
  * This enumeration represents the negotiation mechanism in a BlackBerry
  * Dynamics GSS-API operation.
  *
  * Pass one of these values as the <tt>mechanism</tt> parameter of the
- * \link GD.GSS_API.NegotiateScheme.generateGssApiData(const char*,NegotiateMechanism,const char*,const bool)
- * generateGssApiData\endlink method.
+ * NegotiateScheme.generateGssApiData(const char*,NegotiateMechanism,const char*,const bool)
+ * method.
  */
 enum class NegotiateMechanism
 {
@@ -218,8 +220,8 @@ enum class NegotiateMechanism
  * obtained in the course of BlackBerry Dynamics secure communication with
  * application servers. These cached tickets can be used to generate GSS tokens.
  * Kerberos tickets could be cached as a side effect of using the
- * \reflink GDURLLoadingSystem GDURLLoadingSystem\endlink, \ref nsurlsession_support "NSURLSession",
- * or \reflink GDHttpRequest GDHttpRequest\endlink programming interfaces, for example.
+ * \reflink GDURLLoadingSystem GDURLLoadingSystem \endlink, \ref nsurlsession_support "NSURLSession",
+ * or \reflink GDHttpRequest GDHttpRequest \endlink programming interfaces, for example.
  * In addition, there is a programming interface for working with Kerberos
  * tickets directly:
  * \link GD.KRB_API.GDKerberosAuthHandler GDKerberosAuthHandler\endlink.
@@ -242,13 +244,11 @@ enum class NegotiateMechanism
  * @see <a
  *          HREF="https://tools.ietf.org/html/rfc4178" target="_blank"
  *      >RFC 4178 - The Simple and Protected Generic Security Service
- *      Application Program Interface (GSS-API) Negotiation Mechanism</a
- *      >.
+ *      Application Program Interface (GSS-API) Negotiation Mechanism</a>.
  * @see <a
  *          HREF="https://tools.ietf.org/html/rfc4559" target="_blank"
  *      >RFC 4559 - SPNEGO-based Kerberos and NTLM HTTP Authentication in
- *      Microsoft Windows</a
- *      >.
+ *      Microsoft Windows</a>.
  * @see All on the ietf.org website.
  */
 class GD_ATTRIBUTE((visibility("default")))  NegotiateScheme /* final */
@@ -280,7 +280,7 @@ public:
      *
      * This function doesn't return a success or failure code. To discover
      * whether token generation succeeded or failed, call the
-     * \ref getGssApiStatus() function every time.
+     * getGssApiStatus() function every time.
      *
      * It might be necessary to call this function more than once, and to pass
      * different server challenge token values. This could happen if the server
@@ -322,7 +322,10 @@ public:
                              const bool allow_delegation);
     
     /** Generate an authentication token for a GSS-API header for a specified
-     *  negotiation mechanism.
+     *  negotiation mechanism (deprecated).
+     *
+     * \deprecated This function is deprecated and will
+     * be removed in a future release. It is no longer required.
      *
      * Call this function to generate a Generic Security Service (GSS)
      * authentication token that is suitable for use in a GSS-API header for a
@@ -340,7 +343,7 @@ public:
      *
      * This function doesn't return a success or failure code. To discover
      * whether token generation succeeded or failed, call the
-     * \ref getGssApiStatus() function every time.
+     * getGssApiStatus() function every time.
      *
      * It might be necessary to call this function more than once, and to pass
      * different server challenge token values. This could happen if the server

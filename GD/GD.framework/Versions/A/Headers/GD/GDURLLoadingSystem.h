@@ -29,7 +29,7 @@
  * <B>Note that synchronous request calls shouldn't be made from the main
  * application thread.</B>
  *
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
+ * \htmlonly<div class="bulletlists">\endhtmlonly
  * When access is enabled, the normal URL Loading System classes can be used to
  * communicate with servers that are behind the firewall, using standard
  * Internet protocols. For an overview, see the <a
@@ -68,7 +68,7 @@
  *     Kerberos realm must be listed as an Additional Server in the enterprise
  *     management console. See \ref GC.
  *   - Kerberos delegation can be allowed or disallowed. See
- *     \link GDCacheController::kerberosAllowDelegation:\endlink.
+ *     \link GDCacheController::kerberosAllowDelegation: \endlink.
  *   .
  * - Authorization credentials are persisted as per the
  *   <TT>NSURLCredentialPersistence</TT> flag of <TT>NSURLCredential</TT>:\n
@@ -96,7 +96,7 @@
  *   >NSMutableURLRequest class reference</a> on the apple.com developer website
  *   for details of this flag.
  * .
- *  \htmlonly </div> \endhtmlonly
+ * \htmlonly</div>\endhtmlonly
  *
  * Additional features are made available, using the
  * \ref NSMutableURLRequest(GDNET) category, and the 
@@ -105,7 +105,7 @@
  *
  * @see \ref GDiOS, for BlackBerry Dynamics authorization
  * @see \ref background_execution
- * @see <a  HREF="http://help.blackberry.com/en/good-control-good-proxy/current/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
+ * @see <a  HREF="https://docs.blackberry.com/en/endpoint-management/blackberry-uem/"  target="_blank" >Manuals page for the BlackBerry Dynamics enterprise servers</a > for the Platform Overview.
  * @see \ref GC.
  * @see \ref GDNetUtility
  * @see \ref nsurlsession_support
@@ -215,7 +215,7 @@
  * enterprise management console are accessible. See \ref GC.
  *
  * Access is enabled by default during authorization processing, which is
- * initiated by the  \reflink GDiOS::authorize: authorize (GDiOS)\endlink function. The
+ * initiated by the \reflink GDiOS::authorize: authorize (GDiOS) \endlink function. The
  * <TT>enableSecure</TT><TT>Communication</TT> function need only be called if
  * access was disabled after authorization, see the
  * \ref disableSecureCommunication function, below.
@@ -229,7 +229,7 @@
  *
  * Access can be re-enabled using the \ref enableSecureCommunication function.
  * Access will also be re-enabled during authorization processing, which is
- * initiated by the  \reflink GDiOS::authorize: authorize (GDiOS)\endlink function.
+ * initiated by the \reflink GDiOS::authorize: authorize (GDiOS) \endlink function.
  *
  * Calling this function has no impact on access across the firewall using
  * \ref GDHttpRequest (deprecated).

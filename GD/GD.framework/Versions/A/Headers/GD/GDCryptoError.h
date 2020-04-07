@@ -59,6 +59,13 @@ GD_C_API void GDCryptoError_clear(void);
  */
 GD_C_API const char* GDCryptoError_string(unsigned long e);
 
+/** Return a detailed human-readable string of the last error.
+ * Generates a human-readable string with additional technical information if avaiable.
+ *
+ * @return <tt>char*</tt> a pointer to a static buffer containing the string.
+ */
+GD_C_API const char* GDCryptoError_detailed_string();
+
 #ifdef __cplusplus
 }
 #endif

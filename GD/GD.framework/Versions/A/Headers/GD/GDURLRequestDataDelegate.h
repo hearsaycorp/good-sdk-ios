@@ -16,7 +16,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  * URL requests issued by a <tt>UIWebView</tt> control can be managed by
  * creating a class that implements this protocol.
  *
- *  \htmlonly <div class="bulletlists"> \endhtmlonly
+ * \htmlonly<div class="bulletlists">\endhtmlonly
  * This protocol enables a number of monitoring and control actions, including:
  * - Cancellation of a URL request before it is sent.
  * - Replacement of a URL request with a modified request.
@@ -34,7 +34,7 @@ GD_NS_ASSUME_NONNULL_BEGIN
  *   HTTPS requests are handled by the <tt>GDURLLoa</tt><tt>dingSystem</tt>.
  * - The range of monitoring and control actions is different.
  * .
- *  \htmlonly </div> \endhtmlonly
+ * \htmlonly</div>\endhtmlonly
  * 
  * Call the <tt>GDSetRequestDataDelegate:</tt> function in the
  * \link UIWebView(GDNET)\endlink category to set the delegate for a particular
